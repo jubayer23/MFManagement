@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="HomeFragViewModel"
+            type="com.creative.mahir_floral_management.viewmodel.HomeFragViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.fragment.HomeFragment">
+
+        <Button
+            android:id="@+id/btn_outlet_hq"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+            android:text="H.Q."
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_outlet_connecticut"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+            android:text="Connecticut"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_outlet_east"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+            android:text="East"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btn_check_in_out"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+            android:text="Check In/Out"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</layout>

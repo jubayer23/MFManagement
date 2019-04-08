@@ -127,7 +127,8 @@ public class BaseActivity extends AppCompatActivity {
             progressDialog = new ProgressDialog(this);
         }
         if (progressDialog.isShowing()) {
-            progressDialog.dismiss();
+            progressDialog.setMessage(message);
+            return;
         }
         progressDialog.setIndeterminate(isIntermidiate);
         progressDialog.setCancelable(isCancelable);

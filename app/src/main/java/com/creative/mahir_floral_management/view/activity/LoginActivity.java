@@ -2,19 +2,24 @@ package com.creative.mahir_floral_management.view.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.volley.VolleyError;
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.appdata.MydApplication;
+import com.creative.mahir_floral_management.appdata.remote.ApiObserver;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.databinding.ActivityLoginBinding;
 import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.UserInfo;
+import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.LoginViewModel;
 
 import java.util.Objects;
@@ -29,6 +34,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(MydApplication.getInstance().getPrefManger().getUserInfo() != null){
+            startActivity(new Intent( LoginActivity.this, HomeActivity.class));
+            finish();
+        }
+
+
        // setContentView(R.layout.activity_login);
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
@@ -37,6 +49,8 @@ public class LoginActivity extends BaseActivity {
         binding.setLifecycleOwner(this);
 
         binding.setLoginViewModel(loginViewModel);
+
+        loginViewModel.setEmailFromCache(MydApplication.getInstance().getPrefManger().getEmailCache());
 
 
         getUserInput();
@@ -66,6 +80,8 @@ public class LoginActivity extends BaseActivity {
                 else {
                     //binding.lblEmailAnswer.setText(loginUser.getStrEmailAddress());
                     //binding.lblPasswordAnswer.setText(loginUser.getStrPassword());
+                    MydApplication.getInstance().getPrefManger().setEmailCache(loginUser.getEmail());
+                    MydApplication.getInstance().getPrefManger().setUserLoginInfo(loginUser);
                     getRemoteAuthorization(loginUser);
                 }
             }
@@ -76,18 +92,57 @@ public class LoginActivity extends BaseActivity {
 
         showProgressDialog("Loading...", true,false);
 
-        loginViewModel.getRemoteAuthorization(loginUser).observe(this, new Observer<DataWrapper<String>>() {
+        loginViewModel.getRemoteAuthorization(loginUser).observe(this, new ApiObserver<String>(new ApiObserver.ChangeListener<String>() {
             @Override
-            public void onChanged(@Nullable DataWrapper<String> stringDataWrapper) {
-
-                dismissProgressDialog();
-
-                if(stringDataWrapper.getApiException() == null){
-                    Log.d("DEBUG", stringDataWrapper.getData());
-                }else{
-                    Log.d("DEBUG", "Error happened");
-                }
+            public void onSuccess(String accessToken) {
+                MydApplication.getInstance().getPrefManger().setAccessToekn(accessToken);
+                getRemoteUserInfo();
             }
-        });
+
+            @Override
+            public void onFailure(String failureMessage) {
+                dismissProgressDialog();
+                AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert",failureMessage,false);
+            }
+
+            @Override
+            public void onException(VolleyError volleyError) {
+                dismissProgressDialog();
+                AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert","Network or Server response problem. Please try again later",false);
+            }
+        }));
+
+
+    }
+
+    private void getRemoteUserInfo(){
+
+        loginViewModel.getRemoteUserInfo().observe(this, new ApiObserver<UserInfo>(new ApiObserver.ChangeListener<UserInfo>() {
+
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                dismissProgressDialog();
+                MydApplication.getInstance().getPrefManger().setUserInfo(userInfo);
+                startActivity(new Intent( LoginActivity.this, HomeActivity.class));
+                //Log.d("DEBUG",userInfo.getName());
+                finish();
+            }
+
+            @Override
+            public void onFailure(String failureMessage) {
+                dismissProgressDialog();
+                AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert",failureMessage,false);
+            }
+
+            @Override
+            public void onException(VolleyError volleyError) {
+                dismissProgressDialog();
+                AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert","Network or Server response problem. Please try again later",false);
+
+            }
+        }));
+
+
+
     }
 }

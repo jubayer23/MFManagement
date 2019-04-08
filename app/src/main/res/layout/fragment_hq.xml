@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="HQFragViewModel"
+            type="com.creative.mahir_floral_management.viewmodel.HQFragViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.fragment.HQFragment">
+
+        <Button
+            android:id="@+id/btn_admin"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
+            android:text="Admin"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_raw_stock"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
+            android:text="Raw Stock"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_ready_stock"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
+            android:text="Ready Stock"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</layout>

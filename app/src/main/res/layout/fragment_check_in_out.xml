@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="CheckInOutFragViewModel"
+            type="com.creative.mahir_floral_management.viewmodel.CheckInOutFragViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".view.fragment.CheckInOutFragViewModel">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="You are logged in as:" />
+
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_centerHorizontal="true"
+            android:text="@{CheckInOutFragViewModel.username}"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_last_checked_in_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Last Checked In:"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_last_checked_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_last_checked_in_title"
+            android:layout_centerHorizontal="true"
+            android:text="@{CheckInOutFragViewModel.last_check_in}"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/ed_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tv_last_checked_in"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:text="@={CheckInOutFragViewModel.password}"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_light" />
+
+
+        <Button
+            android:id="@+id/btn_check_in_out"
+            style="@style/btnSubmitOrDoneLarge"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/ed_password"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="15dp"
+            android:onClick="@{(v) -> CheckInOutFragViewModel.onClickCheckInOut(v)}"
+            android:text="@{CheckInOutFragViewModel.CheckInOutText}"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</layout>

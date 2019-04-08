@@ -6,7 +6,9 @@ import android.view.View;
 
 import com.creative.mahir_floral_management.appdata.remote.AuthorizationApi;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
+import com.creative.mahir_floral_management.appdata.remote.UserInfoApi;
 import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.UserInfo;
 
 public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> email = new MutableLiveData<>();
@@ -23,6 +25,13 @@ public class LoginViewModel extends ViewModel {
 
     }
 
+    public  void setEmailFromCache(String str_email){
+
+
+        email.setValue(str_email);
+
+    }
+
     public void onClick(View view) {
 
         LoginUser loginUser = new LoginUser(email.getValue(), password.getValue());
@@ -35,6 +44,13 @@ public class LoginViewModel extends ViewModel {
         AuthorizationApi authorizationApi = new AuthorizationApi();
 
         return  authorizationApi.getRemoteAuthorization(loginUser);
+
+    }
+
+    public MutableLiveData<DataWrapper<UserInfo>> getRemoteUserInfo(){
+        UserInfoApi userInfoApi = new UserInfoApi();
+
+        return  userInfoApi.getRemoteUserInfo();
 
     }
 

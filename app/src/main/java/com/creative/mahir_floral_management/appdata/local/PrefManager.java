@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.creative.mahir_floral_management.BuildConfig;
+import com.creative.mahir_floral_management.appdata.MydApplication;
+import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.UserInfo;
 import com.google.gson.Gson;
 
 
@@ -34,6 +37,9 @@ public class PrefManager {
     private static final String PREF_NAME = BuildConfig.APPLICATION_ID;
 
     private static final String KEY_EMAIL_CACHE = "key_email_cache";
+    private static final String KEY_ACCESS_TOKEN = "key_access_token";
+    private static final String KEY_USER_INFO = "key_user_info";
+    private static final String KEY_LOGIN_INFO = "key_login_info";
 
     public PrefManager(Context context) {
         this._context = context;
@@ -49,9 +55,64 @@ public class PrefManager {
         // commit changes
         editor.commit();
     }
+
     public String getEmailCache() {
-        return pref.getString(KEY_EMAIL_CACHE,"");
+        return pref.getString(KEY_EMAIL_CACHE, "");
     }
 
+    public void setAccessToekn(String obj) {
+        editor = pref.edit();
+
+        editor.putString(KEY_ACCESS_TOKEN, obj);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public String getAccessToekn() {
+        return pref.getString(KEY_ACCESS_TOKEN, "");
+    }
+
+
+    public void setUserInfo(UserInfo obj) {
+        editor = pref.edit();
+
+        String json = MydApplication.gson.toJson(obj);
+
+        editor.putString(KEY_USER_INFO, json);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public UserInfo getUserInfo() {
+        String json = pref.getString(KEY_USER_INFO, "");
+
+        if (!json.isEmpty()) {
+            return MydApplication.gson.fromJson(json, UserInfo.class);
+        } else
+            return null;
+    }
+
+
+    public void setUserLoginInfo(LoginUser obj) {
+        editor = pref.edit();
+
+        String json = MydApplication.gson.toJson(obj);
+
+        editor.putString(KEY_LOGIN_INFO, json);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public LoginUser getUserLoginInfo() {
+        String json = pref.getString(KEY_LOGIN_INFO, "");
+
+        if (!json.isEmpty()) {
+            return MydApplication.gson.fromJson(json, LoginUser.class);
+        } else
+            return null;
+    }
 
 }
