@@ -7,11 +7,14 @@ import android.view.View;
 import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.remote.CheckInOutApi;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
+import com.creative.mahir_floral_management.model.UserCheck;
+import com.creative.mahir_floral_management.model.UserInfo;
 
 public class CheckInOutFragViewModel extends ViewModel {
     public MutableLiveData<String> username = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
     public MutableLiveData<String> last_check_in = new MutableLiveData<>();
+    public MutableLiveData<String> shop_name = new MutableLiveData<>();
     public MutableLiveData<String> CheckInOutText = new MutableLiveData<>();
 
     private MutableLiveData<String> mutableLiveDataUserInput;
@@ -27,22 +30,27 @@ public class CheckInOutFragViewModel extends ViewModel {
         return mutableLiveDataUserInput;
     }
 
-    public MutableLiveData<DataWrapper<String>> getRemoteUserCurrentCheckStatus(){
+    public MutableLiveData<DataWrapper<UserCheck>> getRemoteUserCurrentCheckStatus(){
         CheckInOutApi checkInOutApi = new CheckInOutApi();
         return checkInOutApi.getUserCurrentCheckStatus();
     }
 
-    public MutableLiveData<DataWrapper<Boolean>> setRemoteUserCheckStatus(){
+    public MutableLiveData<DataWrapper<UserCheck>> setRemoteUserCheckStatus(){
         CheckInOutApi checkInOutApi = new CheckInOutApi();
         return checkInOutApi.setCheckInOut(getUserCurrentCheckStatus() == 1? 0: 1);
     }
 
 
-    public void setUsername(String str_username){
-        username.setValue(str_username);
+    public void setUserProfile(UserInfo.UserProfile userProfile){
+        username.setValue(userProfile.getName());
+        shop_name.setValue(userProfile.getShopName());
     }
 
     public void setLastCheckIn(String str_last_check_in){
+        if(str_last_check_in == null){
+            last_check_in.setValue("You are not checked in yet.");
+            return;
+        }
         String format = CommonMethods.changeFormat(str_last_check_in,"yyyy-mm-dd hh:mm:ss" ,"dd/mm/yyyy hh:mm a");
         last_check_in.setValue(format);
     }
@@ -51,14 +59,17 @@ public class CheckInOutFragViewModel extends ViewModel {
         return user_current_check_status;
     }
 
-    public void setUserCurrentCheckStatus(int user_current_check_status) {
+    public void setUserCurrentCheckStatus(int user_current_check_status, String last_Checked_in) {
         this.user_current_check_status = user_current_check_status;
 
         if(user_current_check_status == 1){
             CheckInOutText.setValue("Check-Out");
+
         }else{
             CheckInOutText.setValue("Check-In");
         }
+
+        setLastCheckIn(last_Checked_in);
     }
 
     public void onClickCheckInOut(View view){

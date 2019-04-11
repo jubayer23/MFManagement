@@ -5,93 +5,131 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInfo {
 
-    @SerializedName("id")
+    @SerializedName("status")
     @Expose
-    private String id;
-    @SerializedName("name")
+    private Boolean status;
+    @SerializedName("message")
     @Expose
-    private String name;
-    @SerializedName("role")
+    private String message;
+    @SerializedName("user_profile")
     @Expose
-    private String role;
-    @SerializedName("shop_id")
-    @Expose
-    private String shopId;
-    @SerializedName("shop_name")
-    @Expose
-    private String shopName;
-    @SerializedName("shop_address")
-    @Expose
-    private String shopAddress;
-    @SerializedName("shop_lat")
-    @Expose
-    private String shopLat;
-    @SerializedName("shop_long")
-    @Expose
-    private String shopLong;
+    private UserProfile userProfile;
 
-    public String getId() {
-        return id;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getRole() {
-        return role;
+    public UserProfile getUserProfile() {
+        return userProfile;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
-    public String getShopId() {
-        return shopId;
-    }
+    public class UserProfile {
 
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
-    }
+        @SerializedName("id")
+        @Expose
+        private String id;
+        @SerializedName("name")
+        @Expose
+        private String name;
+        @SerializedName("role")
+        @Expose
+        private String role;
+        @SerializedName("shop_id")
+        @Expose
+        private String shopId;
+        @SerializedName("shop_name")
+        @Expose
+        private String shopName;
+        @SerializedName("shop_address")
+        @Expose
+        private String shopAddress;
+        @SerializedName("shop_lat")
+        @Expose
+        private String shopLat;
+        @SerializedName("shop_long")
+        @Expose
+        private String shopLong;
 
-    public String getShopName() {
-        return shopName;
-    }
+        public String getId() {
+            return id;
+        }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-    public String getShopAddress() {
-        return shopAddress;
-    }
+        public String getName() {
+            return name;
+        }
 
-    public void setShopAddress(String shopAddress) {
-        this.shopAddress = shopAddress;
-    }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    public String getShopLat() {
-        return shopLat;
-    }
+        public String getRole() {
+            return role;
+        }
 
-    public void setShopLat(String shopLat) {
-        this.shopLat = shopLat;
-    }
+        public void setRole(String role) {
+            this.role = role;
+        }
 
-    public String getShopLong() {
-        return shopLong;
-    }
+        public String getShopId() {
+            return shopId;
+        }
 
-    public void setShopLong(String shopLong) {
-        this.shopLong = shopLong;
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+
+        public String getShopName() {
+            return shopName;
+        }
+
+        public void setShopName(String shopName) {
+            this.shopName = shopName;
+        }
+
+        public String getShopAddress() {
+            return shopAddress;
+        }
+
+        public void setShopAddress(String shopAddress) {
+            this.shopAddress = shopAddress;
+        }
+
+        public String getShopLat() {
+            return shopLat;
+        }
+
+        public void setShopLat(String shopLat) {
+            this.shopLat = shopLat;
+        }
+
+        public String getShopLong() {
+            return shopLong;
+        }
+
+        public void setShopLong(String shopLong) {
+            this.shopLong = shopLong;
+        }
+
     }
 
 }

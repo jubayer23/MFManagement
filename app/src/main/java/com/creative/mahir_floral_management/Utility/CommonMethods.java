@@ -31,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by jubayer on 5/11/2017.
@@ -315,6 +316,44 @@ public class CommonMethods {
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         return  dateFormat.format(date);
+    }
+
+    public static int getCurrentWeekNumber(){
+        Calendar cal = Calendar.getInstance();
+        //cal.setTime(date);
+        int week = cal.get(Calendar.WEEK_OF_YEAR);
+
+        return week;
+    }
+
+
+    public static int getCurrentYear(){
+        Calendar cal = Calendar.getInstance();
+        //cal.setTime(date);
+        int week = cal.get(Calendar.YEAR);
+
+        return week;
+    }
+
+    public static String[] getDaysOfSpecificWeek(int week_of_the_year, int year, String expectedFormat){
+        Calendar now1 = Calendar.getInstance();
+        Calendar now = (Calendar) now1.clone();
+
+        SimpleDateFormat format = new SimpleDateFormat(expectedFormat);
+        String [] days = new String[7];
+        int delta = -now.get(GregorianCalendar.DAY_OF_WEEK) + 1;
+        // Log.d("DEBUG",String.valueOf(delta));
+        now.set(Calendar.WEEK_OF_YEAR , week_of_the_year);
+        now.set(Calendar.YEAR, year);
+        now.add(Calendar.DAY_OF_MONTH , delta);
+        for (int i = 0; i < 7; i++)
+        {
+            days [i] = format.format(now.getTime());
+           // Log.d("DEBUG",days[i]);
+            now.add(Calendar.DAY_OF_MONTH , 1);
+        }
+
+        return days;
     }
 
     public static String formatDate(Date date, String format){

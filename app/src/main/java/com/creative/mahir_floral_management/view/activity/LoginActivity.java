@@ -17,6 +17,7 @@ import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.appdata.remote.ApiObserver;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.databinding.ActivityLoginBinding;
+import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
 import com.creative.mahir_floral_management.model.UserInfo;
 import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
@@ -92,26 +93,23 @@ public class LoginActivity extends BaseActivity {
 
         showProgressDialog("Loading...", true,false);
 
-        loginViewModel.getRemoteAuthorization(loginUser).observe(this, new ApiObserver<String>(new ApiObserver.ChangeListener<String>() {
+        loginViewModel.getRemoteAuthorization(loginUser).observe(this, new ApiObserver<Authorization>(new ApiObserver.ChangeListener<Authorization>() {
             @Override
-            public void onSuccess(String accessToken) {
-                MydApplication.getInstance().getPrefManger().setAccessToekn(accessToken);
-                getRemoteUserInfo();
+            public void onSuccess(Authorization authorization) {
+                if(authorization.getStatus()){
+                    MydApplication.getInstance().getPrefManger().setAccessToekn(authorization.getAccessToken());
+                    getRemoteUserInfo();
+                }else{
+                    dismissProgressDialog();
+                    AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert",authorization.getMessage(),false);
+                }
             }
-
-            @Override
-            public void onFailure(String failureMessage) {
-                dismissProgressDialog();
-                AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert",failureMessage,false);
-            }
-
             @Override
             public void onException(VolleyError volleyError) {
                 dismissProgressDialog();
                 AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert","Network or Server response problem. Please try again later",false);
             }
         }));
-
 
     }
 
@@ -121,17 +119,21 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onSuccess(UserInfo userInfo) {
-                dismissProgressDialog();
-                MydApplication.getInstance().getPrefManger().setUserInfo(userInfo);
-                startActivity(new Intent( LoginActivity.this, HomeActivity.class));
-                //Log.d("DEBUG",userInfo.getName());
-                finish();
-            }
 
-            @Override
-            public void onFailure(String failureMessage) {
+
+
                 dismissProgressDialog();
-                AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert",failureMessage,false);
+
+
+                if(userInfo.getStatus()){
+                    MydApplication.getInstance().getPrefManger().setUserInfo(userInfo);
+                    startActivity(new Intent( LoginActivity.this, HomeActivity.class));
+                    //Log.d("DEBUG",userInfo.getName());
+                    finish();
+                }else{
+                    AlertDialogForAnything.showAlertDialogWhenComplte(LoginActivity.this,"Alert",userInfo.getMessage(),false);
+                }
+
             }
 
             @Override

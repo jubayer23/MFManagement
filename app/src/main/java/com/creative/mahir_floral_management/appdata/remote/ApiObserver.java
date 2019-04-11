@@ -17,10 +17,8 @@ public class ApiObserver<T> implements Observer<DataWrapper<T>> {
         if (tDataWrapper != null) {
             if (tDataWrapper.getApiException() != null) {
                 changeListener.onException(tDataWrapper.getApiException());
-            }else if(tDataWrapper.getData() != null){
+            }else {
                 changeListener.onSuccess(tDataWrapper.getData());
-            }else{
-                changeListener.onFailure(tDataWrapper.getErrorMessage());
             }
             return;
         }
@@ -30,7 +28,6 @@ public class ApiObserver<T> implements Observer<DataWrapper<T>> {
     }
     public interface ChangeListener<T> {
         void onSuccess(T dataWrapper);
-        void onFailure(String failureMessage);
         void onException(VolleyError volleyError);
     }
 }

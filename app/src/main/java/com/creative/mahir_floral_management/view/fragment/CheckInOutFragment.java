@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.appdata.remote.ApiObserver;
 import com.creative.mahir_floral_management.databinding.FragmentCheckInOutBinding;
 import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.UserCheck;
 import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.CheckInOutFragViewModel;
 
@@ -57,7 +57,7 @@ public class CheckInOutFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        checkInOutFragViewModel.setUsername(MydApplication.getInstance().getPrefManger().getUserInfo().getName());
+        checkInOutFragViewModel.setUserProfile(MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile());
 
 
         observeCurrentOnlineStatus();
@@ -88,37 +88,21 @@ public class CheckInOutFragment extends BaseFragment {
 
         showProgressDialog("Loading...", true, false);
 
-        checkInOutFragViewModel.getRemoteUserCurrentCheckStatus().observe(this, new ApiObserver<String>(new ApiObserver.ChangeListener<String>() {
+        checkInOutFragViewModel.getRemoteUserCurrentCheckStatus().observe(this, new ApiObserver<UserCheck>(new ApiObserver.ChangeListener<UserCheck>() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void onSuccess(String dataWrapper) {
+            public void onSuccess(UserCheck userCheck) {
 
 
                 dismissProgressDialog();
 
-                String value[] = dataWrapper.split("/");
+                if(userCheck.getStatus()){
+                    checkInOutFragViewModel.setUserCurrentCheckStatus(Integer.parseInt(userCheck.getOnline()), userCheck.getLastCheckedIn());
 
-
-                if (value.length > 1) {
-                    checkInOutFragViewModel.setLastCheckIn(value[1]);
-                } else {
-                    fragmentCheckInOutBinding.tvLastCheckedInTitle.setVisibility(View.GONE);
+                    updateUIBasedOnUserCheckStatus(userCheck.getOnline());
+                }else{
+                    AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(), "Alert", userCheck.getMessage(), false);
                 }
-
-                if (value[0].equals("1")) {
-                    checkInOutFragViewModel.setUserCurrentCheckStatus(1);
-                    fragmentCheckInOutBinding.btnCheckInOut.setTextAppearance(R.style.btnErrorOrLogoutLarge);
-                } else {
-                    checkInOutFragViewModel.setUserCurrentCheckStatus(0);
-                    fragmentCheckInOutBinding.btnCheckInOut.setTextAppearance(R.style.btnSubmitOrDoneLarge);
-                }
-            }
-
-            @Override
-            public void onFailure(String failureMessage) {
-
-                dismissProgressDialog();
-                AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(), "Alert", failureMessage, false);
 
             }
 
@@ -134,37 +118,26 @@ public class CheckInOutFragment extends BaseFragment {
     private void observeCheckStatusChange() {
 
         showProgressDialog("Loading....", true, false);
-        checkInOutFragViewModel.setRemoteUserCheckStatus().observe(this, new ApiObserver<Boolean>(new ApiObserver.ChangeListener<Boolean>() {
+        checkInOutFragViewModel.setRemoteUserCheckStatus().observe(this, new ApiObserver<UserCheck>(new ApiObserver.ChangeListener<UserCheck>() {
             @Override
-            public void onSuccess(Boolean dataWrapper) {
+            public void onSuccess(UserCheck userCheck) {
                 dismissProgressDialog();
-                if (dataWrapper) {
+                if(userCheck.getStatus()){
 
-                    String msg = "";
+                    checkInOutFragViewModel.setUserCurrentCheckStatus(Integer.parseInt(userCheck.getOnline()), userCheck.getLastCheckedIn());
 
-                    if (checkInOutFragViewModel.getUserCurrentCheckStatus() == 1) {
-                        checkInOutFragViewModel.setUserCurrentCheckStatus(0);
-                        msg = "You successfully checked out!";
-                    } else {
-                        checkInOutFragViewModel.setUserCurrentCheckStatus(1);
-                        msg = "You successfully checked In!";
-                    }
+                    updateUIBasedOnUserCheckStatus(userCheck.getOnline());
+
+                    AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_SUCCESS, userCheck.getMessage());
 
 
-                    AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_SUCCESS, msg);
-
-                } else {
-                    AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(), "Alert", "Failed", false);
+                }else{
+                    AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(), "Alert", userCheck.getMessage(), false);
                 }
 
-            }
-
-            @Override
-            public void onFailure(String failureMessage) {
-                dismissProgressDialog();
-                AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(), "Alert", failureMessage, false);
 
             }
+
 
             @Override
             public void onException(VolleyError volleyError) {
@@ -172,5 +145,17 @@ public class CheckInOutFragment extends BaseFragment {
                 AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(), "Alert", "Network or Server response problem. Please try again later", false);
             }
         }));
+    }
+
+
+    private void updateUIBasedOnUserCheckStatus(String is_online){
+
+        fragmentCheckInOutBinding.edPassword.setText("");
+
+        if(is_online.equals("1")){
+
+        }else{
+
+        }
     }
 }

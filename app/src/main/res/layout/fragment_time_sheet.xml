@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="TimeSheetFragViewModel"
+            type="com.creative.mahir_floral_management.viewmodel.TimeSheetFragViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            tools:context=".view.fragment.TimeSheetFragViewModel">
+
+            <LinearLayout
+                android:id="@+id/ll_drop_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Year:"
+                    android:textSize="18sp" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/sp_year"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:entries="@array/year"
+                    android:paddingLeft="20dp"
+                    android:selectedItemPosition="@={TimeSheetFragViewModel.selectedYear}">
+
+                </android.support.v7.widget.AppCompatSpinner>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Week:"
+                    android:textSize="18sp" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/sp_week"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:entries="@array/week"
+                    android:paddingLeft="20dp"
+                    android:selectedItemPosition="@={TimeSheetFragViewModel.selectedWeek}">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/ll_prev_next_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_drop_menu"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_prev_week"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:text="Prev" />
+
+                <Button
+                    android:id="@+id/btn_next_week"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:text="Next" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_mont_year_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_prev_next_container"
+                android:layout_margin="5dp"
+                android:background="@color/blue"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="April"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="2019"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_mont_year_container">
+
+                <TableLayout
+                    android:id="@+id/tb_timeSheet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Week 15" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="7 April 2019" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Total Hr." />
+
+                    </TableRow>
+
+
+                    <TableRow >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Staff" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Sunday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Monday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Tuesday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Wednesday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Thursday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Friday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="Saturday" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:background="@drawable/table_cell_shape"
+                            android:text="40 hours" />
+
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</layout>

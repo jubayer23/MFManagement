@@ -10,7 +10,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
+import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.UserCheck;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,13 +22,13 @@ import java.util.Map;
 //https://proandroiddev.com/concise-error-handling-with-livedata-and-retrofit-15937ceb555b
 public class AuthorizationApi {
 
-    private MutableLiveData<DataWrapper<String>> mutableLiveData;
+    private MutableLiveData<DataWrapper<Authorization>> mutableLiveData;
 
-    public MutableLiveData<DataWrapper<String>> getRemoteAuthorization(final Object object) {
+    public MutableLiveData<DataWrapper<Authorization>> getRemoteAuthorization(final Object object) {
 
         mutableLiveData = new MutableLiveData<>();
 
-        final DataWrapper<String> dataWrapper = new DataWrapper<String>();
+        final DataWrapper<Authorization> dataWrapper = new DataWrapper<>();
 
 
        /* final JSONObject body = new JSONObject();
@@ -46,10 +48,10 @@ public class AuthorizationApi {
                     new com.android.volley.Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.d("DEBUG",response);
+                            //Log.d("DEBUG",response);
 
 
-                            try {
+                            /*try {
                                 JSONObject jsonObject = new JSONObject(response);
 
                                 boolean status = jsonObject.getBoolean("status");
@@ -62,8 +64,11 @@ public class AuthorizationApi {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 dataWrapper.setErrorMessage("Invalid server response.");
-                            }
+                            }*/
 
+
+                            Authorization authorization = MydApplication.gson.fromJson(response, Authorization.class);
+                            dataWrapper.setData(authorization);
                             mutableLiveData.setValue(dataWrapper);
 
                         }

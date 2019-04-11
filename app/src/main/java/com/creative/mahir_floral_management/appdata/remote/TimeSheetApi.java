@@ -1,7 +1,6 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -9,7 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.model.UserCheck;
+import com.creative.mahir_floral_management.model.TimeSheetInfo;
 import com.creative.mahir_floral_management.model.UserInfo;
 
 import org.json.JSONException;
@@ -18,27 +17,28 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserInfoApi {
+public class TimeSheetApi {
 
-    private MutableLiveData<DataWrapper<UserInfo>> mutableLiveData;
+    private MutableLiveData<DataWrapper<TimeSheetInfo>> mutableLiveData;
 
-    public MutableLiveData<DataWrapper<UserInfo>> getRemoteUserInfo() {
+    public MutableLiveData<DataWrapper<TimeSheetInfo>> getRemoteUserTimeSheets(int week, int year) {
 
         mutableLiveData = new MutableLiveData<>();
 
-        final DataWrapper<UserInfo> dataWrapper = new DataWrapper<UserInfo>();
+        final DataWrapper<TimeSheetInfo> dataWrapper = new DataWrapper<>();
 
 
-       /* final JSONObject body = new JSONObject();
+        final JSONObject body = new JSONObject();
         try {
-            body.put("email", loginUser.getEmail());
-            body.put("password", loginUser.getPassword());
+            body.put("filter_type", "week");
+            body.put("week_num", week);
+            body.put("year", year);
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
-        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_USER_INFO,
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_USER_TIMESHEET,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -62,8 +62,8 @@ public class UserInfoApi {
                             e.printStackTrace();
                         }*/
 
-                        UserInfo userInfo = MydApplication.gson.fromJson(response, UserInfo.class);
-                        dataWrapper.setData(userInfo);
+                        TimeSheetInfo timeSheetInfo = MydApplication.gson.fromJson(response, TimeSheetInfo.class);
+                        dataWrapper.setData(timeSheetInfo);
                         //dataWrapper.setData(response);
                         mutableLiveData.setValue(dataWrapper);
 
@@ -85,6 +85,11 @@ public class UserInfoApi {
                 params.put("Content-Type", "application/json");
                 params.put("Authorization",  MydApplication.getInstance().getPrefManger().getAccessToekn());
                 return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return body.toString().getBytes();
             }
 
 

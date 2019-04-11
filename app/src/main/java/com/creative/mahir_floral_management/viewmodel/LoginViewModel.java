@@ -7,6 +7,7 @@ import android.view.View;
 import com.creative.mahir_floral_management.appdata.remote.AuthorizationApi;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.appdata.remote.UserInfoApi;
+import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
 import com.creative.mahir_floral_management.model.UserInfo;
 
@@ -40,7 +41,7 @@ public class LoginViewModel extends ViewModel {
 
     }
 
-    public MutableLiveData<DataWrapper<String>> getRemoteAuthorization(LoginUser loginUser){
+    public MutableLiveData<DataWrapper<Authorization>> getRemoteAuthorization(LoginUser loginUser){
         AuthorizationApi authorizationApi = new AuthorizationApi();
 
         return  authorizationApi.getRemoteAuthorization(loginUser);

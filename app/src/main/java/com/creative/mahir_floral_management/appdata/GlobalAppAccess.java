@@ -34,6 +34,7 @@ public class GlobalAppAccess {
             "30 mins before","1 hour before"};
 
     public static final String[] rideshares_options = {"Uber", "Lyft", "Uber or Lyft"};
+    public static final String[] week_day_name = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" , "Friday", "Saturday"};
 
     public static final String[] icon_name = {
             "icon_1",

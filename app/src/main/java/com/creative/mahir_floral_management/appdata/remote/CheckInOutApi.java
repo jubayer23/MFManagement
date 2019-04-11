@@ -9,6 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
+import com.creative.mahir_floral_management.model.UserCheck;
 import com.creative.mahir_floral_management.model.UserInfo;
 
 import org.json.JSONException;
@@ -19,20 +20,20 @@ import java.util.Map;
 
 public class CheckInOutApi {
 
-    private MutableLiveData<DataWrapper<Boolean>> mutableLiveDataSetCheck;
-    public MutableLiveData<DataWrapper<Boolean>> setCheckInOut(int check_status) {
+    private MutableLiveData<DataWrapper<UserCheck>> mutableLiveDataSetCheck;
+    public MutableLiveData<DataWrapper<UserCheck>> setCheckInOut(int check_status) {
 
 
         mutableLiveDataSetCheck = new MutableLiveData<>();
 
-        final DataWrapper<Boolean> dataWrapper = new DataWrapper<Boolean>();
+        final DataWrapper<UserCheck> dataWrapper = new DataWrapper<>();
 
 
-        //Log.d("DEBUG_check_status", String.valueOf(check_status));
+        Log.d("DEBUG_check_status", String.valueOf(check_status));
 
         final JSONObject body = new JSONObject();
         try {
-            body.put("user_id", MydApplication.getInstance().getPrefManger().getUserInfo().getId());
+            body.put("user_id", MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getId());
             body.put("user_check",check_status);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -44,9 +45,9 @@ public class CheckInOutApi {
                     @Override
                     public void onResponse(String response) {
 
-                        //Log.d("DEBUG",response);
+                        Log.d("DEBUG",response);
 
-                        try {
+                        /*try {
                             JSONObject jsonObject = new JSONObject(response);
 
 
@@ -61,8 +62,10 @@ public class CheckInOutApi {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }
+                        }*/
 
+                        UserCheck userCheck = MydApplication.gson.fromJson(response, UserCheck.class);
+                        dataWrapper.setData(userCheck);
                         //dataWrapper.setData(response);
                         mutableLiveDataSetCheck.setValue(dataWrapper);
 
@@ -104,18 +107,18 @@ public class CheckInOutApi {
 
 
 
-    private MutableLiveData<DataWrapper<String>> mutableLiveData;
-    public MutableLiveData<DataWrapper<String>> getUserCurrentCheckStatus() {
+    private MutableLiveData<DataWrapper<UserCheck>> mutableLiveData;
+    public MutableLiveData<DataWrapper<UserCheck>> getUserCurrentCheckStatus() {
 
 
         mutableLiveData = new MutableLiveData<>();
 
-        final DataWrapper<String> dataWrapper = new DataWrapper<>();
+        final DataWrapper<UserCheck> dataWrapper = new DataWrapper<>();
 
 
         final JSONObject body = new JSONObject();
         try {
-            body.put("user_id", MydApplication.getInstance().getPrefManger().getUserInfo().getId());
+            body.put("user_id", MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -128,7 +131,7 @@ public class CheckInOutApi {
 
                         Log.d("DEBUG",response);
 
-                        try {
+                       /* try {
                             JSONObject jsonObject = new JSONObject(response);
 
 
@@ -137,22 +140,18 @@ public class CheckInOutApi {
 
                             if(status){
 
-                                String is_online = jsonObject.getString("Online");
-
-                                if(is_online.equals("1")){
-                                    String last_check_in = jsonObject.getString("last_checked_in");
-                                    dataWrapper.setData(is_online + "/" + last_check_in);
-                                }else{
-                                    dataWrapper.setData(jsonObject.getString("Online") );
-                                }
-
+                                UserCheck userCheck = MydApplication.gson.fromJson(response, UserCheck.class);
+                                dataWrapper.setData(userCheck);
 
                             }
 
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }
+                        }*/
+
+                        UserCheck userCheck = MydApplication.gson.fromJson(response, UserCheck.class);
+                        dataWrapper.setData(userCheck);
 
                         //dataWrapper.setData(response);
                         mutableLiveData.setValue(dataWrapper);

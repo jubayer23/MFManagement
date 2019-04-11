@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.activity.CheckInOutActivity"></activity>
+        <activity android:name=".view.activity.TimeSheets"></activity>
+        <activity android:name=".view.activity.CheckInOutActivity" />
         <activity android:name=".view.activity.HQActivity" />
         <activity android:name=".view.activity.HomeActivity" />
         <activity android:name=".view.activity.LoginActivity">

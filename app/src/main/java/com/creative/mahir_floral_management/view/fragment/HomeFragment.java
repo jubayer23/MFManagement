@@ -2,10 +2,8 @@ package com.creative.mahir_floral_management.view.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,8 +14,8 @@ import android.view.ViewGroup;
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.FragmentHomeBinding;
 import com.creative.mahir_floral_management.view.activity.CheckInOutActivity;
+import com.creative.mahir_floral_management.view.activity.HQActivity;
 import com.creative.mahir_floral_management.viewmodel.HomeFragViewModel;
-import com.creative.mahir_floral_management.viewmodel.LoginViewModel;
 
 
 public class HomeFragment extends Fragment {
@@ -69,7 +67,7 @@ public class HomeFragment extends Fragment {
             public void onChanged(@Nullable View view) {
                 int id = view.getId();
                 if(id == fragmentHomeBinding.btnOutletHq.getId()){
-
+                    startActivity(new Intent(getActivity(), HQActivity.class));
                 }else if(id == fragmentHomeBinding.btnOutletConnecticut.getId()){
 
                 }else if(id == fragmentHomeBinding.btnCheckInOut.getId()){
