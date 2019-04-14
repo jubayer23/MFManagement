@@ -1,12 +1,14 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.TimeSheetInfo;
 import com.creative.mahir_floral_management.model.UserInfo;
@@ -15,17 +17,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TimeSheetApi {
 
-    private MutableLiveData<DataWrapper<TimeSheetInfo>> mutableLiveData;
+    private MutableLiveData<DataWrapper<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>> mutableLiveData;
 
-    public MutableLiveData<DataWrapper<TimeSheetInfo>> getRemoteUserTimeSheets(int week, int year) {
+    public MutableLiveData<DataWrapper<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>> getRemoteUserTimeSheets(int week, int year) {
 
         mutableLiveData = new MutableLiveData<>();
 
-        final DataWrapper<TimeSheetInfo> dataWrapper = new DataWrapper<>();
+        final DataWrapper<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>> dataWrapper = new DataWrapper<>();
 
 
         final JSONObject body = new JSONObject();
@@ -43,7 +46,7 @@ public class TimeSheetApi {
                     @Override
                     public void onResponse(String response) {
 
-                        //Log.d("DEBUG",response);
+                        Log.d("DEBUG",response);
 
                        /* try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -62,8 +65,19 @@ public class TimeSheetApi {
                             e.printStackTrace();
                         }*/
 
+
+
                         TimeSheetInfo timeSheetInfo = MydApplication.gson.fromJson(response, TimeSheetInfo.class);
-                        dataWrapper.setData(timeSheetInfo);
+                        HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>> map;
+                        if(timeSheetInfo.getStatus()){
+                            map = parseData(timeSheetInfo);
+                        }else{
+                            map = new HashMap<>();
+                            map.clear();
+                        }
+
+
+                        dataWrapper.setData(map);
                         //dataWrapper.setData(response);
                         mutableLiveData.setValue(dataWrapper);
 
@@ -103,5 +117,41 @@ public class TimeSheetApi {
 
         return mutableLiveData;
 
+    }
+
+
+
+    private  HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>> parseData(TimeSheetInfo timeSheetInfo){
+
+        HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>> mapUserTimeSheet = new HashMap<>();
+        mapUserTimeSheet.clear();
+
+        if(timeSheetInfo.getUsers() == null || timeSheetInfo.getUsers().isEmpty()){
+
+            return  mapUserTimeSheet;
+
+        }
+
+        List<TimeSheetInfo.User> users = timeSheetInfo.getUsers();
+
+
+        for( TimeSheetInfo.User user: users){
+            String name = user.getUserName();
+
+            HashMap<String, TimeSheetInfo.TimeSheet> mapTimeSheet = new HashMap<>();
+
+            for(TimeSheetInfo.TimeSheet timeSheet: user.getTimeSheets()){
+                String date = timeSheet.getDate();
+                String chengeDateFormat = CommonMethods.changeFormat(date,"dd/MM/yyyy", "dd MMM yyyy");
+
+
+                mapTimeSheet.put(chengeDateFormat, timeSheet);
+
+            }
+
+            mapUserTimeSheet.put(name, mapTimeSheet);
+        }
+
+        return mapUserTimeSheet;
     }
 }

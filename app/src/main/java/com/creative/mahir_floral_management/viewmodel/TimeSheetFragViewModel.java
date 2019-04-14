@@ -15,6 +15,8 @@ import com.creative.mahir_floral_management.model.TimeSheetInfo;
 import com.creative.mahir_floral_management.model.UserCheck;
 import com.creative.mahir_floral_management.model.UserInfo;
 
+import java.util.HashMap;
+
 public class TimeSheetFragViewModel extends ViewModel {
     public MutableLiveData<String> email = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
@@ -32,11 +34,10 @@ public class TimeSheetFragViewModel extends ViewModel {
 
     }
 
-    public MutableLiveData<DataWrapper<TimeSheetInfo>> getRemoteUserTimeSheets(int week, int year){
+    public MutableLiveData<DataWrapper<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>> getRemoteUserTimeSheets(int week, int year){
         TimeSheetApi timeSheetApi = new TimeSheetApi();
         return timeSheetApi.getRemoteUserTimeSheets(week, year);
     }
-
 
     public int getSelectedWeek() {
 
