@@ -14,11 +14,8 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.FragmentHqBinding;
-import com.creative.mahir_floral_management.databinding.FragmentTimeSheetBinding;
-import com.creative.mahir_floral_management.view.activity.CheckInOutActivity;
-import com.creative.mahir_floral_management.view.activity.TimeSheets;
+import com.creative.mahir_floral_management.view.activity.TimeSheetActivity;
 import com.creative.mahir_floral_management.viewmodel.HQFragViewModel;
-import com.creative.mahir_floral_management.viewmodel.TimeSheetFragViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,7 +61,7 @@ public class HQFragment extends Fragment {
                 int id = view.getId();
                 if(id == fragmentHqBinding.btnAdmin.getId()){
 
-                    startActivity(new Intent(getActivity(), TimeSheets.class));
+                    startActivity(new Intent(getActivity(), TimeSheetActivity.class));
 
                 }else if(id == fragmentHqBinding.btnRawStock.getId()){
 

@@ -2,16 +2,13 @@ package com.creative.mahir_floral_management.view.activity;
 
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.databinding.ActivityHqBinding;
 import com.creative.mahir_floral_management.databinding.ActivityTimeSheetsBinding;
-import com.creative.mahir_floral_management.view.fragment.HQFragment;
 import com.creative.mahir_floral_management.view.fragment.TimeSheetFragment;
 
-public class TimeSheets extends BaseActivity {
+public class TimeSheetActivity extends BaseActivity {
 
     private static final String TAG_TIMESHEET_FRAGMENT = "timesheet_fragment";
     private TimeSheetFragment timeSheetFragment;
@@ -25,9 +22,9 @@ public class TimeSheets extends BaseActivity {
         //setContentView(R.layout.activity_hq);
 
 
-        activityTimeSheetsBinding = DataBindingUtil.setContentView(TimeSheets.this, R.layout.activity_time_sheets);
+        activityTimeSheetsBinding = DataBindingUtil.setContentView(TimeSheetActivity.this, R.layout.activity_time_sheets);
 
-        initToolbar();
+        initToolbar("Time Sheets", true);
 
         if (savedInstanceState == null) {
 
@@ -53,6 +50,8 @@ public class TimeSheets extends BaseActivity {
                     .commit();
 
 
+        }else{
+            timeSheetFragment = (TimeSheetFragment) getSupportFragmentManager().findFragmentByTag(TAG_TIMESHEET_FRAGMENT);
         }
     }
 }

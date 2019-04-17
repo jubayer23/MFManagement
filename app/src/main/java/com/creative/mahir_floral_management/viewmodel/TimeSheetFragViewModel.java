@@ -18,12 +18,19 @@ import com.creative.mahir_floral_management.model.UserInfo;
 import java.util.HashMap;
 
 public class TimeSheetFragViewModel extends ViewModel {
-    public MutableLiveData<String> email = new MutableLiveData<>();
-    public MutableLiveData<String> password = new MutableLiveData<>();
-    public MutableLiveData<Integer> selectedWeek = new MutableLiveData<>();
-    public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
 
     private MutableLiveData<LoginUser> userMutableLiveData;
+    private MutableLiveData<View> viewMutableLiveData;
+
+    public MutableLiveData<String> year = new MutableLiveData<>();
+    public MutableLiveData<String> month = new MutableLiveData<>();
+
+    private TimeSheetApi timeSheetApi;
+
+
+    public TimeSheetFragViewModel(){
+        timeSheetApi = new TimeSheetApi();
+    }
 
     public MutableLiveData<LoginUser> getUserInput() {
 
@@ -35,26 +42,35 @@ public class TimeSheetFragViewModel extends ViewModel {
     }
 
     public MutableLiveData<DataWrapper<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>> getRemoteUserTimeSheets(int week, int year){
-        TimeSheetApi timeSheetApi = new TimeSheetApi();
+       // TimeSheetApi timeSheetApi = new TimeSheetApi();
+
+
+        if(timeSheetApi ==  null){
+            timeSheetApi = new TimeSheetApi();
+        }
         return timeSheetApi.getRemoteUserTimeSheets(week, year);
     }
 
-    public int getSelectedWeek() {
 
-        if(selectedWeek.getValue() == null) return 0;
-        return selectedWeek.getValue();
+
+
+    public MutableLiveData<View> getUserButtonClickEvent(){
+        if (viewMutableLiveData == null) {
+            viewMutableLiveData = new MutableLiveData<>();
+        }
+        return viewMutableLiveData;
     }
 
-    public void setSelectedWeek(int value) {
-        selectedWeek.setValue(value);
+    public void onClick(View view){
+        viewMutableLiveData.setValue(view);
     }
 
-    public int getSelectedYear() {
-        if(selectedYear.getValue() == null) return 0;
-        return selectedYear.getValue();
+
+    public void setYear(String year) {
+        this.year.setValue(year);
     }
 
-    public void setSelectedYear(int value) {
-        selectedYear.setValue(value);
+    public void setMonth(String month) {
+        this.month.setValue(month);
     }
 }

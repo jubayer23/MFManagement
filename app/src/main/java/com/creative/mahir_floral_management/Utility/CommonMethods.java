@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -333,6 +334,12 @@ public class CommonMethods {
         int week = cal.get(Calendar.YEAR);
 
         return week;
+    }
+
+    public static String getMonthNameFromWeekNum(int week_of_the_year){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.WEEK_OF_YEAR, week_of_the_year);
+        return new DateFormatSymbols().getMonths()[cal.get(Calendar.MONTH)];
     }
 
     public static String[] getDaysOfSpecificWeek(int week_of_the_year, int year, String expectedFormat){

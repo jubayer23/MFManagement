@@ -3,6 +3,7 @@ package com.creative.mahir_floral_management.view.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,8 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.creative.mahir_floral_management.R;
 import com.android.volley.VolleyError;
@@ -25,12 +29,9 @@ import com.creative.mahir_floral_management.databinding.FragmentTimeSheetBinding
 import com.creative.mahir_floral_management.model.TimeSheetInfo;
 import com.creative.mahir_floral_management.viewmodel.TimeSheetFragViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,14 +41,26 @@ public class TimeSheetFragment extends BaseFragment {
     private FragmentTimeSheetBinding fragmentTimeSheetBinding;
     private TimeSheetFragViewModel timeSheetFragViewModel;
 
-    private static int ignoreFirstTwoWeekChangeCounter = 0;
-    private static int ignoreFirstTwoYearChangeCounter = 0;
+    private  int ignoreFirstTwoWeekChangeCounter = 0;
+    private  int ignoreFirstTwoYearChangeCounter = 0;
+    private static int cacheLastWeekValue = 0;
+    private static int cacheLastYearValue = 0;
+
+    private int selectedWeek = 0;
+    private int selectedYear = 0;
+
+    Spinner sp_week;
 
 
     public TimeSheetFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setRetainInstance(false);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +74,7 @@ public class TimeSheetFragment extends BaseFragment {
 
         View view = fragmentTimeSheetBinding.getRoot();
 
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -70,29 +84,36 @@ public class TimeSheetFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        if(savedInstanceState != null){
+            selectedYear = savedInstanceState.getInt("year");
+            selectedWeek = savedInstanceState.getInt("week");
+
+        }else{
+            selectedWeek = CommonMethods.getCurrentWeekNumber();
+            selectedYear = CommonMethods.getCurrentYear();
+        }
+
+
+
+
+        getRemoteUserTimeSheets(selectedWeek, selectedYear);
+
+        updateDropDownListViewSelection(selectedWeek, selectedYear);
+        updateUI();
+
         observeOnWeekDropDownChange();
         observeOnYearDropDownChange();
-
-
-        int cur_week = CommonMethods.getCurrentWeekNumber();
-        int cur_year = CommonMethods.getCurrentYear();
-
-
-        getRemoteUserTimeSheets(cur_week, cur_year);
-
-        updateUIBasedOnCurrentDate(cur_week, cur_year);
-
-
+        observerUserClickEvent();
     }
 
     private void getRemoteUserTimeSheets(final int cur_week, final int cur_year) {
 
-        //Log.d("DEBUG_A", String.valueOf(cur_week) +" "+ String.valueOf(cur_year));
+       // Log.d("DEBUG_A", String.valueOf(cur_week) +" "+ String.valueOf(cur_year));
 
         showProgressDialog("Loading...", true, false);
 
-        timeSheetFragViewModel.getRemoteUserTimeSheets(cur_week, cur_year).removeObservers(this);
-        timeSheetFragViewModel.getRemoteUserTimeSheets(cur_week, cur_year).observe(this, new ApiObserver<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>(new ApiObserver.ChangeListener<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>() {
+        //timeSheetFragViewModel.getRemoteUserTimeSheets(cur_week, cur_year).removeObservers(this);
+        timeSheetFragViewModel.getRemoteUserTimeSheets(cur_week, cur_year).observe(this, new ApiObserver<>(new ApiObserver.ChangeListener<HashMap<String, HashMap<String, TimeSheetInfo.TimeSheet>>>() {
 
 
             @Override
@@ -105,8 +126,6 @@ public class TimeSheetFragment extends BaseFragment {
 
                 populateTimeSheetTable(dataWrapper, cur_week, cur_year);
 
-
-
             }
 
             @Override
@@ -117,67 +136,115 @@ public class TimeSheetFragment extends BaseFragment {
     }
 
 
+
+
     private void observeOnWeekDropDownChange() {
-        timeSheetFragViewModel.selectedWeek.removeObservers(this);
-        timeSheetFragViewModel.selectedWeek.observe(this, new Observer<Integer>() {
+
+        fragmentTimeSheetBinding.spWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onChanged(@Nullable Integer integer) {
-                if (ignoreFirstTwoWeekChangeCounter < 2) {
-                    ignoreFirstTwoWeekChangeCounter++;
-                    return;
-                }
-
-               // Log.d("DEBUG", "its called in week");
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                String[] stringArray = getResources().getStringArray(R.array.year);
-                String year = stringArray[timeSheetFragViewModel.getSelectedYear()];
+                if(selectedWeek -1 == i) return;
 
-               // Log.d("DEBUG_WEEK", String.valueOf(integer + 1));
-               // Log.d("DEBUG_YEAR", " " + year);
+                selectedWeek = i+1;
 
-                getRemoteUserTimeSheets(integer +1, Integer.parseInt(year));
+                Log.d("DEBUG", "its in spWeek " + i);
+
+
+                //String[] stringArray = getResources().getStringArray(R.array.year);
+               // String year = stringArray[sele];
+
+                updateUI();
+                getRemoteUserTimeSheets(i +1, selectedYear);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
 
     private void observeOnYearDropDownChange() {
-        timeSheetFragViewModel.selectedYear.removeObservers(this);
-        timeSheetFragViewModel.selectedYear.observe(this, new Observer<Integer>() {
+
+
+        fragmentTimeSheetBinding.spYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onChanged(@Nullable Integer integer) {
-                //String[] years = getResources().getStringArray(R.array.year);
-                if (ignoreFirstTwoYearChangeCounter < 2) {
-                    ignoreFirstTwoYearChangeCounter++;
-                    return;
-                }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] stringArray = getResources().getStringArray(R.array.year);
+                String year = stringArray[i];
 
-               // Log.d("DEBUG", "its called in year");
+                if(Integer.parseInt(year) == selectedYear)return;
 
-                 String[] stringArray = getResources().getStringArray(R.array.year);
-                String year = stringArray[integer];
+                selectedYear = Integer.parseInt(year);
 
+               // Log.d("DEBUG", "its in year " + i);
+                updateUI();
+                getRemoteUserTimeSheets(selectedWeek, Integer.parseInt(year));
+            }
 
-               // Log.d("DEBUG_YEAR", " " + year);
-               // Log.d("DEBUG_WEEK",  String.valueOf(timeSheetFragViewModel.selectedWeek.getValue()+1));
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-                getRemoteUserTimeSheets(timeSheetFragViewModel.getSelectedWeek()+1, Integer.parseInt(year));
             }
         });
     }
 
+    private void observerUserClickEvent(){
+        timeSheetFragViewModel.getUserButtonClickEvent().observe(this, new Observer<View>() {
+            @Override
+            public void onChanged(@Nullable View view) {
 
-    private void updateUIBasedOnCurrentDate(int cur_week, int cur_year) {
+
+
+                int id = view.getId();
+                if(id == fragmentTimeSheetBinding.btnNextWeek.getId()){
+                    if(selectedWeek > 17){
+                        Toast.makeText(getActivity(), "Exceep week number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    fragmentTimeSheetBinding.spWeek.setSelection(selectedWeek );
+
+                  //  getRemoteUserTimeSheets(selectedWeek + 1, selectedYear);
+
+                }else if(id == fragmentTimeSheetBinding.btnPrevWeek.getId()){
+                    if(selectedWeek < 2){
+                        Toast.makeText(getActivity(), "Exceep week number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    fragmentTimeSheetBinding.spWeek.setSelection(selectedWeek - 2 );
+                }
+            }
+        });
+
+    }
+
+
+    private void updateDropDownListViewSelection(int cur_week, int cur_year) {
 
 
         String[] stringArray = getResources().getStringArray(R.array.year);
         int yearPosition = Arrays.asList(stringArray).indexOf(String.valueOf(cur_year));
 
-        timeSheetFragViewModel.selectedWeek.setValue(cur_week);
-         timeSheetFragViewModel.selectedYear.setValue(yearPosition);
+        fragmentTimeSheetBinding.spWeek.setSelection(cur_week - 1 );
+        fragmentTimeSheetBinding.spYear.setSelection(yearPosition);
 
-        // populateTableData();
 
+    }
+
+    private void updateUI(){
+        timeSheetFragViewModel.setYear(String.valueOf(selectedYear));
+        timeSheetFragViewModel.setMonth(CommonMethods.getMonthNameFromWeekNum(selectedWeek));
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("week",selectedWeek);
+        savedInstanceState.putInt("year",selectedYear);
     }
 
 
@@ -189,9 +256,17 @@ public class TimeSheetFragment extends BaseFragment {
         fragmentTimeSheetBinding.tbTimeSheet.removeAllViews();
 
         if (mapUserTimeSheet == null || mapUserTimeSheet.isEmpty()) {
+            fragmentTimeSheetBinding.tvAlertNoData.setVisibility(View.VISIBLE);
             return;
         }
+        fragmentTimeSheetBinding.tvAlertNoData.setVisibility(View.GONE);
 
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // code for portrait mode
+        } else {
+            // code for landscape mode
+        }
 
         for (int row = 0; row < 2; row++) {
 

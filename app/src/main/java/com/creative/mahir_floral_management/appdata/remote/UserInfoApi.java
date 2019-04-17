@@ -1,7 +1,6 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -9,11 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.model.UserCheck;
 import com.creative.mahir_floral_management.model.UserInfo;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,22 +40,7 @@ public class UserInfoApi {
 
                         //Log.d("DEBUG",response);
 
-                       /* try {
-                            JSONObject jsonObject = new JSONObject(response);
 
-
-                            boolean status = jsonObject.getBoolean("status");
-                            dataWrapper.setErrorMessage(jsonObject.getString("message"));
-
-                            if(status){
-                                UserInfo userInfo = MydApplication.gson.fromJson(String.valueOf(jsonObject.getJSONObject("user_info")), UserInfo.class);
-                                dataWrapper.setData(userInfo);
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
 
                         UserInfo userInfo = MydApplication.gson.fromJson(response, UserInfo.class);
                         dataWrapper.setData(userInfo);

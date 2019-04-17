@@ -41,16 +41,22 @@ public class LoginViewModel extends ViewModel {
 
     }
 
+    private AuthorizationApi authorizationApi;
     public MutableLiveData<DataWrapper<Authorization>> getRemoteAuthorization(LoginUser loginUser){
-        AuthorizationApi authorizationApi = new AuthorizationApi();
+        if(authorizationApi == null){
+            authorizationApi = new AuthorizationApi();
+        }
+       // AuthorizationApi
 
         return  authorizationApi.getRemoteAuthorization(loginUser);
 
     }
 
+    private UserInfoApi userInfoApi;
     public MutableLiveData<DataWrapper<UserInfo>> getRemoteUserInfo(){
-        UserInfoApi userInfoApi = new UserInfoApi();
-
+        if(userInfoApi == null){
+            userInfoApi = new UserInfoApi();
+        }
         return  userInfoApi.getRemoteUserInfo();
 
     }

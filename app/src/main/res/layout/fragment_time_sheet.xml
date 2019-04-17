@@ -39,13 +39,13 @@
                     android:text="Year:"
                     android:textSize="18sp" />
 
+
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/sp_year"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:entries="@array/year"
-                    android:paddingLeft="20dp"
-                    android:selectedItemPosition="@={TimeSheetFragViewModel.selectedYear}">
+                    android:paddingLeft="20dp">
 
                 </android.support.v7.widget.AppCompatSpinner>
 
@@ -62,8 +62,7 @@
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:entries="@array/week"
-                    android:paddingLeft="20dp"
-                    android:selectedItemPosition="@={TimeSheetFragViewModel.selectedWeek}">
+                    android:paddingLeft="20dp">
 
                 </android.support.v7.widget.AppCompatSpinner>
             </LinearLayout>
@@ -82,6 +81,7 @@
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_alignParentLeft="true"
+                    android:onClick="@{(v) -> TimeSheetFragViewModel.onClick(v)}"
                     android:text="Prev" />
 
                 <Button
@@ -89,6 +89,7 @@
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_alignParentRight="true"
+                    android:onClick="@{(v) -> TimeSheetFragViewModel.onClick(v)}"
                     android:text="Next" />
             </RelativeLayout>
 
@@ -105,21 +106,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="April"
+                    android:text='@{TimeSheetFragViewModel.month}'
                     android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="2019"
+                    android:text='@{TimeSheetFragViewModel.year}'
                     android:textColor="@color/white" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_alert_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_mont_year_container"
+                android:textColor="@color/orange"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:text="No data available for this week."/>
 
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:layout_below="@+id/ll_mont_year_container">
 
                 <TableLayout
@@ -134,149 +146,149 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Week 15" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="7 April 2019" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Total Hr." />
 
                     </TableRow>
 
 
-                    <TableRow >
+                    <TableRow>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Staff\nasdhk" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Sunday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Monday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Tuesday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Wednesday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Thursday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Friday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="Saturday" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:padding="10dp"
                             android:background="@drawable/table_cell_shape_gray_background"
+                            android:padding="10dp"
                             android:text="40 hours" />
 
                     </TableRow>
