@@ -6,9 +6,11 @@ import android.view.View;
 
 import com.creative.mahir_floral_management.appdata.remote.AuthorizationApi;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
+import com.creative.mahir_floral_management.appdata.remote.ShopInfoApi;
 import com.creative.mahir_floral_management.appdata.remote.UserInfoApi;
 import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.ShopInfo;
 import com.creative.mahir_floral_management.model.UserInfo;
 
 public class LoginViewModel extends ViewModel {
@@ -16,6 +18,11 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> password = new MutableLiveData<>();
 
     private MutableLiveData<LoginUser> userMutableLiveData;
+    private MutableLiveData<DataWrapper<ShopInfo>> shopInfoMutableLiveData;
+
+    private AuthorizationApi authorizationApi;
+    private UserInfoApi userInfoApi;
+    private ShopInfoApi shopInfoApi;
 
     public MutableLiveData<LoginUser> getUserInput() {
 
@@ -27,10 +34,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public  void setEmailFromCache(String str_email){
-
-
         email.setValue(str_email);
-
     }
 
     public void onClick(View view) {
@@ -41,24 +45,32 @@ public class LoginViewModel extends ViewModel {
 
     }
 
-    private AuthorizationApi authorizationApi;
+
     public MutableLiveData<DataWrapper<Authorization>> getRemoteAuthorization(LoginUser loginUser){
         if(authorizationApi == null){
             authorizationApi = new AuthorizationApi();
         }
-       // AuthorizationApi
-
         return  authorizationApi.getRemoteAuthorization(loginUser);
-
     }
 
-    private UserInfoApi userInfoApi;
     public MutableLiveData<DataWrapper<UserInfo>> getRemoteUserInfo(){
         if(userInfoApi == null){
             userInfoApi = new UserInfoApi();
         }
         return  userInfoApi.getRemoteUserInfo();
+    }
 
+
+    public MutableLiveData<DataWrapper<ShopInfo>> getRemoteShopInfo(){
+        if(shopInfoApi == null){
+            shopInfoApi = new ShopInfoApi();
+        }
+
+        if(shopInfoMutableLiveData == null){
+            shopInfoMutableLiveData = shopInfoApi.getRemoteShopInfo();
+        }
+
+        return shopInfoMutableLiveData;
     }
 
 

@@ -114,16 +114,16 @@ public class UserInfo {
             this.shopAddress = shopAddress;
         }
 
-        public String getShopLat() {
-            return shopLat;
+        public double getShopLat() {
+            return Double.parseDouble(shopLat);
         }
 
         public void setShopLat(String shopLat) {
             this.shopLat = shopLat;
         }
 
-        public String getShopLong() {
-            return shopLong;
+        public double getShopLong() {
+            return Double.parseDouble(shopLong);
         }
 
         public void setShopLong(String shopLong) {

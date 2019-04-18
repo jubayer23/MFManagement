@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.Utility.CheckLocationEnableStatus;
+import com.creative.mahir_floral_management.Utility.GpsEnableTool;
 import com.creative.mahir_floral_management.databinding.ActivityCheckInOutBinding;
 import com.creative.mahir_floral_management.databinding.ActivityHqBinding;
 import com.creative.mahir_floral_management.view.fragment.CheckInOutFragment;
@@ -50,6 +52,14 @@ public class CheckInOutActivity extends BaseActivity {
                     .beginTransaction();
             transaction.replace(R.id.content_layout, checkInOutFragment, TAG_CHECK_FRAGMENT)
                     .commit();
+
+
+            CheckLocationEnableStatus checkLocationEnableStatus = new CheckLocationEnableStatus(this);
+            if (!checkLocationEnableStatus.canGetLocation()) {
+                GpsEnableTool gpsEnableTool = new GpsEnableTool(this);
+                gpsEnableTool.enableGPs();
+                return;
+            }
 
 
         }

@@ -21,6 +21,8 @@ public class CheckInOutFragViewModel extends ViewModel {
     private MutableLiveData<DataWrapper<Boolean>> mutableLiveDataCheckChangeStatus;
     private MutableLiveData<Boolean> mutableLiveDataShowProgressBar;
 
+    private CheckInOutApi checkInOutApi;
+
     private int user_current_check_status = 0;
 
     public MutableLiveData<String> getUserInput(){
@@ -36,7 +38,10 @@ public class CheckInOutFragViewModel extends ViewModel {
     }
 
     public MutableLiveData<DataWrapper<UserCheck>> setRemoteUserCheckStatus(){
-        CheckInOutApi checkInOutApi = new CheckInOutApi();
+
+        if(checkInOutApi == null){
+            checkInOutApi = new CheckInOutApi();
+        }
         return checkInOutApi.setCheckInOut(getUserCurrentCheckStatus() == 1? 0: 1);
     }
 

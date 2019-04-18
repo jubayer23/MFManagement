@@ -8,8 +8,14 @@ import android.content.SharedPreferences.Editor;
 import com.creative.mahir_floral_management.BuildConfig;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.LoginUser;
+import com.creative.mahir_floral_management.model.ShopInfo;
 import com.creative.mahir_floral_management.model.UserInfo;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -40,6 +46,7 @@ public class PrefManager {
     private static final String KEY_ACCESS_TOKEN = "key_access_token";
     private static final String KEY_USER_INFO = "key_user_info";
     private static final String KEY_LOGIN_INFO = "key_login_info";
+    private static final String KEY_SHOPS = "key_shops";
 
     public PrefManager(Context context) {
         this._context = context;
@@ -113,6 +120,32 @@ public class PrefManager {
             return MydApplication.gson.fromJson(json, LoginUser.class);
         } else
             return null;
+    }
+
+
+    public List<ShopInfo.Shop> getShops() {
+
+        List<ShopInfo.Shop> shops = new ArrayList<>();
+
+        String gson = pref.getString(KEY_SHOPS, "");
+
+        if (gson.isEmpty()) return shops;
+
+        Type type = new TypeToken<List<ShopInfo.Shop>>() {
+        }.getType();
+        shops = GSON.fromJson(gson, type);
+
+        return shops;
+    }
+
+
+    public void setShops(List<ShopInfo.Shop> obj) {
+        editor = pref.edit();
+
+        editor.putString(KEY_SHOPS, GSON.toJson(obj));
+
+        // commit changes
+        editor.commit();
     }
 
 }
