@@ -1,16 +1,14 @@
 package com.creative.mahir_floral_management.appdata;
 
 
-
 public class GlobalAppAccess {
 
 
     public static final String APP_NAME = "Mahir Floral Management";
 
 
-    public static final  int SUCCESS = 1;
-    public static  final  int ERROR = 0;
-
+    public static final int SUCCESS = 1;
+    public static final int ERROR = 0;
 
 
     // global topic to receive app wide push notifications
@@ -31,10 +29,10 @@ public class GlobalAppAccess {
     public static final String TAG_ALARM_RECEIVER = "alarm_receiver";
 
     public static final String[] reminder_time_options = {"Select a time", "Before time expires", "15 mins before",
-            "30 mins before","1 hour before"};
+            "30 mins before", "1 hour before"};
 
     public static final String[] rideshares_options = {"Uber", "Lyft", "Uber or Lyft"};
-    public static final String[] week_day_name = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" , "Friday", "Saturday"};
+    public static final String[] week_day_name = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public static final String[] icon_name = {
             "icon_1",
@@ -80,6 +78,18 @@ public class GlobalAppAccess {
 
     };
 
+
+
+    public static final String KEY_SHOP_ID = "shop_id";
+    public static final String KEY_SHOP_NAME = "shop_name";
+
+
+    public static final int SHOP_ID_HQ = 1;
+    public static final int SHOP_ID_CONNECTICUT = 2;
+    public static final int SHOP_ID_VILLAGE = 3;
+    public static final int SHOP_ID_EAST = 4;
+    public static final int SHOP_ID_WEST = 5;
+    public static final int SHOP_ID_HUDSONYARD = 6;
 
 
 }

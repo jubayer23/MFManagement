@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.databinding.FragmentHomeBinding;
 import com.creative.mahir_floral_management.view.activity.CheckInOutActivity;
 import com.creative.mahir_floral_management.view.activity.HQActivity;
+import com.creative.mahir_floral_management.view.activity.ShopActivity;
 import com.creative.mahir_floral_management.viewmodel.HomeFragViewModel;
 
 
@@ -69,6 +71,11 @@ public class HomeFragment extends Fragment {
                 if(id == fragmentHomeBinding.btnOutletHq.getId()){
                     startActivity(new Intent(getActivity(), HQActivity.class));
                 }else if(id == fragmentHomeBinding.btnOutletConnecticut.getId()){
+
+                    Intent intent = new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, GlobalAppAccess.SHOP_ID_CONNECTICUT);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, fragmentHomeBinding.btnOutletConnecticut.getText().toString());
+                    startActivity(intent);
 
                 }else if(id == fragmentHomeBinding.btnCheckInOut.getId()){
                     startActivity(new Intent(getActivity(), CheckInOutActivity.class));
