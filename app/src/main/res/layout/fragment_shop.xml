@@ -17,6 +17,19 @@
         android:orientation="vertical"
         tools:context=".view.fragment.ShopFragViewModel">
 
+
+        <Button
+            android:id="@+id/btn_shop_incoming_stock"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> ShopFragViewModel.onClick(v)}"
+            android:text="Incoming stocks"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/btn_shop_stock"
             style="@style/btnMenu"
