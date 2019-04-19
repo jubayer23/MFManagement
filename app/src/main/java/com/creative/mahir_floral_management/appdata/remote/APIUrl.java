@@ -2,7 +2,6 @@ package com.creative.mahir_floral_management.appdata.remote;
 
 public class APIUrl {
 
-    //public static String BaseUrl = "http://10.0.2.2/mahir_floral_api_project";
     //public static String BaseUrl = " http://2dcc51a6.ngrok.io/mahir_floral_api_project";
     public static String BaseUrl = "https://mahirfloralevents.com/mahir_floral_api_project";
 
