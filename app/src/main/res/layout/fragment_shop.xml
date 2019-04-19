@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="ShopFragViewModel"
+            type="com.creative.mahir_floral_management.viewmodel.ShopFragViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.fragment.ShopFragViewModel">
+
+        <Button
+            android:id="@+id/btn_shop_stock"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> ShopFragViewModel.onClick(v)}"
+            android:text="Stocks"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_sold"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> ShopFragViewModel.onClick(v)}"
+            android:text="Sold"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_demand"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> ShopFragViewModel.onClick(v)}"
+            android:text="Demand"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btn_returned"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> ShopFragViewModel.onClick(v)}"
+            android:text="Returned"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</layout>

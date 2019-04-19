@@ -10,7 +10,6 @@
     <dimen name="btn_height_small">30dp</dimen>
 
 
-
     <dimen name="font_small">14dp</dimen>
     <dimen name="font_normal">16dp</dimen>
     <dimen name="font_medium">18dp</dimen>
@@ -20,8 +19,6 @@
     <dimen name="border_height_thinner">0.5dp</dimen>
     <dimen name="border_height_normal">1dp</dimen>
     <dimen name="border_height_big">2dp</dimen>
-
-
 
 
 </resources>

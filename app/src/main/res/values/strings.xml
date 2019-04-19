@@ -28,4 +28,7 @@
     <string name="msg_enter_amount">Enter the amount</string>
     <string name="msg_select_shop">Select the shop</string>
     <string name="msg_amount_grater">Amount entered is greater than total</string>
+
+    <string name="title_activity_shop">ShopActivity</string>
+
 </resources>

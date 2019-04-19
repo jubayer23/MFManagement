@@ -15,7 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.activity.TimeSheetActivity"></activity>
+        <activity android:name=".view.activity.ShopSoldStocksActivity"></activity>
+        <activity android:name=".view.activity.ShopStocksActivity" />
+        <activity
+            android:name=".view.activity.ShopActivity"
+            android:label="@string/title_activity_shop"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+        <activity android:name=".view.activity.TimeSheetActivity" />
         <activity android:name=".view.activity.CheckInOutActivity" />
         <activity android:name=".view.activity.HQActivity" />
         <activity android:name=".view.activity.HomeActivity" />
