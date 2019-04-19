@@ -31,5 +31,7 @@
     <string name="msg_empty_comment">Enter a comment</string>
 
     <string name="title_activity_shop">ShopActivity</string>
+    <string name="price">Price</string>
+    <string name="mark_as_received">Mark\nAs\nReceived</string>
 
 </resources>

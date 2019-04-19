@@ -51,7 +51,9 @@
             android:label="@string/name_ready_entry_screen"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".view.activity.ShopIncomingStocksActivity"></activity>
+        <activity
+            android:name=".view.activity.ShopIncomingStocksActivity"
+            android:windowSoftInputMode="stateHidden" />
 
     </application>
 

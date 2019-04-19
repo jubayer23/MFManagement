@@ -22,4 +22,6 @@ public class APIUrl {
     public static final String URL_READY_STOCK = BaseUrl +  "/rawstocker/get_ready_stock.php";
     public static final String URL_ENTRY_READY_STOCK = BaseUrl +  "/rawstocker/entry_ready_stock.php";
     public static final String URL_DELIVER_READY_STOCK = BaseUrl +  "/rawstocker/entry_deliver_product.php";
+
+    public static final String URL_INCOMING_SHOP_STOCK = BaseUrl +  "/shopstocker/get_incoming_shop_stocks.php";
 }
