@@ -41,8 +41,6 @@ public class ShopInfoApi {
 
                         //Log.d("DEBUG",response);
 
-
-
                         ShopInfo shopInfo = MydApplication.gson.fromJson(response, ShopInfo.class);
                         dataWrapper.setData(shopInfo);
                         //dataWrapper.setData(response);
