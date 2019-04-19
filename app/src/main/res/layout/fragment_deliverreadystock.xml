@@ -94,6 +94,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_product_amount" />
 
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:afterTextChanged="@{(edtitable)->viewModel.afterCommentChange(edtitable)}"
+            android:background="@drawable/btn_transparent_back"
+            android:gravity="start"
+            android:hint="@string/comment"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="4"
+            android:minLines="4"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_shop" />
+
         <Button
             android:id="@+id/btn_cancel"
             style="@style/btnErrorOrLogoutLarge"
@@ -106,7 +128,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btn_deliver"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_shop" />
+            app:layout_constraintTop_toBottomOf="@+id/et_comment" />
 
         <Button
             android:id="@+id/btn_deliver"
@@ -123,7 +145,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-            app:layout_constraintTop_toBottomOf="@+id/sp_shop" />
+            app:layout_constraintTop_toBottomOf="@+id/et_comment" />
 
         <View
             android:layout_width="0dp"

@@ -112,9 +112,13 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
         if (resultCode != RESULT_OK) return;
 
         if (requestCode == rawEntrySuccess) {
-            binding.getViewModel().requestToRefresh();
+            refreshScreen();
         }
 
+    }
+
+    public void refreshScreen(){
+        binding.getViewModel().requestToRefresh();
     }
 
     private void showDeliverDialog(final RawStock item) {
@@ -124,7 +128,7 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
         data.putParcelable("stockData", item);
 
         editNameDialog.setArguments(data);
-
+        editNameDialog.setTargetFragment(ReadyStockFragment.this, 1337);
         editNameDialog.show(getFragmentManager(), "fragment_edit_name");
     }
 }

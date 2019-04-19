@@ -53,6 +53,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<ShopInfo.Shop> {
             rowview = flater.inflate(R.layout.spinner_item, null, false);
 
             holder = new MyViewHolder(rowview);
+
             rowview.setTag(holder);
         } else {
             holder = (MyViewHolder) rowview.getTag();
@@ -69,7 +70,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<ShopInfo.Shop> {
 
         MyViewHolder(View view) {
             super(view);
-            itemName = view.findViewById(R.id.tv_itemName);
+            itemName = view.findViewById(R.id.tv_item);
         }
     }
 }

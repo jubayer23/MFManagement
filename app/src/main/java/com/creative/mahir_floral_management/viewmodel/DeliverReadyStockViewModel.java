@@ -24,6 +24,7 @@ public class DeliverReadyStockViewModel extends ViewModel {
     private ShopInfo.Shop selectedShop;
 
     public MutableLiveData<String> productAmount = new MutableLiveData<>();
+    public MutableLiveData<String> comment = new MutableLiveData<>();
 
     public MutableLiveData<Integer> validationLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
@@ -39,6 +40,10 @@ public class DeliverReadyStockViewModel extends ViewModel {
 
     public void afterAmountChange(CharSequence s) {
         productAmount.setValue(s.toString());
+    }
+
+    public void afterCommentChange(CharSequence s) {
+        comment.setValue(s.toString());
     }
 
     private boolean fieldsValid() {
@@ -61,6 +66,11 @@ public class DeliverReadyStockViewModel extends ViewModel {
             return false;
         }
 
+        if (TextUtils.isEmpty(comment.getValue())) {
+            validationLiveData.postValue(4);
+            return false;
+        }
+
         return true;
     }
 
@@ -78,7 +88,7 @@ public class DeliverReadyStockViewModel extends ViewModel {
                 stockData.getId(),
                 Integer.parseInt(productAmount.getValue()),
                 selectedShop.getId(),
-                "",
+                comment.getValue(),
                 new Observer<BaseModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {

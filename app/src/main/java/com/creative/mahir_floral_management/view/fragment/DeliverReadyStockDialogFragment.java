@@ -82,6 +82,11 @@ public class DeliverReadyStockDialogFragment extends DialogFragment implements A
                         showLongToast(R.string.msg_amount_grater, "");
                         break;
 
+                    //Comment is not entered
+                    case 4:
+                        showLongToast(R.string.msg_empty_comment, "");
+                        break;
+
                 }
 
             }
@@ -107,8 +112,15 @@ public class DeliverReadyStockDialogFragment extends DialogFragment implements A
 
                 showLongToast(0, baseModel.getMessage());
 
-                if (baseModel.getStatus())
+                if (baseModel.getStatus()) {
+
                     dismiss();
+
+                    ReadyStockFragment stockFragment = ((ReadyStockFragment) getTargetFragment());
+                    if (null != stockFragment)
+                        stockFragment.refreshScreen();
+
+                }
 
             }
         });
