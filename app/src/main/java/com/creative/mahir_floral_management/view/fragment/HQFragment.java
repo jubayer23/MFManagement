@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.FragmentHqBinding;
+import com.creative.mahir_floral_management.view.activity.RawStockActivity;
+import com.creative.mahir_floral_management.view.activity.ReadyStockActivity;
 import com.creative.mahir_floral_management.view.activity.TimeSheetActivity;
 import com.creative.mahir_floral_management.viewmodel.HQFragViewModel;
 
@@ -65,8 +67,11 @@ public class HQFragment extends Fragment {
 
                 }else if(id == fragmentHqBinding.btnRawStock.getId()){
 
+                    startActivity(new Intent(getActivity(), RawStockActivity.class));
+
                 }else if(id == fragmentHqBinding.btnReadyStock.getId()){
-                   // startActivity(new Intent(getActivity(), CheckInOutActivity.class));
+
+                    startActivity(new Intent(getActivity(), ReadyStockActivity.class));
                 }
             }
         });

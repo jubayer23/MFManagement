@@ -157,7 +157,7 @@ public class LoginActivity extends BaseActivity {
 
 
     private void getRemoteShopInfo() {
-        loginViewModel.getRemoteShopInfo().observe(this, new ApiObserver<ShopInfo>(new ApiObserver.ChangeListener<ShopInfo>() {
+        loginViewModel.getRemoteShopInfo().observe(this, new ApiObserver<>(new ApiObserver.ChangeListener<ShopInfo>() {
             @Override
             public void onSuccess(ShopInfo shopInfo) {
 

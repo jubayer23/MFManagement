@@ -54,6 +54,12 @@ public class PrefManager {
 
     }
 
+    public void logout(){
+        editor = pref.edit();
+        editor.clear();
+        editor.apply();
+    }
+
     public void setEmailCache(String obj) {
         editor = pref.edit();
 

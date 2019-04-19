@@ -2,6 +2,7 @@ package com.creative.mahir_floral_management.view.fragment;
 
 import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 public class BaseFragment extends Fragment {
 
@@ -29,5 +30,9 @@ public class BaseFragment extends Fragment {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    protected void showLongToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 }

@@ -38,4 +38,27 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
+
+    <string-array name="months_arrays">
+        <item>Month</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string-array name="units">
+        <item>Select Unit</item>
+        <item>Kg</item>
+        <item>Pieces</item>
+    </string-array>
+
 </resources>

@@ -3,4 +3,29 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="name_raw_screen">Raw Stock</string>
+    <string name="name_raw_entry_screen">Entry - Raw Stock</string>
+    <string name="name_ready_screen">Ready Stock</string>
+    <string name="name_ready_entry_screen">Entry - Ready Stock</string>
+
+    <string name="filter_by">Filter By</string>
+    <string name="search">Search</string>
+    <string name="item_name">Item Name</string>
+    <string name="quantity">Quantity</string>
+    <string name="receive_date">Receive Date</string>
+    <string name="column">:</string>
+    <string name="product_name">Product Name</string>
+    <string name="color">Color</string>
+    <string name="comment">Comment</string>
+    <string name="entry">Entry</string>
+    <string name="price_per_unit">Price per unit</string>
+    <string name="total_amount">Total Amount: %1s %2s</string>
+    <string name="amount">Amount</string>
+    <string name="deliver">Deliver</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="msg_enter_amount">Enter the amount</string>
+    <string name="msg_select_shop">Select the shop</string>
+    <string name="msg_amount_grater">Amount entered is greater than total</string>
 </resources>

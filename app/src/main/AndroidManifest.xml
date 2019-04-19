@@ -26,6 +26,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.activity.RawStockActivity"
+            android:label="@string/name_raw_screen"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.EntryRawStockActivity"
+            android:label="@string/name_raw_entry_screen"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".view.activity.ReadyStockActivity"
+            android:label="@string/name_ready_screen"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".view.activity.EntryReadyStockActivity"
+            android:label="@string/name_ready_entry_screen"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

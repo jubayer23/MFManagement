@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.creative.mahir_floral_management.viewmodel.EntryReadyStockViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/et_product_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterNameChange(edtitable)}"
+                android:hint="@string/product_name"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_product_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterPriceChange(edtitable)}"
+                android:hint="@string/price_per_unit"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_product_name" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_year"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:entries="@array/units"
+                android:selectedItemPosition="@={viewModel.unit}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_product_price" />
+
+            <EditText
+                android:id="@+id/et_quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginRight="18dp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterQuantityChange(edtitable)}"
+                android:hint="@string/quantity"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/sp_year"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_product_price" />
+
+            <EditText
+                android:id="@+id/et_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterColorChange(edtitable)}"
+                android:hint="@string/color"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_quantity" />
+
+            <EditText
+                android:id="@+id/et_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterCommentChange(edtitable)}"
+                android:background="@drawable/btn_transparent_back"
+                android:gravity="start"
+                android:hint="@string/comment"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="7"
+                android:minLines="7"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_color" />
+
+            <Button
+                android:id="@+id/btn_entry"
+                style="@style/btnEntryLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:onClick="@{(v) -> viewModel.onClick(v)}"
+                android:paddingStart="70dp"
+                android:paddingLeft="70dp"
+                android:paddingEnd="70dp"
+                android:paddingRight="70dp"
+                android:text="@string/entry"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_comment" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>
