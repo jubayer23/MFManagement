@@ -9,9 +9,15 @@ import com.creative.mahir_floral_management.appdata.remote.ShopStockAPI;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -128,6 +134,7 @@ public class ShopIncomingViewModel extends ViewModel {
 
                             records.clear();
                             records.addAll(stockList);
+                            sortList();
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -217,6 +224,24 @@ public class ShopIncomingViewModel extends ViewModel {
 
                     }
                 });
+
+    }
+
+    private void sortList() {
+
+        Collections.sort(records, new Comparator<ShopStock>() {
+
+            DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            @Override
+            public int compare(ShopStock o1, ShopStock o2) {
+                try {
+                    return f.parse(o2.getDeliverDate()).compareTo(f.parse(o1.getDeliverDate()));
+                } catch (ParseException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+        });
 
     }
 

@@ -8,9 +8,15 @@ import android.util.Log;
 import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
 import com.creative.mahir_floral_management.model.RawStock;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -120,6 +126,7 @@ public class RawStockViewModel extends ViewModel {
 
                             records.clear();
                             records.addAll(stockList);
+                            sortList();
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -180,6 +187,24 @@ public class RawStockViewModel extends ViewModel {
 
         if (selectedMonth.getValue() == (month + 1) && Integer.parseInt(getYear()) == year)
             getRawStocks();
+
+    }
+
+    private void sortList() {
+
+        Collections.sort(records, new Comparator<RawStock>() {
+
+            DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            @Override
+            public int compare(RawStock o1, RawStock o2) {
+                try {
+                    return f.parse(o2.getReceived_date()).compareTo(f.parse(o1.getReceived_date()));
+                } catch (ParseException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+        });
 
     }
 

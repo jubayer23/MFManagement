@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.creative.mahir_floral_management.appdata.remote.ShopStockAPI;
 import com.creative.mahir_floral_management.model.BaseModel;
-import com.creative.mahir_floral_management.model.RawStock;
 import com.creative.mahir_floral_management.model.ShopStock;
 
 import io.reactivex.Observer;
