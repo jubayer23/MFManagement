@@ -21,10 +21,11 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
     private List<ShopStock> shopStocks;
     private final OnItemClickListener listener;
     private final String buttonName;
+    private boolean isSoldStock = false;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView itemName, itemQuantity, unit, price, comment;
+        TextView itemName, itemQuantity, unit, price, comment, columnSold, soldDateLbl, soldDate;
         Button deliver;
         ConstraintLayout layout;
 
@@ -39,6 +40,10 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
             unit = view.findViewById(R.id.tv_itemUnit);
 
             deliver = view.findViewById(R.id.btn_deliver);
+
+            columnSold = view.findViewById(R.id.tv_column_5);
+            soldDateLbl = view.findViewById(R.id.tv_sold_date_lbl);
+            soldDate = view.findViewById(R.id.tv_sold_date);
         }
 
         void bindClick(final ShopStock item, final OnItemClickListener listener) {
@@ -57,6 +62,20 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
             });
 
         }
+
+        void setForSold(final ShopStock item) {
+
+            if (!isSoldStock) return;
+
+            deliver.setVisibility(View.GONE);
+
+            columnSold.setVisibility(View.VISIBLE);
+            soldDateLbl.setVisibility(View.VISIBLE);
+            soldDate.setVisibility(View.VISIBLE);
+
+            soldDate.setText(item.getSoldDate());
+
+        }
     }
 
     public ShopStockAdapter(List<ShopStock> stockList, OnItemClickListener listener) {
@@ -67,6 +86,10 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
         this.shopStocks = stockList;
         this.listener = listener;
         this.buttonName = buttonName;
+    }
+
+    public void setSoldStock(boolean soldStock) {
+        isSoldStock = soldStock;
     }
 
     @NonNull
@@ -96,6 +119,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
             holder.layout.setBackgroundColor(ContextCompat.getColor(holder.layout.getContext(), R.color.white));
 
         holder.bindClick(rawStock, listener);
+        holder.setForSold(rawStock);
 
     }
 

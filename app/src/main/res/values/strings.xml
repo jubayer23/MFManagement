@@ -38,5 +38,6 @@
     <string name="mark_as_received">Mark\nAs\nReceived</string>
     <string name="title_mark_as_received">Mark As Received</string>
     <string name="msg_mark_as_received">Please confirm that you received the stock for %1s</string>
+    <string name="sold_date">Sold Date</string>
 
 </resources>

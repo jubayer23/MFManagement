@@ -25,6 +25,7 @@ public class APIUrl {
 
     public static final String URL_INCOMING_SHOP_STOCK = BaseUrl +  "/shopstocker/get_incoming_shop_stocks.php";
     public static final String URL_MARK_SHOP_STOCK_RECEIVED = BaseUrl +  "/shopstocker/entry_receive_stock.php";
-    public static final String URL_SOLD_SHOP_STOCK = BaseUrl +  "/shopstocker/entry_sold_stock.php";
+    public static final String URL_SHOP_STOCK = BaseUrl +  "/shopstocker/entry_sold_stock.php";
+    public static final String URL_SOLD_SHOP_STOCK = BaseUrl +  "/shopstocker/get_sold_stocks.php";
 
 }

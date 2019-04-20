@@ -64,6 +64,10 @@ public class ShopStock extends BaseModel implements Parcelable {
     @Expose
     private String deliverDate;
 
+    @SerializedName("sold_date")
+    @Expose
+    private String soldDate;
+
     protected ShopStock(Parcel in) {
         id = in.readString();
         shopName = in.readString();
@@ -79,6 +83,7 @@ public class ShopStock extends BaseModel implements Parcelable {
         receiverName = in.readString();
         receiveDate = in.readString();
         deliverDate = in.readString();
+        soldDate = in.readString();
     }
 
     public static final Creator<ShopStock> CREATOR = new Creator<ShopStock>() {
@@ -149,6 +154,10 @@ public class ShopStock extends BaseModel implements Parcelable {
         return deliverDate;
     }
 
+    public String getSoldDate() {
+        return soldDate;
+    }
+
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
@@ -194,5 +203,6 @@ public class ShopStock extends BaseModel implements Parcelable {
         dest.writeString(receiverName);
         dest.writeString(receiveDate);
         dest.writeString(deliverDate);
+        dest.writeString(soldDate);
     }
 }
