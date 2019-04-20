@@ -31,6 +31,7 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
 
     private RawStockAdapter adapter;
     private List<RawStock> rawStockList = new ArrayList<>(0);
+    private RawStock selectedItem;
 
     private final int rawEntrySuccess = 1002;
 
@@ -102,6 +103,8 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
 
     @Override
     public void onItemClick(RawStock item) {
+
+        selectedItem = item;
         showDeliverDialog(item);
     }
 
@@ -112,16 +115,34 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
         if (resultCode != RESULT_OK) return;
 
         if (requestCode == rawEntrySuccess) {
-            refreshScreen();
+            binding.getViewModel().requestToRefresh();
         }
 
     }
 
-    public void refreshScreen(){
-        binding.getViewModel().requestToRefresh();
+    public void refreshScreen(int remainingQty) {
+
+        if (null == selectedItem) return;
+
+        if (remainingQty <= 0) {
+            rawStockList.remove(selectedItem);
+        } else {
+
+            int index = rawStockList.indexOf(selectedItem);
+            RawStock rawStock = rawStockList.get(index);
+
+            rawStock.setQuantity(String.valueOf(remainingQty));
+            rawStockList.set(index, rawStock);
+        }
+
+        adapter.notifyDataSetChanged();
+
+        selectedItem = null;
+
     }
 
     private void showDeliverDialog(final RawStock item) {
+
         DeliverReadyStockDialogFragment editNameDialog = new DeliverReadyStockDialogFragment();
 
         Bundle data = new Bundle();

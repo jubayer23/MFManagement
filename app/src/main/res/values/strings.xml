@@ -21,6 +21,7 @@
     <string name="entry">Entry</string>
     <string name="price_per_unit">Price per unit</string>
     <string name="total_amount">Total Amount: %1s %2s</string>
+    <string name="total_quantity">Total Quantity: %1s %2s</string>
     <string name="amount">Amount</string>
     <string name="deliver">Deliver</string>
     <string name="cancel">Cancel</string>

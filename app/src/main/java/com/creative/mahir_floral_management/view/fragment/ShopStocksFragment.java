@@ -121,36 +121,42 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
     @Override
     public void onItemClick(ShopStock item) {
 
-       // markReceivedAlert(item);
+        selectedItem = item;
+        showDeliverDialog(item);
 
     }
 
-//    private void markReceivedAlert(final ShopStock item) {
-//
-//        selectedItem = item;
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-//                .setTitle(R.string.title_mark_as_received)
-//                .setMessage(String.format(Locale.getDefault(), getString(R.string.msg_mark_as_received), item.getProductName()))
-//                .setCancelable(false)
-//                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                        binding.getViewModel().markReceive(item);
-//                        dialog.dismiss();
-//
-//                    }
-//                })
-//                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//        alertDialog = builder.create();
-//        alertDialog.show();
-//
-//    }
+    public void refreshScreen(int remainingQty) {
+
+        if (null == selectedItem) return;
+
+        if (remainingQty <= 0) {
+            shopStockList.remove(selectedItem);
+        } else {
+
+            int index = shopStockList.indexOf(selectedItem);
+            ShopStock shopStock = shopStockList.get(index);
+
+            shopStock.setQuantity(String.valueOf(remainingQty));
+            shopStockList.set(index, shopStock);
+        }
+
+        adapter.notifyDataSetChanged();
+
+        selectedItem = null;
+
+    }
+
+    private void showDeliverDialog(final ShopStock item) {
+
+        SoldShopStockDialogFragment editNameDialog = new SoldShopStockDialogFragment();
+
+        Bundle data = new Bundle();
+        data.putParcelable("shopStockData", item);
+
+        editNameDialog.setArguments(data);
+        editNameDialog.setTargetFragment(ShopStocksFragment.this, 1333);
+        editNameDialog.show(getFragmentManager(), "fragment_edit_name");
+    }
+
 }

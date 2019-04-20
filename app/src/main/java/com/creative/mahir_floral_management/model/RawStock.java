@@ -73,6 +73,10 @@ public class RawStock extends BaseModel implements Parcelable {
         return received_date;
     }
 
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public int hashCode() {
         return 31 * 20 + id.hashCode();

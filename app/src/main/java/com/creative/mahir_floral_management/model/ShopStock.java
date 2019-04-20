@@ -1,9 +1,12 @@
 package com.creative.mahir_floral_management.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ShopStock extends BaseModel {
+public class ShopStock extends BaseModel implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -61,6 +64,35 @@ public class ShopStock extends BaseModel {
     @Expose
     private String deliverDate;
 
+    protected ShopStock(Parcel in) {
+        id = in.readString();
+        shopName = in.readString();
+        productName = in.readString();
+        quantity = in.readString();
+        unit = in.readString();
+        received_date = in.readString();
+        price = in.readString();
+        color = in.readString();
+        deliveryDate = in.readString();
+        deliveryStatus = in.readString();
+        comment = in.readString();
+        receiverName = in.readString();
+        receiveDate = in.readString();
+        deliverDate = in.readString();
+    }
+
+    public static final Creator<ShopStock> CREATOR = new Creator<ShopStock>() {
+        @Override
+        public ShopStock createFromParcel(Parcel in) {
+            return new ShopStock(in);
+        }
+
+        @Override
+        public ShopStock[] newArray(int size) {
+            return new ShopStock[size];
+        }
+    };
+
     public String getId() {
         return id;
     }
@@ -117,6 +149,10 @@ public class ShopStock extends BaseModel {
         return deliverDate;
     }
 
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public int hashCode() {
         return 31 * 21 + id.hashCode();
@@ -135,5 +171,28 @@ public class ShopStock extends BaseModel {
         // comparing the state of argument with
         // the state of 'this' Object.
         return (rawStock.id.equals(this.id));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(shopName);
+        dest.writeString(productName);
+        dest.writeString(quantity);
+        dest.writeString(unit);
+        dest.writeString(received_date);
+        dest.writeString(price);
+        dest.writeString(color);
+        dest.writeString(deliveryDate);
+        dest.writeString(deliveryStatus);
+        dest.writeString(comment);
+        dest.writeString(receiverName);
+        dest.writeString(receiveDate);
+        dest.writeString(deliverDate);
     }
 }
