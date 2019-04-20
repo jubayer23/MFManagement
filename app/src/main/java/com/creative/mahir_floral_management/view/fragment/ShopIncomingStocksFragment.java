@@ -1,10 +1,13 @@
 package com.creative.mahir_floral_management.view.fragment;
 
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,16 +20,18 @@ import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.ShopStockAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.databinding.FragmentShopIncomingStocksBinding;
+import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
 import com.creative.mahir_floral_management.viewmodel.ShopIncomingViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShopIncomingStocksFragment extends BaseFragment implements ShopStockAdapter.OnItemClickListener{
+public class ShopIncomingStocksFragment extends BaseFragment implements ShopStockAdapter.OnItemClickListener {
 
     private FragmentShopIncomingStocksBinding binding;
 
@@ -34,7 +39,9 @@ public class ShopIncomingStocksFragment extends BaseFragment implements ShopStoc
 
     private ShopStockAdapter adapter;
     private List<ShopStock> shopStockList = new ArrayList<>(0);
+    private ShopStock selectedItem;
 
+    private AlertDialog alertDialog;
 
     public ShopIncomingStocksFragment() {
         // Required empty public constructor
@@ -49,13 +56,14 @@ public class ShopIncomingStocksFragment extends BaseFragment implements ShopStoc
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shop_incoming_stocks, container, false);
         binding.setLifecycleOwner(this);
 
         binding.setViewModel(ViewModelProviders.of(this).get(ShopIncomingViewModel.class));
+        binding.getViewModel().setShopID(shop_id);
         binding.getViewModel().setStringArray(getResources().getStringArray(R.array.year));
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -101,11 +109,73 @@ public class ShopIncomingStocksFragment extends BaseFragment implements ShopStoc
             }
         });
 
+        binding.getViewModel().markReceivedLiveData.observe(this, new Observer<BaseModel>() {
+            @Override
+            public void onChanged(@Nullable BaseModel baseModel) {
+
+                if (baseModel == null) return;
+
+                if (baseModel.getStatus()) {
+
+                    //Remove the item from the list
+                    if (null != selectedItem) {
+
+                        shopStockList.remove(selectedItem);
+                        adapter.notifyDataSetChanged();
+                        selectedItem = null;
+                    }
+
+                }
+
+                showLongToast(baseModel.getMessage());
+
+            }
+        });
+
         return binding.getRoot();
     }
 
     @Override
+    public void onPause() {
+        if (null != alertDialog)
+            alertDialog.dismiss();
+
+        super.onPause();
+    }
+
+    @Override
     public void onItemClick(ShopStock item) {
+
+        markReceivedAlert(item);
+
+    }
+
+    private void markReceivedAlert(final ShopStock item) {
+
+        selectedItem = item;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.title_mark_as_received)
+                .setMessage(String.format(Locale.getDefault(), getString(R.string.msg_mark_as_received), item.getProductName()))
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        binding.getViewModel().markReceive(item);
+                        dialog.dismiss();
+
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog = builder.create();
+        alertDialog.show();
 
     }
 }

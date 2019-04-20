@@ -24,6 +24,7 @@
     <string name="amount">Amount</string>
     <string name="deliver">Deliver</string>
     <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 
     <string name="msg_enter_amount">Enter the amount</string>
     <string name="msg_select_shop">Select the shop</string>
@@ -33,5 +34,7 @@
     <string name="title_activity_shop">ShopActivity</string>
     <string name="price">Price</string>
     <string name="mark_as_received">Mark\nAs\nReceived</string>
+    <string name="title_mark_as_received">Mark As Received</string>
+    <string name="msg_mark_as_received">Please confirm that you received the stock for %1s</string>
 
 </resources>

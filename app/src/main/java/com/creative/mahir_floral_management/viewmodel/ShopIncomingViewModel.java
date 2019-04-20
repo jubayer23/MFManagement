@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.creative.mahir_floral_management.appdata.remote.ShopStockAPI;
+import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ShopIncomingViewModel extends ViewModel {
 
+    private int shopID;
+
     private CompositeDisposable disposable = new CompositeDisposable();
     private ShopStockAPI shopStockAPI = new ShopStockAPI();
 
@@ -26,6 +29,7 @@ public class ShopIncomingViewModel extends ViewModel {
 
     public MutableLiveData<String> validationLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
+    public MutableLiveData<BaseModel> markReceivedLiveData = new MutableLiveData<>();
 
     private String[] stringArray = {"2019", "2020", "2021"};
 
@@ -42,6 +46,10 @@ public class ShopIncomingViewModel extends ViewModel {
         selectedMonth.setValue(month + 1);
         selectedYear.setValue(getYearPosition(year));
 
+    }
+
+    public void setShopID(int shopID) {
+        this.shopID = shopID;
     }
 
     public int getSelectedMonth() {
@@ -108,7 +116,7 @@ public class ShopIncomingViewModel extends ViewModel {
 
             loadingLiveData.postValue(true);
             shopStockAPI.getShopIncomingStock(
-                    getSelectedMonth(), getYear(), 2,
+                    getSelectedMonth(), getYear(), shopID,
                     new Observer<List<ShopStock>>() {
                         @Override
                         public void onSubscribe(Disposable d) {
@@ -168,6 +176,47 @@ public class ShopIncomingViewModel extends ViewModel {
         }
 
         mutableLiveData.postValue(searchRecords);
+
+    }
+
+    public void markReceive(final ShopStock item) {
+
+        loadingLiveData.postValue(true);
+        shopStockAPI.markShopStockReceived(
+                item.getId(),
+                new Observer<BaseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+
+                        loadingLiveData.postValue(false);
+                        markReceivedLiveData.postValue(baseModel);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e("", "", e);
+                        loadingLiveData.postValue(false);
+
+                        BaseModel baseModel = new BaseModel();
+                        baseModel.setStatus(false);
+                        baseModel.setMessage(e.getMessage());
+
+                        markReceivedLiveData.postValue(baseModel);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 

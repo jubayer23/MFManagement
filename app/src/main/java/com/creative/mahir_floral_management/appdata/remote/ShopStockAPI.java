@@ -6,7 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
 import com.google.gson.reflect.TypeToken;
 
@@ -60,6 +60,81 @@ public class ShopStockAPI {
                                     } else
                                         msg = jsonObject.getJSONObject("errors").getString("month");
                                 else
+                                    msg = jsonObject.getString("message");
+
+                                observer.onError(new Throwable(msg));
+                            }
+
+                        } catch (Exception e) {
+                            observer.onError(e);
+
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                observer.onError(error);
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", MydApplication.getInstance().getPrefManger().getAccessToekn());
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return body.toString().getBytes();
+            }
+
+        };
+
+        req.setRetryPolicy(new DefaultRetryPolicy(60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // TODO Auto-generated method stub
+        MydApplication.getInstance().addToRequestQueue(req);
+
+    }
+
+    public void markShopStockReceived(String shopStockID,
+                             final Observer<BaseModel> observer) {
+
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("shop_stock_id", shopStockID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_MARK_SHOP_STOCK_RECEIVED,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+
+                            BaseModel baseModel = new BaseModel();
+
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            if (jsonObject.getBoolean("status")) {
+
+                                baseModel.setStatus(true);
+                                baseModel.setMessage(jsonObject.getString("message"));
+                                observer.onNext(baseModel);
+
+                            } else {
+
+                                String msg = "Some error occur";
+
+                                if (jsonObject.has("message"))
                                     msg = jsonObject.getString("message");
 
                                 observer.onError(new Throwable(msg));
