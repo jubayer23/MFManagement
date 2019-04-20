@@ -193,7 +193,7 @@ public class ShopStockViewModel extends ViewModel {
             @Override
             public int compare(ShopStock o1, ShopStock o2) {
                 try {
-                    return f.parse(o2.getReceiveDate()).compareTo(f.parse(o1.getReceiveDate()));
+                    return f.parse(o2.getReceived_date()).compareTo(f.parse(o1.getReceived_date()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }

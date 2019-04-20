@@ -190,7 +190,7 @@ public class ShopStockAPI {
             e.printStackTrace();
         }
 
-        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_INCOMING_SHOP_STOCK,
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_SHOP_STOCK,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -203,7 +203,7 @@ public class ShopStockAPI {
                             if (jsonObject.getBoolean("status")) {
                                 Type listType = new TypeToken<ArrayList<ShopStock>>() {
                                 }.getType();
-                                data = MydApplication.gson.fromJson(jsonObject.getJSONArray("incomingShopStocks").toString(), listType);
+                                data = MydApplication.gson.fromJson(jsonObject.getJSONArray("shopStocks").toString(), listType);
                                 observer.onNext(data);
                             } else {
 
@@ -270,7 +270,7 @@ public class ShopStockAPI {
             e.printStackTrace();
         }
 
-        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_SHOP_STOCK,
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_ENTRY_SHOP_STOCK,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
