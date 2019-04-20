@@ -190,7 +190,7 @@ public class RawStockViewModel extends ViewModel {
 
     }
 
-    private void sortList() {
+    private void sortList()  {
 
         Collections.sort(records, new Comparator<RawStock>() {
 
