@@ -49,6 +49,18 @@ public class ShopStock extends BaseModel {
     @Expose
     private String comment;
 
+    @SerializedName("receiver_name")
+    @Expose
+    private String receiverName;
+
+    @SerializedName("receive_date")
+    @Expose
+    private String receiveDate;
+
+    @SerializedName("deliver_date")
+    @Expose
+    private String deliverDate;
+
     public String getId() {
         return id;
     }
@@ -91,6 +103,18 @@ public class ShopStock extends BaseModel {
 
     public String getComment() {
         return comment;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public String getReceiveDate() {
+        return receiveDate;
+    }
+
+    public String getDeliverDate() {
+        return deliverDate;
     }
 
     @Override

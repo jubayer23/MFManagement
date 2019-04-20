@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
 
     private List<ShopStock> shopStocks;
     private final OnItemClickListener listener;
+    private final String buttonName;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -41,6 +43,9 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
 
         void bindClick(final ShopStock item, final OnItemClickListener listener) {
 
+            if (!TextUtils.isEmpty(buttonName))
+                deliver.setText(buttonName);
+
             if (null == listener) return;
 
             deliver.setVisibility(View.VISIBLE);
@@ -54,13 +59,14 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
         }
     }
 
-    public ShopStockAdapter(List<ShopStock> stockList) {
-        this(stockList, null);
+    public ShopStockAdapter(List<ShopStock> stockList, OnItemClickListener listener) {
+        this(stockList, listener, "");
     }
 
-    public ShopStockAdapter(List<ShopStock> stockList, OnItemClickListener listener) {
+    public ShopStockAdapter(List<ShopStock> stockList, OnItemClickListener listener, String buttonName) {
         this.shopStocks = stockList;
         this.listener = listener;
+        this.buttonName = buttonName;
     }
 
     @NonNull
