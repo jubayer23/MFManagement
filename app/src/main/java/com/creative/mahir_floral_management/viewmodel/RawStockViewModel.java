@@ -38,6 +38,11 @@ public class RawStockViewModel extends ViewModel {
     public MutableLiveData<Integer> selectedMonth = new MutableLiveData<>();
     public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
 
+    private int last_selected_month = 0;
+    private int last_selected_year = 0;
+
+    private boolean isFirstLoad = true;
+
     public RawStockViewModel() {
 
         //Load current month and year
@@ -45,8 +50,19 @@ public class RawStockViewModel extends ViewModel {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
 
-        selectedMonth.setValue(month + 1);
-        selectedYear.setValue(getYearPosition(year));
+
+
+        last_selected_month = month + 1;
+        last_selected_year = getYearPosition(year);
+
+        selectedMonth.setValue(last_selected_month);
+        selectedYear.setValue(last_selected_year);
+
+        if(isFirstLoad){
+            isFirstLoad = false;
+            getRawStocks();
+        }
+
 
     }
 
@@ -56,8 +72,13 @@ public class RawStockViewModel extends ViewModel {
     }
 
     public void setSelectedMonth(int value) {
+        Log.d("DEBUG", "its called month");
         selectedMonth.setValue(value);
-        getRawStocks();
+        if(last_selected_month != value){
+            last_selected_month = value;
+            getRawStocks();
+        }
+
     }
 
     public int getSelectedYear() {
@@ -66,8 +87,13 @@ public class RawStockViewModel extends ViewModel {
     }
 
     public void setSelectedYear(int value) {
+        Log.d("DEBUG", "its called year");
         selectedYear.setValue(value);
-        getRawStocks();
+        if( last_selected_year != value){
+            last_selected_year = value;
+            getRawStocks();
+        }
+
     }
 
     public void setStringArray(String[] stringArray) {

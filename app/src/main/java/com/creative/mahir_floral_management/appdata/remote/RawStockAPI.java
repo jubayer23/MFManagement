@@ -1,5 +1,7 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -35,10 +37,14 @@ public class RawStockAPI {
             e.printStackTrace();
         }
 
+        Log.d("DEBUG", "its called in outside");
+
         final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_RAW_STOCK,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+                        Log.d("DEBUG", "its called inside");
 
                         try {
 

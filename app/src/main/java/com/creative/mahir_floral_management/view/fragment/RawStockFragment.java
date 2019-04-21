@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class RawStockFragment extends BaseFragment {
             public void onChanged(@Nullable List<RawStock> stockList) {
 
                 rawStockList.clear();
+
 
                 if (null == stockList || stockList.size() == 0) {
                     showLongToast("No record found");
