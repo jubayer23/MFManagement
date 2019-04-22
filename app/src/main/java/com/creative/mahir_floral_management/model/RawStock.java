@@ -6,6 +6,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+
 public class RawStock extends BaseModel implements Parcelable {
 
     @SerializedName("id")
@@ -112,5 +116,19 @@ public class RawStock extends BaseModel implements Parcelable {
         dest.writeString(received_date);
         dest.writeString(price);
 
+    }
+
+    public static class timeComparatorDesc implements Comparator<RawStock> {
+        public int compare(RawStock chair1, RawStock chair2) {
+            SimpleDateFormat readFormat = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
+            try {
+                java.util.Date date1 = readFormat.parse(chair1.getReceived_date());
+                java.util.Date date2 = readFormat.parse(chair2.getReceived_date());
+                return date2.compareTo(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
     }
 }

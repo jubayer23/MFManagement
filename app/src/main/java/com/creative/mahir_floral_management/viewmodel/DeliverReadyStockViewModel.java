@@ -9,6 +9,7 @@ import android.view.View;
 import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.model.ShopInfo;
 
 import io.reactivex.Observer;
@@ -20,7 +21,7 @@ public class DeliverReadyStockViewModel extends ViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
     private RawStockAPI rawStockAPI = new RawStockAPI();
 
-    private RawStock stockData;
+    private ReadyStock stockData;
     private ShopInfo.Shop selectedShop;
 
     public MutableLiveData<String> productAmount = new MutableLiveData<>();
@@ -30,7 +31,7 @@ public class DeliverReadyStockViewModel extends ViewModel {
     public MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
     public MutableLiveData<BaseModel> resultLiveData = new MutableLiveData<>();
 
-    public void setStock(RawStock stock) {
+    public void setStock(ReadyStock stock) {
         stockData = stock;
     }
 

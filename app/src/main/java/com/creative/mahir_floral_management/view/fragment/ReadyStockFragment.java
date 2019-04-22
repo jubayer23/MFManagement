@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.RawStockAdapter;
+import com.creative.mahir_floral_management.adapters.ReadyStockAdapter;
 import com.creative.mahir_floral_management.databinding.FragmentReadystockBinding;
 import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.view.activity.EntryReadyStockActivity;
 import com.creative.mahir_floral_management.viewmodel.ReadyStockViewModel;
 
@@ -25,13 +27,13 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.OnItemClickListener {
+public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapter.OnItemClickListener {
 
     private FragmentReadystockBinding binding;
 
-    private RawStockAdapter adapter;
-    private List<RawStock> rawStockList = new ArrayList<>(0);
-    private RawStock selectedItem;
+    private ReadyStockAdapter readyStockAdapter;
+    private List<ReadyStock> readyStocks = new ArrayList<>(0);
+    private ReadyStock selectedItem;
 
     private final int rawEntrySuccess = 1002;
 
@@ -48,24 +50,24 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
         binding.rvResults.setLayoutManager(mLayoutManager);
 
         //Set Adapter
-        adapter = new RawStockAdapter(rawStockList, this);
-        binding.rvResults.setAdapter(adapter);
+        readyStockAdapter = new ReadyStockAdapter(readyStocks, this);
+        binding.rvResults.setAdapter(readyStockAdapter);
 
         binding.getViewModel().setStringArray(getResources().getStringArray(R.array.year));
 
-        binding.getViewModel().mutableLiveData.observe(this, new Observer<List<RawStock>>() {
+        binding.getViewModel().mutableLiveData.observe(this, new Observer<List<ReadyStock>>() {
             @Override
-            public void onChanged(@Nullable List<RawStock> stockList) {
+            public void onChanged(@Nullable List<ReadyStock> stockList) {
 
-                rawStockList.clear();
+                readyStocks.clear();
 
                 if (null == stockList || stockList.size() == 0) {
                     showLongToast("No record found");
                 } else
-                    rawStockList.addAll(stockList);
+                    readyStocks.addAll(stockList);
 
                 //Notify the adapter
-                adapter.notifyDataSetChanged();
+                readyStockAdapter.notifyDataSetChanged();
 
             }
         });
@@ -102,7 +104,7 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
     }
 
     @Override
-    public void onItemClick(RawStock item) {
+    public void onItemClick(ReadyStock item) {
 
         selectedItem = item;
         showDeliverDialog(item);
@@ -125,23 +127,23 @@ public class ReadyStockFragment extends BaseFragment implements RawStockAdapter.
         if (null == selectedItem) return;
 
         if (remainingQty <= 0) {
-            rawStockList.remove(selectedItem);
+            readyStocks.remove(selectedItem);
         } else {
 
-            int index = rawStockList.indexOf(selectedItem);
-            RawStock rawStock = rawStockList.get(index);
+            int index = readyStocks.indexOf(selectedItem);
+            ReadyStock readyStock = readyStocks.get(index);
 
-            rawStock.setQuantity(String.valueOf(remainingQty));
-            rawStockList.set(index, rawStock);
+            readyStock.setQuantity(String.valueOf(remainingQty));
+            readyStocks.set(index, readyStock);
         }
 
-        adapter.notifyDataSetChanged();
+        readyStockAdapter.notifyDataSetChanged();
 
         selectedItem = null;
 
     }
 
-    private void showDeliverDialog(final RawStock item) {
+    private void showDeliverDialog(final ReadyStock item) {
 
         DeliverReadyStockDialogFragment editNameDialog = new DeliverReadyStockDialogFragment();
 

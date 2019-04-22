@@ -336,6 +336,14 @@ public class CommonMethods {
         return week;
     }
 
+    public static int getCurrentMonth(){
+        Calendar cal = Calendar.getInstance();
+        //cal.setTime(date);
+        int week = cal.get(Calendar.MONTH);
+
+        return week;
+    }
+
     public static String getMonthNameFromWeekNum(int week_of_the_year){
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.WEEK_OF_YEAR, week_of_the_year);

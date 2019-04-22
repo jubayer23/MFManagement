@@ -20,6 +20,7 @@ import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentDeliverreadystockBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.model.ShopInfo;
 import com.creative.mahir_floral_management.viewmodel.DeliverReadyStockViewModel;
 
@@ -29,7 +30,7 @@ import java.util.Locale;
 public class DeliverReadyStockDialogFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
     private FragmentDeliverreadystockBinding binding;
-    private RawStock stockData;
+    private ReadyStock stockData;
     private List<ShopInfo.Shop> shops;
 
     private ProgressDialog progressDialog;

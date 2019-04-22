@@ -58,7 +58,6 @@ public class RawStockFragment extends BaseFragment {
 
                 rawStockList.clear();
 
-
                 if (null == stockList || stockList.size() == 0) {
                     showLongToast("No record found");
                 } else
@@ -93,6 +92,14 @@ public class RawStockFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(getActivity(), EntryRawStockActivity.class), rawEntrySuccess);
+            }
+        });
+
+        binding.getViewModel().searchText.observe(this, new Observer<CharSequence>() {
+            @Override
+            public void onChanged(@Nullable CharSequence charSequence) {
+
+                adapter.getFilter().filter(charSequence);
             }
         });
 

@@ -6,7 +6,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
+import com.creative.mahir_floral_management.appdata.remote.ReadyStockAPI;
 import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.ReadyStock;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,10 +27,10 @@ import io.reactivex.disposables.Disposable;
 public class ReadyStockViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
-    private RawStockAPI rawStockAPI = new RawStockAPI();
+    private ReadyStockAPI readyStockAPI = new ReadyStockAPI();
 
-    private List<RawStock> records = new ArrayList<>(0);
-    public MutableLiveData<List<RawStock>> mutableLiveData = new MutableLiveData<>();
+    private List<ReadyStock> records = new ArrayList<>(0);
+    public MutableLiveData<List<ReadyStock>> mutableLiveData = new MutableLiveData<>();
 
     public MutableLiveData<String> validationLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
@@ -57,7 +59,7 @@ public class ReadyStockViewModel extends ViewModel {
 
     public void setSelectedMonth(int value) {
         selectedMonth.setValue(value);
-        getRawStocks();
+        getReadyStocks();
     }
 
     public int getSelectedYear() {
@@ -67,7 +69,7 @@ public class ReadyStockViewModel extends ViewModel {
 
     public void setSelectedYear(int value) {
         selectedYear.setValue(value);
-        getRawStocks();
+        getReadyStocks();
     }
 
     public void setStringArray(String[] stringArray) {
@@ -109,20 +111,20 @@ public class ReadyStockViewModel extends ViewModel {
 
     }
 
-    private void getRawStocks() {
+    private void getReadyStocks() {
         if (validationChecked()) {
 
             loadingLiveData.postValue(true);
 
-            rawStockAPI.getReadyStock(getSelectedMonth(), getYear(),
-                    new Observer<List<RawStock>>() {
+            readyStockAPI.getReadyStock(getSelectedMonth(), getYear(),
+                    new Observer<List<ReadyStock>>() {
                         @Override
                         public void onSubscribe(Disposable d) {
                             disposable.add(d);
                         }
 
                         @Override
-                        public void onNext(List<RawStock> stockList) {
+                        public void onNext(List<ReadyStock> stockList) {
 
                             records.clear();
                             records.addAll(stockList);
@@ -162,15 +164,15 @@ public class ReadyStockViewModel extends ViewModel {
         }
 
         //Search for name
-        final List<RawStock> searchRecords = new ArrayList<>(0);
+        final List<ReadyStock> searchRecords = new ArrayList<>(0);
         String stockName;
 
-        for (RawStock rawStock : records) {
+        for (ReadyStock readyStock : records) {
 
-            stockName = rawStock.getName().toLowerCase();
+            stockName = readyStock.getName().toLowerCase();
 
             if (stockName.equalsIgnoreCase(searchTxt) || stockName.contains(searchTxt))
-                searchRecords.add(rawStock);
+                searchRecords.add(readyStock);
 
         }
 
@@ -186,20 +188,20 @@ public class ReadyStockViewModel extends ViewModel {
         int month = c.get(Calendar.MONTH);
 
         if (selectedMonth.getValue() == (month + 1) && Integer.parseInt(getYear()) == year)
-            getRawStocks();
+            getReadyStocks();
 
     }
 
     private void sortList() {
 
-        Collections.sort(records, new Comparator<RawStock>() {
+        Collections.sort(records, new Comparator<ReadyStock>() {
 
             DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
             @Override
-            public int compare(RawStock o1, RawStock o2) {
+            public int compare(ReadyStock o1, ReadyStock o2) {
                 try {
-                    return f.parse(o2.getReceived_date()).compareTo(f.parse(o1.getReceived_date()));
+                    return f.parse(o2.getReceivedDate()).compareTo(f.parse(o1.getReceivedDate()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }

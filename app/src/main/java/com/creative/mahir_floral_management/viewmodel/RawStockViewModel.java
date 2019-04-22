@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
 import com.creative.mahir_floral_management.model.RawStock;
 
@@ -37,6 +38,7 @@ public class RawStockViewModel extends ViewModel {
 
     public MutableLiveData<Integer> selectedMonth = new MutableLiveData<>();
     public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
+    public MutableLiveData<CharSequence> searchText = new MutableLiveData<>();
 
     private int last_selected_month = 0;
     private int last_selected_year = 0;
@@ -46,10 +48,8 @@ public class RawStockViewModel extends ViewModel {
     public RawStockViewModel() {
 
         //Load current month and year
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-
+        int year = CommonMethods.getCurrentYear();
+        int month = CommonMethods.getCurrentMonth();
 
 
         last_selected_month = month + 1;
@@ -58,7 +58,7 @@ public class RawStockViewModel extends ViewModel {
         selectedMonth.setValue(last_selected_month);
         selectedYear.setValue(last_selected_year);
 
-        if(isFirstLoad){
+        if (isFirstLoad) {
             isFirstLoad = false;
             getRawStocks();
         }
@@ -72,9 +72,9 @@ public class RawStockViewModel extends ViewModel {
     }
 
     public void setSelectedMonth(int value) {
-        Log.d("DEBUG", "its called month");
+        // Log.d("DEBUG", "its called month");
         selectedMonth.setValue(value);
-        if(last_selected_month != value){
+        if (last_selected_month != value) {
             last_selected_month = value;
             getRawStocks();
         }
@@ -87,9 +87,9 @@ public class RawStockViewModel extends ViewModel {
     }
 
     public void setSelectedYear(int value) {
-        Log.d("DEBUG", "its called year");
+        //Log.d("DEBUG", "its called year");
         selectedYear.setValue(value);
-        if( last_selected_year != value){
+        if (last_selected_year != value) {
             last_selected_year = value;
             getRawStocks();
         }
@@ -120,9 +120,6 @@ public class RawStockViewModel extends ViewModel {
         return 0;
     }
 
-    public void afterUserNameChange(CharSequence s) {
-        searchList(s.toString().toLowerCase());
-    }
 
     private boolean validationChecked() {
 
@@ -152,7 +149,7 @@ public class RawStockViewModel extends ViewModel {
 
                             records.clear();
                             records.addAll(stockList);
-                            sortList();
+                            Collections.sort(records, new RawStock.timeComparatorDesc());
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -176,61 +173,15 @@ public class RawStockViewModel extends ViewModel {
         }
     }
 
-    private void searchList(String searchTxt) {
-
-        if (records.size() == 0) return;
-
-        if (TextUtils.isEmpty(searchTxt)) {
-
-            mutableLiveData.postValue(records);
-
-            return;
-        }
-
-        //Search for name
-        final List<RawStock> searchRecords = new ArrayList<>(0);
-        String stockName;
-
-        for (RawStock rawStock : records) {
-
-            stockName = rawStock.getName().toLowerCase();
-
-            if (stockName.equalsIgnoreCase(searchTxt) || stockName.contains(searchTxt))
-                searchRecords.add(rawStock);
-
-        }
-
-        mutableLiveData.postValue(searchRecords);
-
-    }
 
     public void requestToRefresh() {
 
         //Load current month and year
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+        int year = CommonMethods.getCurrentYear();
+        int month = CommonMethods.getCurrentMonth();
 
         if (selectedMonth.getValue() == (month + 1) && Integer.parseInt(getYear()) == year)
             getRawStocks();
-
-    }
-
-    private void sortList()  {
-
-        Collections.sort(records, new Comparator<RawStock>() {
-
-            DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-            @Override
-            public int compare(RawStock o1, RawStock o2) {
-                try {
-                    return f.parse(o2.getReceived_date()).compareTo(f.parse(o1.getReceived_date()));
-                } catch (ParseException e) {
-                    throw new IllegalArgumentException(e);
-                }
-            }
-        });
 
     }
 

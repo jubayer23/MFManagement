@@ -13,14 +13,15 @@ import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.ReadyStock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RawStockAdapter extends RecyclerView.Adapter<RawStockAdapter.MyViewHolder> implements Filterable {
+public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.MyViewHolder> implements Filterable {
 
-    private List<RawStock> rawStocks;
-    private List<RawStock> originalList;
+    private List<ReadyStock> readyStocks;
+    private List<ReadyStock> originalList;
     private final OnItemClickListener listener;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -39,7 +40,7 @@ public class RawStockAdapter extends RecyclerView.Adapter<RawStockAdapter.MyView
             unit = view.findViewById(R.id.tv_itemUnit);
         }
 
-        void bindClick(final RawStock item, final OnItemClickListener listener) {
+        void bindClick(final ReadyStock item, final OnItemClickListener listener) {
 
             if (null == listener) return;
 
@@ -54,12 +55,12 @@ public class RawStockAdapter extends RecyclerView.Adapter<RawStockAdapter.MyView
         }
     }
 
-    public RawStockAdapter(List<RawStock> stockList) {
+    public ReadyStockAdapter(List<ReadyStock> stockList) {
         this(stockList, null);
     }
 
-    public RawStockAdapter(List<RawStock> stockList, OnItemClickListener listener) {
-        this.rawStocks = stockList;
+    public ReadyStockAdapter(List<ReadyStock> stockList, OnItemClickListener listener) {
+        this.readyStocks = stockList;
         this.originalList = stockList;
         this.listener = listener;
     }
@@ -76,29 +77,29 @@ public class RawStockAdapter extends RecyclerView.Adapter<RawStockAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        RawStock rawStock = rawStocks.get(position);
+        ReadyStock readyStock = readyStocks.get(position);
 
-        holder.itemName.setText(rawStock.getName());
-        holder.itemQuantity.setText(rawStock.getQuantity());
-        holder.recieveDate.setText(rawStock.getReceived_date());
-        holder.unit.setText(rawStock.getUnit());
+        holder.itemName.setText(readyStock.getName());
+        holder.itemQuantity.setText(readyStock.getQuantity());
+        holder.recieveDate.setText(readyStock.getReceivedDate());
+        holder.unit.setText(readyStock.getUnit());
 
         if (position % 2 == 0)
             holder.layout.setBackgroundColor(ContextCompat.getColor(holder.layout.getContext(), R.color.gray_lightest));
         else
             holder.layout.setBackgroundColor(ContextCompat.getColor(holder.layout.getContext(), R.color.white));
 
-        holder.bindClick(rawStock, listener);
+        holder.bindClick(readyStock, listener);
 
     }
 
     @Override
     public int getItemCount() {
-        return rawStocks.size();
+        return readyStocks.size();
     }
 
     public interface OnItemClickListener {
-        void onItemClick(RawStock item);
+        void onItemClick(ReadyStock item);
     }
 
 
@@ -108,13 +109,13 @@ public class RawStockAdapter extends RecyclerView.Adapter<RawStockAdapter.MyView
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                rawStocks = (List<RawStock>) results.values;
-                RawStockAdapter.this.notifyDataSetChanged();
+                readyStocks = (List<ReadyStock>) results.values;
+                ReadyStockAdapter.this.notifyDataSetChanged();
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                List<RawStock> filteredResults = null;
+                List<ReadyStock> filteredResults = null;
                 if (constraint.length() == 0) {
                     filteredResults = originalList;
                 } else {
@@ -129,10 +130,10 @@ public class RawStockAdapter extends RecyclerView.Adapter<RawStockAdapter.MyView
         };
     }
 
-    protected List<RawStock> getFilteredResults(String constraint) {
-        List<RawStock> results = new ArrayList<>();
+    protected List<ReadyStock> getFilteredResults(String constraint) {
+        List<ReadyStock> results = new ArrayList<>();
 
-        for (RawStock item : originalList) {
+        for (ReadyStock item : originalList) {
 
             if (item.getName().toLowerCase().contains(constraint)) {
                 results.add(item);
