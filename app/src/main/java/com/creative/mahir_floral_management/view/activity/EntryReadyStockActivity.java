@@ -7,8 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.ActivityReadyentrystockBinding;
-import com.creative.mahir_floral_management.view.fragment.EntryRawStockFragment;
-import com.creative.mahir_floral_management.view.fragment.EntryReadyStockFragment;
+import com.creative.mahir_floral_management.view.fragment.ReadyStockEntryFragment;
 
 public class EntryReadyStockActivity extends BaseActivity {
 
@@ -26,10 +25,10 @@ public class EntryReadyStockActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
 
-            EntryReadyStockFragment entryReadyStockFragment = new EntryReadyStockFragment();
+            ReadyStockEntryFragment readyStockEntryFragment = new ReadyStockEntryFragment();
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction();
-            transaction.replace(R.id.content_layout, entryReadyStockFragment, TAG)
+            transaction.replace(R.id.content_layout, readyStockEntryFragment, TAG)
                     .commit();
 
         }

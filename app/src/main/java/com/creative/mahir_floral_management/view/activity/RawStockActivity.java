@@ -19,10 +19,11 @@ public class RawStockActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         ActivityRawstockBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rawstock);
-        initToolbar();
 
-        if (null != getActionBar())
-            getActionBar().setHomeButtonEnabled(true);
+
+        initToolbar("Raw Stocks", true);
+
+
 
         if (savedInstanceState == null) {
 

@@ -132,6 +132,14 @@ public class ShopIncomingStocksFragment extends BaseFragment implements ShopStoc
             }
         });
 
+        binding.getViewModel().searchText.observe(this, new Observer<CharSequence>() {
+            @Override
+            public void onChanged(@Nullable CharSequence charSequence) {
+
+                adapter.getFilter().filter(charSequence);
+            }
+        });
+
         return binding.getRoot();
     }
 

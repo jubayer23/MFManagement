@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.FragmentEntryreadystockBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
-import com.creative.mahir_floral_management.viewmodel.EntryReadyStockViewModel;
+import com.creative.mahir_floral_management.viewmodel.ReadyStockEntryViewModel;
 
-public class EntryReadyStockFragment extends BaseFragment {
+public class ReadyStockEntryFragment extends BaseFragment {
 
     private AlertDialog alertDialog;
 
@@ -29,7 +29,7 @@ public class EntryReadyStockFragment extends BaseFragment {
         FragmentEntryreadystockBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_entryreadystock, container, false);
         binding.setLifecycleOwner(this);
 
-        binding.setViewModel(ViewModelProviders.of(this).get(EntryReadyStockViewModel.class));
+        binding.setViewModel(ViewModelProviders.of(this).get(ReadyStockEntryViewModel.class));
 
         binding.getViewModel().setUnitArray(getResources().getStringArray(R.array.units));
 

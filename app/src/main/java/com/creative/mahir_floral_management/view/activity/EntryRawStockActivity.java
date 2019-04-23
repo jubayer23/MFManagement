@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.ActivityEnteryrawstockBinding;
-import com.creative.mahir_floral_management.view.fragment.EntryRawStockFragment;
+import com.creative.mahir_floral_management.view.fragment.RawStockEntryFragment;
 
 public class EntryRawStockActivity extends BaseActivity {
 
@@ -25,7 +25,7 @@ public class EntryRawStockActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
 
-            EntryRawStockFragment rawStockFragment = new EntryRawStockFragment();
+            RawStockEntryFragment rawStockFragment = new RawStockEntryFragment();
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction();
             transaction.replace(R.id.content_layout, rawStockFragment, TAG)

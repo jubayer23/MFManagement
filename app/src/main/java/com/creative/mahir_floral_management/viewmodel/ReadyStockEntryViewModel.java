@@ -7,16 +7,17 @@ import android.util.Log;
 import android.view.View;
 
 import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
+import com.creative.mahir_floral_management.appdata.remote.ReadyStockAPI;
 import com.creative.mahir_floral_management.model.BaseModel;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class EntryReadyStockViewModel extends ViewModel {
+public class ReadyStockEntryViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
-    private RawStockAPI rawStockAPI = new RawStockAPI();
+    private ReadyStockAPI readyStockAPI = new ReadyStockAPI();
 
     private String[] unitArray;
 
@@ -116,7 +117,7 @@ public class EntryReadyStockViewModel extends ViewModel {
         if (validationChecked()) {
 
             loadingLiveData.postValue(true);
-            rawStockAPI.saveReadyStock(
+            readyStockAPI.saveReadyStock(
                     productName.getValue(), quantity.getValue(),
                     getSelectedUnit(), color.getValue(), comment.getValue(),
                     productPrice.getValue(),

@@ -14,10 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.adapters.RawStockAdapter;
 import com.creative.mahir_floral_management.adapters.ReadyStockAdapter;
 import com.creative.mahir_floral_management.databinding.FragmentReadystockBinding;
-import com.creative.mahir_floral_management.model.RawStock;
 import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.view.activity.EntryReadyStockActivity;
 import com.creative.mahir_floral_management.viewmodel.ReadyStockViewModel;
@@ -98,6 +96,14 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
             }
         });
 
+        binding.getViewModel().searchText.observe(this, new Observer<CharSequence>() {
+            @Override
+            public void onChanged(@Nullable CharSequence charSequence) {
+
+                readyStockAdapter.getFilter().filter(charSequence);
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -145,7 +151,7 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
 
     private void showDeliverDialog(final ReadyStock item) {
 
-        DeliverReadyStockDialogFragment editNameDialog = new DeliverReadyStockDialogFragment();
+        ReadyStockDeliverDialogFragment editNameDialog = new ReadyStockDeliverDialogFragment();
 
         Bundle data = new Bundle();
         data.putParcelable("stockData", item);

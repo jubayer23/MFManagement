@@ -39,6 +39,7 @@ public class ShopStockViewModel extends ViewModel {
 
     public MutableLiveData<Integer> selectedMonth = new MutableLiveData<>();
     public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
+    public MutableLiveData<CharSequence> searchText = new MutableLiveData<>();
 
     public ShopStockViewModel() {
 
@@ -100,9 +101,7 @@ public class ShopStockViewModel extends ViewModel {
         return 0;
     }
 
-    public void afterUserNameChange(CharSequence s) {
-        searchList(s.toString().toLowerCase());
-    }
+
 
     private boolean validationChecked() {
 
@@ -132,7 +131,7 @@ public class ShopStockViewModel extends ViewModel {
 
                             records.clear();
                             records.addAll(stockList);
-                            sortList();
+                            Collections.sort(records, new ShopStock.timeComparatorOnReceiveDateDesc());
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -156,51 +155,9 @@ public class ShopStockViewModel extends ViewModel {
         }
     }
 
-    private void searchList(String searchTxt) {
 
-        if (records.size() == 0) return;
 
-        if (TextUtils.isEmpty(searchTxt)) {
 
-            mutableLiveData.postValue(records);
-
-            return;
-        }
-
-        //Search for name
-        final List<ShopStock> searchRecords = new ArrayList<>(0);
-        String stockName;
-
-        for (ShopStock rawStock : records) {
-
-            stockName = rawStock.getProductName().toLowerCase();
-
-            if (stockName.equalsIgnoreCase(searchTxt) || stockName.contains(searchTxt))
-                searchRecords.add(rawStock);
-
-        }
-
-        mutableLiveData.postValue(searchRecords);
-
-    }
-
-    private void sortList() {
-
-        Collections.sort(records, new Comparator<ShopStock>() {
-
-            DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-            @Override
-            public int compare(ShopStock o1, ShopStock o2) {
-                try {
-                    return f.parse(o2.getReceived_date()).compareTo(f.parse(o1.getReceived_date()));
-                } catch (ParseException e) {
-                    throw new IllegalArgumentException(e);
-                }
-            }
-        });
-
-    }
 
     @Override
     protected void onCleared() {

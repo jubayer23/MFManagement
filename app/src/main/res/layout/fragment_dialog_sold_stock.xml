@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.creative.mahir_floral_management.viewmodel.ShopSoldStockViewModel" />
+            type="com.creative.mahir_floral_management.viewmodel.SoldStockDialogViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

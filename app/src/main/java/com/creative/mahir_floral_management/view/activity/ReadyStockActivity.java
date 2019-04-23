@@ -19,10 +19,11 @@ public class ReadyStockActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         ActivityReadystockBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_readystock);
-        initToolbar();
 
-        if (null != getActionBar())
-            getActionBar().setHomeButtonEnabled(true);
+
+        initToolbar("Ready Stocks", true);
+
+
 
         if (savedInstanceState == null) {
 

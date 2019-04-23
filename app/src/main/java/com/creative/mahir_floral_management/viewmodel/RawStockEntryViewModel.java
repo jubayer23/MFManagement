@@ -13,7 +13,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class EntryRawStockViewModel extends ViewModel {
+public class RawStockEntryViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private RawStockAPI rawStockAPI = new RawStockAPI();

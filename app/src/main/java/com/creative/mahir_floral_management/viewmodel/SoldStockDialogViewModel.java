@@ -6,23 +6,20 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
+import com.creative.mahir_floral_management.appdata.remote.ShopStockAPI;
 import com.creative.mahir_floral_management.model.BaseModel;
-import com.creative.mahir_floral_management.model.RawStock;
-import com.creative.mahir_floral_management.model.ReadyStock;
-import com.creative.mahir_floral_management.model.ShopInfo;
+import com.creative.mahir_floral_management.model.ShopStock;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class DeliverReadyStockViewModel extends ViewModel {
+public class SoldStockDialogViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
-    private RawStockAPI rawStockAPI = new RawStockAPI();
+    private ShopStockAPI shopStockAPI = new ShopStockAPI();
 
-    private ReadyStock stockData;
-    private ShopInfo.Shop selectedShop;
+    private ShopStock shopStock;
 
     public MutableLiveData<String> productAmount = new MutableLiveData<>();
     public MutableLiveData<String> comment = new MutableLiveData<>();
@@ -31,12 +28,8 @@ public class DeliverReadyStockViewModel extends ViewModel {
     public MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
     public MutableLiveData<BaseModel> resultLiveData = new MutableLiveData<>();
 
-    public void setStock(ReadyStock stock) {
-        stockData = stock;
-    }
-
-    public void setSelectedShop(ShopInfo.Shop selectedShop) {
-        this.selectedShop = selectedShop;
+    public void setShopStock(ShopStock stock) {
+        shopStock = stock;
     }
 
     public void afterAmountChange(CharSequence s) {
@@ -61,13 +54,8 @@ public class DeliverReadyStockViewModel extends ViewModel {
             return false;
         }
 
-        if (Integer.parseInt(productAmount.getValue()) > Integer.parseInt(stockData.getQuantity())) {
+        if (Integer.parseInt(productAmount.getValue()) > Integer.parseInt(shopStock.getQuantity())) {
             validationLiveData.postValue(3);
-            return false;
-        }
-
-        if (null == selectedShop) {
-            validationLiveData.postValue(2);
             return false;
         }
 
@@ -82,17 +70,15 @@ public class DeliverReadyStockViewModel extends ViewModel {
     public void onClick(View view) {
 
         if (fieldsValid())
-            sendDelivery();
+            soldItem();
 
     }
 
-    private void sendDelivery() {
-
+    private void soldItem() {
         loadingLiveData.postValue(true);
-        rawStockAPI.deliverReadyStock(
-                stockData.getId(),
+        shopStockAPI.soldShopStock(
+                shopStock.getId(),
                 Integer.parseInt(productAmount.getValue()),
-                selectedShop.getId(),
                 comment.getValue(),
                 new Observer<BaseModel>() {
                     @Override
@@ -114,11 +100,7 @@ public class DeliverReadyStockViewModel extends ViewModel {
                         Log.e("", "", e);
                         loadingLiveData.postValue(false);
 
-                        BaseModel baseModel = new BaseModel();
-                        baseModel.setStatus(false);
-                        baseModel.setMessage(e.getMessage());
 
-                        resultLiveData.postValue(baseModel);
 
                     }
 
@@ -127,7 +109,6 @@ public class DeliverReadyStockViewModel extends ViewModel {
 
                     }
                 });
-
     }
 
     @Override

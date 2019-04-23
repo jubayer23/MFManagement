@@ -2,6 +2,7 @@ package com.creative.mahir_floral_management.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.Parcelable.Creator;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,120 +11,147 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
-public class RawStock extends BaseModel implements Parcelable {
+public class RawStock implements Parcelable {
 
     @SerializedName("id")
     @Expose
     private String id;
-
     @SerializedName("name")
     @Expose
     private String name;
-
     @SerializedName("quantity")
     @Expose
     private String quantity;
-
     @SerializedName("unit")
     @Expose
     private String unit;
-
     @SerializedName("received_date")
     @Expose
-    private String received_date;
-
-    @SerializedName("price")
+    private String receivedDate;
+    @SerializedName("color")
     @Expose
-    private String price;
+    private String color;
+    @SerializedName("comment")
+    @Expose
+    private String comment;
+    @SerializedName("received_by")
+    @Expose
+    private String receivedBy;
+    public final static Parcelable.Creator<RawStock> CREATOR = new Creator<RawStock>() {
 
-    protected RawStock(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        quantity = in.readString();
-        unit = in.readString();
-        received_date = in.readString();
-        price = in.readString();
-    }
 
-    public static final Creator<RawStock> CREATOR = new Creator<RawStock>() {
-        @Override
+        @SuppressWarnings({
+                "unchecked"
+        })
         public RawStock createFromParcel(Parcel in) {
             return new RawStock(in);
         }
 
-        @Override
         public RawStock[] newArray(int size) {
-            return new RawStock[size];
+            return (new RawStock[size]);
         }
+
     };
+
+    protected RawStock(Parcel in) {
+        this.id = ((String) in.readValue((String.class.getClassLoader())));
+        this.name = ((String) in.readValue((String.class.getClassLoader())));
+        this.quantity = ((String) in.readValue((String.class.getClassLoader())));
+        this.unit = ((String) in.readValue((String.class.getClassLoader())));
+        this.receivedDate = ((String) in.readValue((String.class.getClassLoader())));
+        this.color = ((String) in.readValue((String.class.getClassLoader())));
+        this.comment = ((String) in.readValue((String.class.getClassLoader())));
+        this.receivedBy = ((String) in.readValue((String.class.getClassLoader())));
+    }
+
+    public RawStock() {
+    }
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getQuantity() {
         return quantity;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public String getReceived_date() {
-        return received_date;
     }
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    @Override
-    public int hashCode() {
-        return 31 * 20 + id.hashCode();
+    public String getUnit() {
+        return unit;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-
-        if (obj == null || obj.getClass() != this.getClass())
-            return false;
-
-        RawStock rawStock = (RawStock) obj;
-
-        // comparing the state of argument with
-        // the state of 'this' Object.
-        return (rawStock.id.equals(this.id));
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    @Override
+    public String getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(String receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getReceivedBy() {
+        return receivedBy;
+    }
+
+    public void setReceivedBy(String receivedBy) {
+        this.receivedBy = receivedBy;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(id);
+        dest.writeValue(name);
+        dest.writeValue(quantity);
+        dest.writeValue(unit);
+        dest.writeValue(receivedDate);
+        dest.writeValue(color);
+        dest.writeValue(comment);
+        dest.writeValue(receivedBy);
+    }
+
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(quantity);
-        dest.writeString(unit);
-        dest.writeString(received_date);
-        dest.writeString(price);
-
     }
 
     public static class timeComparatorDesc implements Comparator<RawStock> {
         public int compare(RawStock chair1, RawStock chair2) {
             SimpleDateFormat readFormat = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
             try {
-                java.util.Date date1 = readFormat.parse(chair1.getReceived_date());
-                java.util.Date date2 = readFormat.parse(chair2.getReceived_date());
+                java.util.Date date1 = readFormat.parse(chair1.getReceivedDate());
+                java.util.Date date2 = readFormat.parse(chair2.getReceivedDate());
                 return date2.compareTo(date1);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -131,4 +159,7 @@ public class RawStock extends BaseModel implements Parcelable {
             }
         }
     }
+
 }
+
+

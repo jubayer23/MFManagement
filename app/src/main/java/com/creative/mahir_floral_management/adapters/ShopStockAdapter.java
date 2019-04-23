@@ -9,16 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.model.ShopStock;
+import com.creative.mahir_floral_management.model.SoldStock;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyViewHolder> {
+public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyViewHolder> implements Filterable {
 
     private List<ShopStock> shopStocks;
+    private List<ShopStock> originalList;
     private final OnItemClickListener listener;
     private final String buttonName;
     private boolean isSoldStock = false;
@@ -130,5 +135,46 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
 
     public interface OnItemClickListener {
         void onItemClick(ShopStock item);
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                shopStocks = (List<ShopStock>) results.values;
+                ShopStockAdapter.this.notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<ShopStock> filteredResults = null;
+                if (constraint.length() == 0) {
+                    filteredResults = originalList;
+                } else {
+                    filteredResults = getFilteredResults(constraint.toString().toLowerCase());
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredResults;
+
+                return results;
+            }
+        };
+    }
+
+    protected List<ShopStock> getFilteredResults(String constraint) {
+        List<ShopStock> results = new ArrayList<>();
+
+        for (ShopStock item : originalList) {
+
+            if (item.getProductName().toLowerCase().contains(constraint)) {
+                results.add(item);
+            }
+
+        }
+        return results;
     }
 }

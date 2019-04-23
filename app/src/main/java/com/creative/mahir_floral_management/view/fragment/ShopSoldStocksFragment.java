@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.adapters.ShopSoldStockAdapter;
 import com.creative.mahir_floral_management.adapters.ShopStockAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.databinding.FragmentShopSoldStocksBinding;
 import com.creative.mahir_floral_management.model.ShopStock;
-import com.creative.mahir_floral_management.viewmodel.SoldShopViewModel;
+import com.creative.mahir_floral_management.model.SoldStock;
+import com.creative.mahir_floral_management.viewmodel.ShopSoldStockViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +33,8 @@ public class ShopSoldStocksFragment extends BaseFragment {
     private FragmentShopSoldStocksBinding binding;
     private int shop_id = 0;
 
-    private List<ShopStock> shopStockList = new ArrayList<>(0);
-    private ShopStockAdapter adapter;
+    private List<SoldStock> soldStocks = new ArrayList<>(0);
+    private ShopSoldStockAdapter adapter;
 
     public ShopSoldStocksFragment() {
         // Required empty public constructor
@@ -54,7 +56,7 @@ public class ShopSoldStocksFragment extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shop_sold_stocks, container, false);
         binding.setLifecycleOwner(this);
 
-        binding.setViewModel(ViewModelProviders.of(this).get(SoldShopViewModel.class));
+        binding.setViewModel(ViewModelProviders.of(this).get(ShopSoldStockViewModel.class));
         binding.getViewModel().setShopID(shop_id);
         binding.getViewModel().setStringArray(getResources().getStringArray(R.array.year));
 
@@ -62,7 +64,7 @@ public class ShopSoldStocksFragment extends BaseFragment {
         binding.rvResults.setLayoutManager(mLayoutManager);
 
         //Set Adapter
-        adapter = new ShopStockAdapter(shopStockList, null);
+        adapter = new ShopSoldStockAdapter(soldStocks, null);
         adapter.setSoldStock(true);
         binding.rvResults.setAdapter(adapter);
 
@@ -73,16 +75,16 @@ public class ShopSoldStocksFragment extends BaseFragment {
             }
         });
 
-        binding.getViewModel().mutableLiveData.observe(this, new Observer<List<ShopStock>>() {
+        binding.getViewModel().mutableLiveData.observe(this, new Observer<List<SoldStock>>() {
             @Override
-            public void onChanged(@Nullable List<ShopStock> stockList) {
+            public void onChanged(@Nullable List<SoldStock> stockList) {
 
-                shopStockList.clear();
+                soldStocks.clear();
 
                 if (null == stockList || stockList.size() == 0) {
                     showLongToast("No record found");
                 } else
-                    shopStockList.addAll(stockList);
+                    soldStocks.addAll(stockList);
 
                 //Notify the adapter
                 adapter.notifyDataSetChanged();
@@ -99,6 +101,14 @@ public class ShopSoldStocksFragment extends BaseFragment {
                 else
                     dismissProgressDialog();
 
+            }
+        });
+
+        binding.getViewModel().searchText.observe(this, new Observer<CharSequence>() {
+            @Override
+            public void onChanged(@Nullable CharSequence charSequence) {
+
+                adapter.getFilter().filter(charSequence);
             }
         });
 

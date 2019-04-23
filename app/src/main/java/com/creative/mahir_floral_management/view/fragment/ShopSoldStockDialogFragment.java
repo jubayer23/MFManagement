@@ -14,19 +14,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.databinding.FragmentSoldstockBinding;
+import com.creative.mahir_floral_management.databinding.FragmentDialogSoldStockBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
-import com.creative.mahir_floral_management.viewmodel.ShopSoldStockViewModel;
+import com.creative.mahir_floral_management.viewmodel.SoldStockDialogViewModel;
 
 import java.util.Locale;
 
-public class SoldShopStockDialogFragment extends DialogFragment {
+public class ShopSoldStockDialogFragment extends BaseDialogFragment {
 
-    private FragmentSoldstockBinding binding;
+    private FragmentDialogSoldStockBinding binding;
     private ShopStock shopStock;
 
-    private ProgressDialog progressDialog;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,10 +44,10 @@ public class SoldShopStockDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_soldstock, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_sold_stock, container, false);
         binding.setLifecycleOwner(this);
 
-        binding.setViewModel(ViewModelProviders.of(this).get(ShopSoldStockViewModel.class));
+        binding.setViewModel(ViewModelProviders.of(this).get(SoldStockDialogViewModel.class));
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,32 +141,6 @@ public class SoldShopStockDialogFragment extends DialogFragment {
 
     }
 
-    protected void showLongToast(int msgID, String msg) {
-        Toast.makeText(getContext(), (0 == msgID) ? msg : getString(msgID), Toast.LENGTH_LONG).show();
-    }
 
-    public void showProgressDialog(String message, boolean isIntermidiate, boolean isCancelable) {
-        /**/
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(getActivity());
-        }
-        if (progressDialog.isShowing()) {
-            progressDialog.setMessage(message);
-            return;
-        }
-        progressDialog.setIndeterminate(isIntermidiate);
-        progressDialog.setCancelable(isCancelable);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-    }
-
-    public void dismissProgressDialog() {
-        if (progressDialog == null) {
-            return;
-        }
-        if (progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-    }
 
 }

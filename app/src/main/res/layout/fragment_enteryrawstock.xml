@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.creative.mahir_floral_management.viewmodel.EntryRawStockViewModel" />
+            type="com.creative.mahir_floral_management.viewmodel.RawStockEntryViewModel" />
     </data>
 
     <ScrollView

@@ -8,6 +8,7 @@ import android.util.Log;
 import com.creative.mahir_floral_management.appdata.remote.ShopStockAPI;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
+import com.creative.mahir_floral_management.model.SoldStock;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,6 +42,7 @@ public class ShopIncomingViewModel extends ViewModel {
 
     public MutableLiveData<Integer> selectedMonth = new MutableLiveData<>();
     public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
+    public MutableLiveData<CharSequence> searchText = new MutableLiveData<>();
 
     public ShopIncomingViewModel() {
 
@@ -102,9 +104,7 @@ public class ShopIncomingViewModel extends ViewModel {
         return 0;
     }
 
-    public void afterUserNameChange(CharSequence s) {
-        searchList(s.toString().toLowerCase());
-    }
+
 
     private boolean validationChecked() {
 
@@ -134,7 +134,7 @@ public class ShopIncomingViewModel extends ViewModel {
 
                             records.clear();
                             records.addAll(stockList);
-                            sortList();
+                            Collections.sort(records, new ShopStock.timeComparatorOnDeliveryDateDesc());
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -158,33 +158,7 @@ public class ShopIncomingViewModel extends ViewModel {
         }
     }
 
-    private void searchList(String searchTxt) {
 
-        if (records.size() == 0) return;
-
-        if (TextUtils.isEmpty(searchTxt)) {
-
-            mutableLiveData.postValue(records);
-
-            return;
-        }
-
-        //Search for name
-        final List<ShopStock> searchRecords = new ArrayList<>(0);
-        String stockName;
-
-        for (ShopStock rawStock : records) {
-
-            stockName = rawStock.getProductName().toLowerCase();
-
-            if (stockName.equalsIgnoreCase(searchTxt) || stockName.contains(searchTxt))
-                searchRecords.add(rawStock);
-
-        }
-
-        mutableLiveData.postValue(searchRecords);
-
-    }
 
     public void markReceive(final ShopStock item) {
 
@@ -227,23 +201,7 @@ public class ShopIncomingViewModel extends ViewModel {
 
     }
 
-    private void sortList() {
 
-        Collections.sort(records, new Comparator<ShopStock>() {
-
-            DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-            @Override
-            public int compare(ShopStock o1, ShopStock o2) {
-                try {
-                    return f.parse(o2.getDeliveryDate()).compareTo(f.parse(o1.getDeliveryDate()));
-                } catch (ParseException e) {
-                    throw new IllegalArgumentException(e);
-                }
-            }
-        });
-
-    }
 
     @Override
     protected void onCleared() {

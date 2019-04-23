@@ -1,39 +1,33 @@
 package com.creative.mahir_floral_management.view.fragment;
 
-import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.CustomSpinnerAdapter;
 import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.databinding.FragmentDeliverreadystockBinding;
+import com.creative.mahir_floral_management.databinding.FragmentDialogDeliverreadystockBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
-import com.creative.mahir_floral_management.model.RawStock;
 import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.model.ShopInfo;
-import com.creative.mahir_floral_management.viewmodel.DeliverReadyStockViewModel;
+import com.creative.mahir_floral_management.viewmodel.ReadyStockDeliverViewModel;
 
 import java.util.List;
 import java.util.Locale;
 
-public class DeliverReadyStockDialogFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
+public class ReadyStockDeliverDialogFragment extends BaseDialogFragment implements AdapterView.OnItemSelectedListener {
 
-    private FragmentDeliverreadystockBinding binding;
+    private FragmentDialogDeliverreadystockBinding binding;
     private ReadyStock stockData;
     private List<ShopInfo.Shop> shops;
-
-    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,10 +45,10 @@ public class DeliverReadyStockDialogFragment extends DialogFragment implements A
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_deliverreadystock, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_deliverreadystock, container, false);
         binding.setLifecycleOwner(this);
 
-        binding.setViewModel(ViewModelProviders.of(this).get(DeliverReadyStockViewModel.class));
+        binding.setViewModel(ViewModelProviders.of(this).get(ReadyStockDeliverViewModel.class));
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,32 +165,6 @@ public class DeliverReadyStockDialogFragment extends DialogFragment implements A
 
     }
 
-    protected void showLongToast(int msgID, String msg) {
-        Toast.makeText(getContext(), (0 == msgID) ? msg : getString(msgID), Toast.LENGTH_LONG).show();
-    }
 
-    public void showProgressDialog(String message, boolean isIntermidiate, boolean isCancelable) {
-        /**/
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(getActivity());
-        }
-        if (progressDialog.isShowing()) {
-            progressDialog.setMessage(message);
-            return;
-        }
-        progressDialog.setIndeterminate(isIntermidiate);
-        progressDialog.setCancelable(isCancelable);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-    }
-
-    public void dismissProgressDialog() {
-        if (progressDialog == null) {
-            return;
-        }
-        if (progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-    }
 
 }

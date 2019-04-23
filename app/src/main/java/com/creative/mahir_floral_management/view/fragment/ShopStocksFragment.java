@@ -4,7 +4,6 @@ package com.creative.mahir_floral_management.view.fragment;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,7 +24,6 @@ import com.creative.mahir_floral_management.viewmodel.ShopStockViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,6 +105,14 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
             }
         });
 
+        binding.getViewModel().searchText.observe(this, new Observer<CharSequence>() {
+            @Override
+            public void onChanged(@Nullable CharSequence charSequence) {
+
+                adapter.getFilter().filter(charSequence);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -149,7 +155,7 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
 
     private void showDeliverDialog(final ShopStock item) {
 
-        SoldShopStockDialogFragment editNameDialog = new SoldShopStockDialogFragment();
+        ShopSoldStockDialogFragment editNameDialog = new ShopSoldStockDialogFragment();
 
         Bundle data = new Bundle();
         data.putParcelable("shopStockData", item);

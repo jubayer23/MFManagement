@@ -7,7 +7,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.BaseModel;
+import com.creative.mahir_floral_management.model.IncomingShopStocks;
 import com.creative.mahir_floral_management.model.ShopStock;
+import com.creative.mahir_floral_management.model.ShopStocks;
+import com.creative.mahir_floral_management.model.SoldStock;
+import com.creative.mahir_floral_management.model.SoldStocks;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
@@ -42,28 +46,13 @@ public class ShopStockAPI {
 
                         try {
 
-                            List<ShopStock> data;
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            if (jsonObject.getBoolean("status")) {
-                                Type listType = new TypeToken<ArrayList<ShopStock>>() {
-                                }.getType();
-                                data = MydApplication.gson.fromJson(jsonObject.getJSONArray("incomingShopStocks").toString(), listType);
-                                observer.onNext(data);
-                            } else {
-
-                                String msg;
-
-                                if (jsonObject.has("errors"))
-                                    if (jsonObject.getJSONObject("errors").has("year")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("year");
-                                    } else
-                                        msg = jsonObject.getJSONObject("errors").getString("month");
-                                else
-                                    msg = jsonObject.getString("message");
-
-                                observer.onError(new Throwable(msg));
+                            IncomingShopStocks incomingShopStocks = MydApplication.gson.fromJson(response, IncomingShopStocks.class);
+                            if(incomingShopStocks.getStatus()){
+                                observer.onNext(incomingShopStocks.getIncomingShopStocks());
+                            }else{
+                                observer.onError(new Throwable(incomingShopStocks.getMessage()));
                             }
+
 
                         } catch (Exception e) {
                             observer.onError(e);
@@ -197,28 +186,14 @@ public class ShopStockAPI {
 
                         try {
 
-                            List<ShopStock> data;
-                            JSONObject jsonObject = new JSONObject(response);
 
-                            if (jsonObject.getBoolean("status")) {
-                                Type listType = new TypeToken<ArrayList<ShopStock>>() {
-                                }.getType();
-                                data = MydApplication.gson.fromJson(jsonObject.getJSONArray("shopStocks").toString(), listType);
-                                observer.onNext(data);
-                            } else {
-
-                                String msg;
-
-                                if (jsonObject.has("errors"))
-                                    if (jsonObject.getJSONObject("errors").has("year")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("year");
-                                    } else
-                                        msg = jsonObject.getJSONObject("errors").getString("month");
-                                else
-                                    msg = jsonObject.getString("message");
-
-                                observer.onError(new Throwable(msg));
+                            ShopStocks shopStocks = MydApplication.gson.fromJson(response, ShopStocks.class);
+                            if(shopStocks.getStatus()){
+                                observer.onNext(shopStocks.getShopStocks());
+                            }else{
+                                observer.onError(new Throwable(shopStocks.getMessage()));
                             }
+
 
                         } catch (Exception e) {
                             observer.onError(e);
@@ -277,25 +252,9 @@ public class ShopStockAPI {
 
                         try {
 
-                            BaseModel baseModel = new BaseModel();
+                            BaseModel baseModel = MydApplication.gson.fromJson(response, BaseModel.class);
+                            observer.onNext(baseModel);
 
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            if (jsonObject.getBoolean("status")) {
-
-                                baseModel.setStatus(true);
-                                baseModel.setMessage(jsonObject.getString("message"));
-                                observer.onNext(baseModel);
-
-                            } else {
-
-                                String msg = "Some error occur";
-
-                                if (jsonObject.has("message"))
-                                    msg = jsonObject.getString("message");
-
-                                observer.onError(new Throwable(msg));
-                            }
 
                         } catch (Exception e) {
                             observer.onError(e);
@@ -335,8 +294,8 @@ public class ShopStockAPI {
 
     }
 
-    public void getSoldShopStock(int month, String year, int filter_by_shop_id,
-                                     final Observer<List<ShopStock>> observer) {
+    public void getShopSoldStocks(int month, String year, int filter_by_shop_id,
+                                  final Observer<List<SoldStock>> observer) {
 
         final JSONObject body = new JSONObject();
         try {
@@ -354,28 +313,15 @@ public class ShopStockAPI {
 
                         try {
 
-                            List<ShopStock> data;
-                            JSONObject jsonObject = new JSONObject(response);
+                            SoldStocks soldStocks = MydApplication.gson.fromJson(response, SoldStocks.class);
 
-                            if (jsonObject.getBoolean("status")) {
-                                Type listType = new TypeToken<ArrayList<ShopStock>>() {
-                                }.getType();
-                                data = MydApplication.gson.fromJson(jsonObject.getJSONArray("soldStocks").toString(), listType);
-                                observer.onNext(data);
-                            } else {
-
-                                String msg;
-
-                                if (jsonObject.has("errors"))
-                                    if (jsonObject.getJSONObject("errors").has("year")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("year");
-                                    } else
-                                        msg = jsonObject.getJSONObject("errors").getString("month");
-                                else
-                                    msg = jsonObject.getString("message");
-
-                                observer.onError(new Throwable(msg));
+                            if(soldStocks.getStatus()){
+                                observer.onNext(soldStocks.getSoldStocks());
+                            }else{
+                                observer.onError(new Throwable(soldStocks.getMessage()));
                             }
+
+
 
                         } catch (Exception e) {
                             observer.onError(e);

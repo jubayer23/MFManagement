@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
 import com.creative.mahir_floral_management.appdata.remote.ReadyStockAPI;
 import com.creative.mahir_floral_management.model.RawStock;
@@ -39,16 +40,29 @@ public class ReadyStockViewModel extends ViewModel {
 
     public MutableLiveData<Integer> selectedMonth = new MutableLiveData<>();
     public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
+    public MutableLiveData<CharSequence> searchText = new MutableLiveData<>();
+
+
+    private int last_selected_month = 0;
+    private int last_selected_year = 0;
+    private boolean isFirstLoad = true;
 
     public ReadyStockViewModel() {
 
-        //Load current month and year
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+        int year = CommonMethods.getCurrentYear();
+        int month = CommonMethods.getCurrentMonth();
 
-        selectedMonth.setValue(month + 1);
-        selectedYear.setValue(getYearPosition(year));
+
+        last_selected_month = month + 1;
+        last_selected_year = getYearPosition(year);
+
+        selectedMonth.setValue(last_selected_month);
+        selectedYear.setValue(last_selected_year);
+
+        if (isFirstLoad) {
+            isFirstLoad = false;
+            getReadyStocks();
+        }
 
     }
 
@@ -58,8 +72,13 @@ public class ReadyStockViewModel extends ViewModel {
     }
 
     public void setSelectedMonth(int value) {
+        // Log.d("DEBUG", "its called month");
         selectedMonth.setValue(value);
-        getReadyStocks();
+        if (last_selected_month != value) {
+            last_selected_month = value;
+            getReadyStocks();
+        }
+
     }
 
     public int getSelectedYear() {
@@ -68,8 +87,13 @@ public class ReadyStockViewModel extends ViewModel {
     }
 
     public void setSelectedYear(int value) {
+        //Log.d("DEBUG", "its called year");
         selectedYear.setValue(value);
-        getReadyStocks();
+        if (last_selected_year != value) {
+            last_selected_year = value;
+            getReadyStocks();
+        }
+
     }
 
     public void setStringArray(String[] stringArray) {
@@ -96,9 +120,7 @@ public class ReadyStockViewModel extends ViewModel {
         return 0;
     }
 
-    public void afterUserNameChange(CharSequence s) {
-        searchList(s.toString().toLowerCase());
-    }
+
 
     private boolean validationChecked() {
 
@@ -128,7 +150,7 @@ public class ReadyStockViewModel extends ViewModel {
 
                             records.clear();
                             records.addAll(stockList);
-                            sortList();
+                            Collections.sort(records, new ReadyStock.timeComparatorDesc());
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -152,33 +174,7 @@ public class ReadyStockViewModel extends ViewModel {
         }
     }
 
-    private void searchList(String searchTxt) {
 
-        if (records.size() == 0) return;
-
-        if (TextUtils.isEmpty(searchTxt)) {
-
-            mutableLiveData.postValue(records);
-
-            return;
-        }
-
-        //Search for name
-        final List<ReadyStock> searchRecords = new ArrayList<>(0);
-        String stockName;
-
-        for (ReadyStock readyStock : records) {
-
-            stockName = readyStock.getName().toLowerCase();
-
-            if (stockName.equalsIgnoreCase(searchTxt) || stockName.contains(searchTxt))
-                searchRecords.add(readyStock);
-
-        }
-
-        mutableLiveData.postValue(searchRecords);
-
-    }
 
     public void requestToRefresh() {
 
@@ -192,23 +188,7 @@ public class ReadyStockViewModel extends ViewModel {
 
     }
 
-    private void sortList() {
 
-        Collections.sort(records, new Comparator<ReadyStock>() {
-
-            DateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-            @Override
-            public int compare(ReadyStock o1, ReadyStock o2) {
-                try {
-                    return f.parse(o2.getReceivedDate()).compareTo(f.parse(o1.getReceivedDate()));
-                } catch (ParseException e) {
-                    throw new IllegalArgumentException(e);
-                }
-            }
-        });
-
-    }
 
     @Override
     protected void onCleared() {

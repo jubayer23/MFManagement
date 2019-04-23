@@ -66,5 +66,18 @@
             android:text="Check In/Out"
             android:textStyle="bold" />
 
+
+
+        <Button
+            android:id="@+id/btn_logout"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+            android:text="Logout"
+            android:textStyle="bold" />
     </LinearLayout>
 </layout>

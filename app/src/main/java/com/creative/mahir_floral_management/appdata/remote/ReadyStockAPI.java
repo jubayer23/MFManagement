@@ -46,14 +46,13 @@ public class ReadyStockAPI {
                     public void onResponse(String response) {
 
 
-
                         try {
 
                             ReadyStocks readyStocks = MydApplication.gson.fromJson(response, ReadyStocks.class);
 
-                            if(readyStocks.getStatus()){
+                            if (readyStocks.getStatus()) {
                                 observer.onNext(readyStocks.getReadyStocks());
-                            }else{
+                            } else {
                                 observer.onError(new Throwable(readyStocks.getMessage()));
                             }
 
@@ -188,7 +187,7 @@ public class ReadyStockAPI {
     }
 
     public void deliverReadyStock(String productID, int quantity, String shopID, String comment,
-                               final Observer<BaseModel> observer) {
+                                  final Observer<BaseModel> observer) {
 
         final JSONObject body = new JSONObject();
         try {
@@ -207,36 +206,9 @@ public class ReadyStockAPI {
 
                         try {
 
-                            BaseModel baseModel = new BaseModel();
+                            BaseModel baseModel = MydApplication.gson.fromJson(response, BaseModel.class);
 
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            if (jsonObject.getBoolean("status")) {
-
-                                baseModel.setStatus(true);
-                                baseModel.setMessage(jsonObject.getString("message"));
-                                observer.onNext(baseModel);
-
-                            } else {
-
-                                String msg;
-
-                                if (jsonObject.has("errors"))
-                                    if (jsonObject.getJSONObject("errors").has("product_name")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("product_name");
-                                    } else if (jsonObject.getJSONObject("errors").has("quantity")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("quantity");
-                                    } else if (jsonObject.getJSONObject("errors").has("unit")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("unit");
-                                    } else if (jsonObject.getJSONObject("errors").has("color")) {
-                                        msg = jsonObject.getJSONObject("errors").getString("color");
-                                    } else
-                                        msg = jsonObject.getJSONObject("errors").getString("comment");
-                                else
-                                    msg = jsonObject.getString("message");
-
-                                observer.onError(new Throwable(msg));
-                            }
+                            observer.onNext(baseModel);
 
                         } catch (Exception e) {
                             observer.onError(e);

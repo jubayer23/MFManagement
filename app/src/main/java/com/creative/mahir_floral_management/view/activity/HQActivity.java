@@ -27,7 +27,7 @@ public class HQActivity extends BaseActivity {
 
         activityHqBinding = DataBindingUtil.setContentView(HQActivity.this, R.layout.activity_hq);
 
-        initToolbar();
+        initToolbar("HQ", true);
 
         if (savedInstanceState == null) {
 

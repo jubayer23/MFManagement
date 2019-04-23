@@ -42,7 +42,6 @@ public class RawStockViewModel extends ViewModel {
 
     private int last_selected_month = 0;
     private int last_selected_year = 0;
-
     private boolean isFirstLoad = true;
 
     public RawStockViewModel() {

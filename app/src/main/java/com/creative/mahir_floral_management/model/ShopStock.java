@@ -6,7 +6,11 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ShopStock extends BaseModel implements Parcelable {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+
+public class ShopStock implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -204,5 +208,34 @@ public class ShopStock extends BaseModel implements Parcelable {
         dest.writeString(receiveDate);
         dest.writeString(deliverDate);
         dest.writeString(soldDate);
+    }
+
+    public static class timeComparatorOnDeliveryDateDesc implements Comparator<ShopStock> {
+        public int compare(ShopStock chair1, ShopStock chair2) {
+            SimpleDateFormat readFormat = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
+            try {
+                java.util.Date date1 = readFormat.parse(chair1.getDeliverDate());
+                java.util.Date date2 = readFormat.parse(chair2.getDeliverDate());
+                return date2.compareTo(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+    }
+
+
+    public static class timeComparatorOnReceiveDateDesc implements Comparator<ShopStock> {
+        public int compare(ShopStock chair1, ShopStock chair2) {
+            SimpleDateFormat readFormat = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
+            try {
+                java.util.Date date1 = readFormat.parse(chair1.getReceived_date());
+                java.util.Date date2 = readFormat.parse(chair2.getReceived_date());
+                return date2.compareTo(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
     }
 }
