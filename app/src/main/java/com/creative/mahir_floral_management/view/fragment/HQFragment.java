@@ -13,16 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentHqBinding;
+import com.creative.mahir_floral_management.view.activity.AdminMenuActivity;
+import com.creative.mahir_floral_management.view.activity.DemandedStocksActivity;
 import com.creative.mahir_floral_management.view.activity.RawStockActivity;
 import com.creative.mahir_floral_management.view.activity.ReadyStockActivity;
 import com.creative.mahir_floral_management.view.activity.TimeSheetActivity;
+import com.creative.mahir_floral_management.view.alertbanner.AdminPasswordCheckDialog;
 import com.creative.mahir_floral_management.viewmodel.HQFragViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HQFragment extends Fragment {
+public class HQFragment extends BaseFragment {
 
     private FragmentHqBinding fragmentHqBinding;
     private HQFragViewModel hqFragViewModel;
@@ -63,7 +68,20 @@ public class HQFragment extends Fragment {
                 int id = view.getId();
                 if(id == fragmentHqBinding.btnAdmin.getId()){
 
-                    startActivity(new Intent(getActivity(), TimeSheetActivity.class));
+                    if(!MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole().equals(GlobalAppAccess.ROLE_ADMIN)){
+                        showLongToast("Only admin can access this link");
+                        return;
+                    }
+
+                    AdminPasswordCheckDialog dialog = new AdminPasswordCheckDialog();
+                    dialog.showNotifyDialog(getActivity(), new AdminPasswordCheckDialog.callBack() {
+                        @Override
+                        public void success() {
+                            startActivity(new Intent(getActivity(), AdminMenuActivity.class));
+                        }
+                    });
+
+
 
                 }else if(id == fragmentHqBinding.btnRawStock.getId()){
 
@@ -72,6 +90,9 @@ public class HQFragment extends Fragment {
                 }else if(id == fragmentHqBinding.btnReadyStock.getId()){
 
                     startActivity(new Intent(getActivity(), ReadyStockActivity.class));
+                }else if(id == fragmentHqBinding.btnDemandedStocks.getId()){
+
+                    startActivity(new Intent(getActivity(), DemandedStocksActivity.class));
                 }
             }
         });

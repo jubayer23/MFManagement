@@ -21,7 +21,7 @@ import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.databinding.ActivityLoginBinding;
 import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
-import com.creative.mahir_floral_management.model.ShopInfo;
+import com.creative.mahir_floral_management.model.Shops;
 import com.creative.mahir_floral_management.model.UserInfo;
 import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.LoginViewModel;
@@ -39,7 +39,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (MydApplication.getInstance().getPrefManger().getUserInfo() != null) {
+        if (!MydApplication.getInstance().getPrefManger().getAccessToekn().isEmpty()) {
+
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         }
@@ -157,14 +158,14 @@ public class LoginActivity extends BaseActivity {
 
 
     private void getRemoteShopInfo() {
-        loginViewModel.getRemoteShopInfo().observe(this, new ApiObserver<>(new ApiObserver.ChangeListener<ShopInfo>() {
+        loginViewModel.getRemoteShopInfo().observe(this, new ApiObserver<>(new ApiObserver.ChangeListener<Shops>() {
             @Override
-            public void onSuccess(ShopInfo shopInfo) {
+            public void onSuccess(Shops shops) {
 
                 dismissProgressDialog();
 
-                if (shopInfo.getStatus()) {
-                    MydApplication.getInstance().getPrefManger().setShops(shopInfo.getShops());
+                if (shops.getStatus()) {
+                    MydApplication.getInstance().getPrefManger().setShops(shops.getShops());
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     //Log.d("DEBUG",userInfo.getName());
                     finish();

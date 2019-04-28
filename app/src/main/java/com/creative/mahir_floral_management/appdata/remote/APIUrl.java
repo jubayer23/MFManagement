@@ -4,6 +4,7 @@ public class APIUrl {
 
     //public static String BaseUrl = " http://2dcc51a6.ngrok.io/mahir_floral_api_project";
     public static String BaseUrl = "https://mahirfloralevents.com/mahir_floral_api_project";
+    //public static String BaseUrl = "http://10.0.2.2/mahir_floral_api_project";
 
     //public static String BaseUrl = "none";
     public static final String URL_LOGIN = BaseUrl + "/staff/Login.php?";
@@ -29,5 +30,12 @@ public class APIUrl {
     public static final String URL_MARK_SHOP_STOCK_RECEIVED = BaseUrl + "/shopstocker/entry_receive_stock.php";
     public static final String URL_ENTRY_SHOP_STOCK = BaseUrl + "/shopstocker/entry_sold_stock.php";
     public static final String URL_SOLD_SHOP_STOCK = BaseUrl + "/shopstocker/get_sold_stocks.php";
+
+
+    public static final String URL_SHOP_MAKE_DEMAND = BaseUrl + "/shopstocker/make_demand.php";
+    public static final String URL_COMPLETE_DEMAND = BaseUrl + "/distributor/complete_demand.php";
+    public static final String URL_GET_DEMANDED_STOCKS = BaseUrl + "/distributor/get_demanded_stocks.php";
+
+    public static final String URL_STAFF_REGISTRATION = BaseUrl + "/admin/staff_registration.php";
 
 }

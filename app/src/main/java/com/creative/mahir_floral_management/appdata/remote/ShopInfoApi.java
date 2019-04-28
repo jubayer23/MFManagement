@@ -8,21 +8,20 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.model.ShopInfo;
-import com.creative.mahir_floral_management.model.UserInfo;
+import com.creative.mahir_floral_management.model.Shops;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ShopInfoApi {
 
-    private MutableLiveData<DataWrapper<ShopInfo>> mutableLiveData;
+    private MutableLiveData<DataWrapper<Shops>> mutableLiveData;
 
-    public MutableLiveData<DataWrapper<ShopInfo>> getRemoteShopInfo() {
+    public MutableLiveData<DataWrapper<Shops>> getRemoteShopInfo() {
 
         mutableLiveData = new MutableLiveData<>();
 
-        final DataWrapper<ShopInfo> dataWrapper = new DataWrapper<>();
+        final DataWrapper<Shops> dataWrapper = new DataWrapper<>();
 
 
        /* final JSONObject body = new JSONObject();
@@ -41,7 +40,7 @@ public class ShopInfoApi {
 
                         //Log.d("DEBUG",response);
 
-                        ShopInfo shopInfo = MydApplication.gson.fromJson(response, ShopInfo.class);
+                        Shops shopInfo = MydApplication.gson.fromJson(response, Shops.class);
                         dataWrapper.setData(shopInfo);
                         //dataWrapper.setData(response);
                         mutableLiveData.setValue(dataWrapper);

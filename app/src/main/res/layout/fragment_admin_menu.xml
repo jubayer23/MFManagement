@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.creative.mahir_floral_management.viewmodel.AdminMenuFragViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.fragment.HQFragment">
+
+        <Button
+            android:id="@+id/btn_time_sheet"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> viewModel.onClick(v)}"
+            android:text="Time Sheet"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_staff_registration"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> viewModel.onClick(v)}"
+            android:text="Staff Registration"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+</layout>

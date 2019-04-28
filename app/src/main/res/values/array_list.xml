@@ -6,6 +6,12 @@
         <item>2021</item>
     </string-array>
 
+    <string-array name="priority">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
 
     <string-array name="week">
         <item>1</item>

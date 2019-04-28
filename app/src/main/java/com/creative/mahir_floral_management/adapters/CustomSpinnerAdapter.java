@@ -10,15 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.model.ShopInfo;
+import com.creative.mahir_floral_management.model.Shop;
 
 import java.util.List;
 
-public class CustomSpinnerAdapter extends ArrayAdapter<ShopInfo.Shop> {
+public class CustomSpinnerAdapter extends ArrayAdapter<Shop> {
 
     LayoutInflater flater;
 
-    public CustomSpinnerAdapter(Context context, int resouceId, int textviewId, List<ShopInfo.Shop> list) {
+    public CustomSpinnerAdapter(Context context, int resouceId, int textviewId, List<Shop> list) {
 
         super(context, resouceId, textviewId, list);
 
@@ -42,7 +42,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<ShopInfo.Shop> {
 
     private View rowview(View convertView, int position) {
 
-        ShopInfo.Shop rowItem = getItem(position);
+        Shop rowItem = getItem(position);
 
         MyViewHolder holder;
         View rowview = convertView;

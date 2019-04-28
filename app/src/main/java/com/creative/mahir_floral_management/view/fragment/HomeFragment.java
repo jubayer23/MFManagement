@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentHomeBinding;
 import com.creative.mahir_floral_management.view.activity.CheckInOutActivity;
 import com.creative.mahir_floral_management.view.activity.HQActivity;
@@ -81,6 +82,8 @@ public class HomeFragment extends Fragment {
                 }else if(id == fragmentHomeBinding.btnCheckInOut.getId()){
                     startActivity(new Intent(getActivity(), CheckInOutActivity.class));
                 }else if(id == fragmentHomeBinding.btnLogout.getId()){
+                    MydApplication.getInstance().getPrefManger().setUserLoginInfo(null);
+                    MydApplication.getInstance().getPrefManger().setAccessToekn("");
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
                 }

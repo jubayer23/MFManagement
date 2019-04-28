@@ -10,7 +10,7 @@ import com.creative.mahir_floral_management.appdata.remote.ShopInfoApi;
 import com.creative.mahir_floral_management.appdata.remote.UserInfoApi;
 import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
-import com.creative.mahir_floral_management.model.ShopInfo;
+import com.creative.mahir_floral_management.model.Shops;
 import com.creative.mahir_floral_management.model.UserInfo;
 
 public class LoginViewModel extends ViewModel {
@@ -18,7 +18,7 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> password = new MutableLiveData<>();
 
     private MutableLiveData<LoginUser> userMutableLiveData;
-    private MutableLiveData<DataWrapper<ShopInfo>> shopInfoMutableLiveData;
+    private MutableLiveData<DataWrapper<Shops>> shopInfoMutableLiveData;
 
     private AuthorizationApi authorizationApi;
     private UserInfoApi userInfoApi;
@@ -61,7 +61,7 @@ public class LoginViewModel extends ViewModel {
     }
 
 
-    public MutableLiveData<DataWrapper<ShopInfo>> getRemoteShopInfo(){
+    public MutableLiveData<DataWrapper<Shops>> getRemoteShopInfo(){
         if(shopInfoApi == null){
             shopInfoApi = new ShopInfoApi();
         }

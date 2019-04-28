@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.creative.mahir_floral_management">
-
     <!-- VERY IMPORTANT! Don't forget this permission, or in-app billing won't work. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required to show current location -->
@@ -16,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".view.activity.DemandedStocksActivity"></activity>
+        <activity android:name=".view.activity.ShopAvailableReadyStockActivity" />
         <activity
             android:name=".view.activity.ShopSoldStocksActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -26,18 +27,33 @@
             android:name=".view.activity.ShopActivity"
             android:label="@string/title_activity_shop"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
-        <activity android:name=".view.activity.TimeSheetActivity" />
-        <activity android:name=".view.activity.CheckInOutActivity" />
-        <activity android:name=".view.activity.HQActivity" />
-        <activity android:name=".view.activity.HomeActivity" />
-        <activity android:name=".view.activity.LoginActivity">
+        <activity
+            android:name=".view.activity.TimeSheetActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.CheckInOutActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.HQActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.AdminMenuActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.StaffRegistrationActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.HomeActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".view.activity.RawStockActivity"
             android:label="@string/name_raw_screen"
@@ -54,11 +70,9 @@
             android:name=".view.activity.EntryReadyStockActivity"
             android:label="@string/name_ready_entry_screen"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".view.activity.ShopIncomingStocksActivity"
             android:windowSoftInputMode="stateHidden" />
-
     </application>
 
 </manifest>

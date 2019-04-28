@@ -13,6 +13,7 @@
     <string name="search">Search</string>
     <string name="item_name">Item Name</string>
     <string name="quantity">Quantity</string>
+    <string name="demanded_quantity">Demanded Quantity</string>
     <string name="receive_date">Receive Date</string>
     <string name="column">:</string>
     <string name="product_name">Product Name</string>
@@ -37,7 +38,16 @@
     <string name="price">Price</string>
     <string name="mark_as_received">Mark\nAs\nReceived</string>
     <string name="title_mark_as_received">Mark As Received</string>
+    <string name="title_mark_as_completed">Mark As Completed</string>
     <string name="msg_mark_as_received">Please confirm that you received the stock for %1s</string>
+    <string name="msg_mark_as_completed">Please confirm that you delivered the stock to %1s</string>
     <string name="sold_date">Sold Date</string>
+    <string name="demanded_shop">Demanded Shop</string>
+    <string name="priority">Priority</string>
+    <string name="demanded_date">Demanded Date</string>
+    <string name="staff_name">Staff Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
 
 </resources>

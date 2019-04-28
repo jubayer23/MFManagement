@@ -50,23 +50,6 @@ public class AuthorizationApi {
                         public void onResponse(String response) {
                             //Log.d("DEBUG",response);
 
-
-                            /*try {
-                                JSONObject jsonObject = new JSONObject(response);
-
-                                boolean status = jsonObject.getBoolean("status");
-
-                                if(status){
-                                    dataWrapper.setData(jsonObject.getString("access_token"));
-                                }else{
-                                    dataWrapper.setErrorMessage(jsonObject.getString("message"));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                dataWrapper.setErrorMessage("Invalid server response.");
-                            }*/
-
-
                             Authorization authorization = MydApplication.gson.fromJson(response, Authorization.class);
                             dataWrapper.setData(authorization);
                             mutableLiveData.setValue(dataWrapper);

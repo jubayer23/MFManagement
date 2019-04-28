@@ -9,25 +9,22 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.adapters.CustomSpinnerAdapter;
-import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.databinding.FragmentDialogDeliverreadystockBinding;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.databinding.FragmentDialogMakeDemandBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ReadyStock;
-import com.creative.mahir_floral_management.model.Shop;
-import com.creative.mahir_floral_management.viewmodel.ReadyStockDeliverViewModel;
+import com.creative.mahir_floral_management.viewmodel.MakeDemandViewModel;
 
-import java.util.List;
 import java.util.Locale;
 
-public class ReadyStockDeliverDialogFragment extends BaseDialogFragment implements AdapterView.OnItemSelectedListener {
+public class MakeDemandDialogFragment extends BaseDialogFragment {
 
-    private FragmentDialogDeliverreadystockBinding binding;
+    private FragmentDialogMakeDemandBinding binding;
     private ReadyStock stockData;
-    private List<Shop> shops;
+    private int shop_id = 0;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +33,7 @@ public class ReadyStockDeliverDialogFragment extends BaseDialogFragment implemen
         if (getArguments() != null) {
 
             stockData = getArguments().getParcelable("stockData");
+            shop_id = getArguments().getInt(GlobalAppAccess.KEY_SHOP_ID);
 
         }
 
@@ -45,10 +43,15 @@ public class ReadyStockDeliverDialogFragment extends BaseDialogFragment implemen
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_deliverreadystock, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dialog_make_demand, container, false);
         binding.setLifecycleOwner(this);
 
-        binding.setViewModel(ViewModelProviders.of(this).get(ReadyStockDeliverViewModel.class));
+        binding.setViewModel(ViewModelProviders.of(this).get(MakeDemandViewModel.class));
+
+
+        binding.getViewModel().setPriorityStringArray(getResources().getStringArray(R.array.priority));
+
+
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,13 +114,12 @@ public class ReadyStockDeliverDialogFragment extends BaseDialogFragment implemen
 
                     dismiss();
 
-                    ReadyStockFragment stockFragment = ((ReadyStockFragment) getTargetFragment());
-                    if (null != stockFragment) {
+                    ShopAvailableReadyStockFragment shopAvailableReadyStockFragment = ((ShopAvailableReadyStockFragment) getTargetFragment());
+                    if (null != shopAvailableReadyStockFragment) {
 
-                        int qtyDelivered = binding.getViewModel().getProductQuantityDelivered();
-                        int totalQty = Integer.parseInt(stockData.getQuantity());
-
-                        stockFragment.refreshScreen(totalQty - qtyDelivered);
+                        //SHOw SCUESS
+                        //Log.d("DEBUG", "success");
+                        shopAvailableReadyStockFragment.showSuccessDialog();
                     }
 
                 }
@@ -139,32 +141,14 @@ public class ReadyStockDeliverDialogFragment extends BaseDialogFragment implemen
         }
 
         binding.getViewModel().setStock(stockData);
+        binding.getViewModel().setShopId(shop_id);
 
-        CustomSpinnerAdapter spinnerAdapter = new CustomSpinnerAdapter(getContext(), R.layout.spinner_item, R.id.tv_item,
-                shops = MydApplication.getInstance().getPrefManger().getShops());
 
-        binding.spShop.setPrompt("Select shop");
-        binding.spShop.setAdapter(spinnerAdapter);
-        binding.spShop.setOnItemSelectedListener(this);
 
         binding.tvProductName.setText(stockData.getName());
         binding.tvProductQty.setText(String.format(Locale.getDefault(), getString(R.string.total_amount), stockData.getQuantity(), stockData.getUnit()));
         binding.tvProductUnit.setText(stockData.getUnit());
 
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        binding.getViewModel().setSelectedShop(shops.get(position));
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-
 
 }

@@ -10,6 +10,9 @@ public class GlobalAppAccess {
     public static final int SUCCESS = 1;
     public static final int ERROR = 0;
 
+    public static final String SERVER_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String MOBILE_DATE_FORMAT = "dd/MM/yyyy";
+
 
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
@@ -31,8 +34,17 @@ public class GlobalAppAccess {
     public static final String[] reminder_time_options = {"Select a time", "Before time expires", "15 mins before",
             "30 mins before", "1 hour before"};
 
+
+
+    public static final String ROLE_ADMIN = "Admin";
+    public static final String ROLE_SHOP_STOCKER = "Shop Stock";
+    public static final String ROLE_RAW_STOCKER = "Raw Stock";
+    public static final String ROLE_DISTRIBUTOR = "Distributor";
+
     public static final String[] rideshares_options = {"Uber", "Lyft", "Uber or Lyft"};
     public static final String[] week_day_name = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    public static final String[] role_alias = {"Select Role", "On Spot Staff", "Raw Stock Staff", "Distributor"};
+    public static final String[] role_set_in_server = {"Dummy", ROLE_SHOP_STOCKER, ROLE_RAW_STOCKER, ROLE_DISTRIBUTOR};
 
     public static final String[] icon_name = {
             "icon_1",

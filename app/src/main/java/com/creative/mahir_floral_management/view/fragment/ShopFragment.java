@@ -15,14 +15,11 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
-import com.creative.mahir_floral_management.databinding.FragmentHomeBinding;
 import com.creative.mahir_floral_management.databinding.FragmentShopBinding;
-import com.creative.mahir_floral_management.view.activity.CheckInOutActivity;
-import com.creative.mahir_floral_management.view.activity.HQActivity;
+import com.creative.mahir_floral_management.view.activity.ShopAvailableReadyStockActivity;
 import com.creative.mahir_floral_management.view.activity.ShopIncomingStocksActivity;
 import com.creative.mahir_floral_management.view.activity.ShopSoldStocksActivity;
 import com.creative.mahir_floral_management.view.activity.ShopStocksActivity;
-import com.creative.mahir_floral_management.viewmodel.HomeFragViewModel;
 import com.creative.mahir_floral_management.viewmodel.ShopFragViewModel;
 
 /**
@@ -94,6 +91,10 @@ public class ShopFragment extends Fragment {
                 }else if(id == fragmentShopBinding.btnShopIncomingStock.getId()){
                     //startActivity(new Intent(getActivity(), CheckInOutActivity.class));
                     Intent intent = new Intent(getActivity(), ShopIncomingStocksActivity.class);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+                    startActivity(intent);
+                }else if( id == fragmentShopBinding.btnDemand.getId()){
+                    Intent intent = new Intent(getActivity(), ShopAvailableReadyStockActivity.class);
                     intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, shop_id);
                     startActivity(intent);
                 }

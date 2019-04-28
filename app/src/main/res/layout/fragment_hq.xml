@@ -6,6 +6,7 @@
 
 
     <data>
+
         <variable
             name="HQFragViewModel"
             type="com.creative.mahir_floral_management.viewmodel.HQFragViewModel" />
@@ -17,17 +18,35 @@
         android:orientation="vertical"
         tools:context=".view.fragment.HQFragment">
 
-        <Button
-            android:id="@+id/btn_admin"
+        <RelativeLayout
             style="@style/btnMenu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="16dp"
+            android:id="@+id/btn_admin"
             android:layout_marginRight="5dp"
-            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
-            android:text="Admin"
-            android:textStyle="bold" />
+            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}">
+
+            <TextView
+                android:id="@+id/tv_password_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dp"
+                android:text="Admin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_large"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_password_title"
+                android:src="@drawable/lock" />
+        </RelativeLayout>
+
 
         <Button
             android:id="@+id/btn_raw_stock"
@@ -51,6 +70,18 @@
             android:layout_marginRight="5dp"
             android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
             android:text="Ready Stock"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_demanded_stocks"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
+            android:text="Demanded Stocks"
             android:textStyle="bold" />
 
     </LinearLayout>
