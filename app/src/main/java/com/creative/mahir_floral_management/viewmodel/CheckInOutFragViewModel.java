@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.view.View;
 
 import com.creative.mahir_floral_management.Utility.CommonMethods;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.appdata.remote.CheckInOutApi;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.model.UserCheck;
@@ -56,7 +57,7 @@ public class CheckInOutFragViewModel extends ViewModel {
             last_check_in.setValue("You are not checked in yet.");
             return;
         }
-        String format = CommonMethods.changeFormat(str_last_check_in,"yyyy-mm-dd hh:mm:ss" ,"dd/mm/yyyy hh:mm a");
+        String format = CommonMethods.changeFormat(str_last_check_in, GlobalAppAccess.SERVER_DATE_FORMAT,"dd/mm/yyyy hh:mm a");
         last_check_in.setValue(format);
     }
 
