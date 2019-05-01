@@ -12,6 +12,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.Utility.CommonMethods;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.model.RawStock;
 import com.creative.mahir_floral_management.model.ReadyStock;
 
@@ -81,7 +83,9 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
 
         holder.itemName.setText(readyStock.getName());
         holder.itemQuantity.setText(readyStock.getQuantity());
-        holder.recieveDate.setText(readyStock.getReceivedDate());
+        //holder.recieveDate.setText(readyStock.getReceivedDate());
+        String formatDate = CommonMethods.changeFormat(readyStock.getReceivedDate(), GlobalAppAccess.SERVER_DATE_FORMAT, GlobalAppAccess.MOBILE_DATE_FORMAT);
+        holder.recieveDate.setText(formatDate);
         holder.unit.setText(readyStock.getUnit());
 
         if (position % 2 == 0)

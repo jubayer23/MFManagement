@@ -4,6 +4,7 @@ package com.creative.mahir_floral_management.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -162,7 +163,7 @@ public class ReadyStock implements Parcelable {
 
     public static class timeComparatorDesc implements Comparator<ReadyStock> {
         public int compare(ReadyStock chair1, ReadyStock chair2) {
-            SimpleDateFormat readFormat = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
+            SimpleDateFormat readFormat = new SimpleDateFormat(GlobalAppAccess.SERVER_DATE_FORMAT, java.util.Locale.getDefault());
             try {
                 java.util.Date date1 = readFormat.parse(chair1.getReceivedDate());
                 java.util.Date date2 = readFormat.parse(chair2.getReceivedDate());
