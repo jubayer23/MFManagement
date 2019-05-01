@@ -201,8 +201,8 @@ public class TimeSheetFragment extends BaseFragment {
 
                 int id = view.getId();
                 if(id == fragmentTimeSheetBinding.btnNextWeek.getId()){
-                    if(selectedWeek > 17){
-                        Toast.makeText(getActivity(), "Exceep week number", Toast.LENGTH_SHORT).show();
+                    if(selectedWeek > 30){
+                        Toast.makeText(getActivity(), "Exceed week number", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     fragmentTimeSheetBinding.spWeek.setSelection(selectedWeek );
@@ -211,7 +211,7 @@ public class TimeSheetFragment extends BaseFragment {
 
                 }else if(id == fragmentTimeSheetBinding.btnPrevWeek.getId()){
                     if(selectedWeek < 2){
-                        Toast.makeText(getActivity(), "Exceep week number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Exceed week number", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     fragmentTimeSheetBinding.spWeek.setSelection(selectedWeek - 2 );
