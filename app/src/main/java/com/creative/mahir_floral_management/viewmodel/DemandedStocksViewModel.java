@@ -113,6 +113,7 @@ public class DemandedStocksViewModel extends ViewModel {
                         public void onError(Throwable e) {
 
                             Log.e("", "", e);
+                            validationLiveData.postValue(e.getMessage());
                             loadingLiveData.postValue(false);
 
                         }

@@ -12,12 +12,14 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.Utility.CommonMethods;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.model.ReadyStock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopDemandStockAdapter extends RecyclerView.Adapter<ShopDemandStockAdapter.MyViewHolder> implements Filterable {
+public class ShopAvailableReadyStockAdapter extends RecyclerView.Adapter<ShopAvailableReadyStockAdapter.MyViewHolder> implements Filterable {
 
     private List<ReadyStock> readyStocks;
     private List<ReadyStock> originalList;
@@ -54,11 +56,11 @@ public class ShopDemandStockAdapter extends RecyclerView.Adapter<ShopDemandStock
         }
     }
 
-    public ShopDemandStockAdapter(List<ReadyStock> stockList) {
+    public ShopAvailableReadyStockAdapter(List<ReadyStock> stockList) {
         this(stockList, null);
     }
 
-    public ShopDemandStockAdapter(List<ReadyStock> stockList, OnItemClickListener listener) {
+    public ShopAvailableReadyStockAdapter(List<ReadyStock> stockList, OnItemClickListener listener) {
         this.readyStocks = stockList;
         this.originalList = stockList;
         this.listener = listener;
@@ -80,7 +82,9 @@ public class ShopDemandStockAdapter extends RecyclerView.Adapter<ShopDemandStock
 
         holder.itemName.setText(readyStock.getName());
         holder.itemQuantity.setText(readyStock.getQuantity());
-        holder.recieveDate.setText(readyStock.getReceivedDate());
+        String formatDate = CommonMethods.changeFormat(readyStock.getReceivedDate(), GlobalAppAccess.SERVER_DATE_FORMAT, GlobalAppAccess.MOBILE_DATE_FORMAT);
+        holder.recieveDate.setText(formatDate);
+       // holder.recieveDate.setText(readyStock.getReceivedDate());
         holder.unit.setText(readyStock.getUnit());
 
         if (position % 2 == 0)
@@ -109,7 +113,7 @@ public class ShopDemandStockAdapter extends RecyclerView.Adapter<ShopDemandStock
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 readyStocks = (List<ReadyStock>) results.values;
-                ShopDemandStockAdapter.this.notifyDataSetChanged();
+                ShopAvailableReadyStockAdapter.this.notifyDataSetChanged();
             }
 
             @Override

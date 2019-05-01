@@ -71,7 +71,7 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_rawstock, parent, false);
+                .inflate(R.layout.item_ready_stock, parent, false);
 
         return new MyViewHolder(itemView);
     }

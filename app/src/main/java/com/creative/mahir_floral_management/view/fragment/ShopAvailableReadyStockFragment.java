@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.adapters.ShopDemandStockAdapter;
+import com.creative.mahir_floral_management.adapters.ShopAvailableReadyStockAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.databinding.FragmentShopAvailableReadyStockBinding;
 import com.creative.mahir_floral_management.model.ReadyStock;
@@ -27,12 +27,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShopAvailableReadyStockFragment extends BaseFragment implements ShopDemandStockAdapter.OnItemClickListener {
+public class ShopAvailableReadyStockFragment extends BaseFragment implements ShopAvailableReadyStockAdapter.OnItemClickListener {
 
     private FragmentShopAvailableReadyStockBinding binding;
 
     private int shop_id = 0;
-    private ShopDemandStockAdapter adapter;
+    private ShopAvailableReadyStockAdapter adapter;
     private List<ReadyStock> readyStocks = new ArrayList<>(0);
     private ReadyStock selectedItem;
 
@@ -67,7 +67,7 @@ public class ShopAvailableReadyStockFragment extends BaseFragment implements Sho
         binding.rvResults.setLayoutManager(mLayoutManager);
 
         //Set Adapter
-        adapter = new ShopDemandStockAdapter(readyStocks, this);
+        adapter = new ShopAvailableReadyStockAdapter(readyStocks, this);
         binding.rvResults.setAdapter(adapter);
 
 
