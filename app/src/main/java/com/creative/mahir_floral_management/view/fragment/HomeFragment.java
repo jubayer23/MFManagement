@@ -79,6 +79,34 @@ public class HomeFragment extends Fragment {
                     intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, fragmentHomeBinding.btnOutletConnecticut.getText().toString());
                     startActivity(intent);
 
+                }else if(id == fragmentHomeBinding.btnOutletEast.getId()){
+
+                    Intent intent = new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, GlobalAppAccess.SHOP_ID_EAST);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, fragmentHomeBinding.btnOutletEast.getText().toString());
+                    startActivity(intent);
+
+                }else if(id == fragmentHomeBinding.btnOutletWest.getId()){
+
+                    Intent intent = new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, GlobalAppAccess.SHOP_ID_WEST);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, fragmentHomeBinding.btnOutletWest.getText().toString());
+                    startActivity(intent);
+
+                }else if(id == fragmentHomeBinding.btnOutletVillage.getId()){
+
+                    Intent intent = new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, GlobalAppAccess.SHOP_ID_VILLAGE);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, fragmentHomeBinding.btnOutletVillage.getText().toString());
+                    startActivity(intent);
+
+                }else if(id == fragmentHomeBinding.btnOutletHudsonYeards.getId()){
+
+                    Intent intent = new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, GlobalAppAccess.SHOP_ID_HUDSONYARD);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, fragmentHomeBinding.btnOutletHudsonYeards.getText().toString());
+                    startActivity(intent);
+
                 }else if(id == fragmentHomeBinding.btnCheckInOut.getId()){
                     startActivity(new Intent(getActivity(), CheckInOutActivity.class));
                 }else if(id == fragmentHomeBinding.btnLogout.getId()){

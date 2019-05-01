@@ -11,73 +11,119 @@
             type="com.creative.mahir_floral_management.viewmodel.HomeFragViewModel" />
     </data>
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".view.fragment.HomeFragment">
-
-        <Button
-            android:id="@+id/btn_outlet_hq"
-            style="@style/btnMenu"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="5dp"
-            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
-            android:text="H.Q."
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".view.fragment.HomeFragment">
 
-        <Button
-            android:id="@+id/btn_outlet_connecticut"
-            style="@style/btnMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="5dp"
-            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
-            android:text="Connecticut"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_outlet_hq"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="H.Q."
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn_outlet_east"
-            style="@style/btnMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="5dp"
-            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
-            android:text="East"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_outlet_connecticut"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="Connecticut"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_outlet_east"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="East"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_outlet_west"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="West"
+                android:textStyle="bold" />
 
 
-        <Button
-            android:id="@+id/btn_check_in_out"
-            style="@style/btnMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="5dp"
-            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
-            android:text="Check In/Out"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_outlet_village"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="Village"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/btn_outlet_hudson_yeards"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="Hudson Yards"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/btn_check_in_out"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="Check In/Out"
+                android:textStyle="bold" />
 
 
 
-        <Button
-            android:id="@+id/btn_logout"
-            style="@style/btnMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="5dp"
-            android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
-            android:text="Logout"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_logout"
+                style="@style/btnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="5dp"
+                android:onClick="@{(v) -> HomeFragViewModel.onClick(v)}"
+                android:text="Logout"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </layout>

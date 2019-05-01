@@ -98,9 +98,9 @@ public class GlobalAppAccess {
 
     public static final int SHOP_ID_HQ = 1;
     public static final int SHOP_ID_CONNECTICUT = 2;
-    public static final int SHOP_ID_VILLAGE = 3;
-    public static final int SHOP_ID_EAST = 4;
-    public static final int SHOP_ID_WEST = 5;
+    public static final int SHOP_ID_EAST = 3;
+    public static final int SHOP_ID_WEST = 4;
+    public static final int SHOP_ID_VILLAGE = 5;
     public static final int SHOP_ID_HUDSONYARD = 6;
 
 
