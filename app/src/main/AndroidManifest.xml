@@ -59,7 +59,7 @@
             android:label="@string/name_raw_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".view.activity.EntryRawStockActivity"
+            android:name=".view.activity.RawStockEntryActivity"
             android:label="@string/name_raw_entry_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -67,7 +67,7 @@
             android:label="@string/name_ready_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".view.activity.EntryReadyStockActivity"
+            android:name=".view.activity.ReadyStockEntryActivity"
             android:label="@string/name_ready_entry_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity

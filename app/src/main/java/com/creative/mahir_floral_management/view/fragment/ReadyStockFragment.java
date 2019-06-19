@@ -17,7 +17,7 @@ import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.ReadyStockAdapter;
 import com.creative.mahir_floral_management.databinding.FragmentReadystockBinding;
 import com.creative.mahir_floral_management.model.ReadyStock;
-import com.creative.mahir_floral_management.view.activity.EntryReadyStockActivity;
+import com.creative.mahir_floral_management.view.activity.ReadyStockEntryActivity;
 import com.creative.mahir_floral_management.viewmodel.ReadyStockViewModel;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
         binding.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), EntryReadyStockActivity.class), rawEntrySuccess);
+                startActivityForResult(new Intent(getActivity(), ReadyStockEntryActivity.class), rawEntrySuccess);
             }
         });
 

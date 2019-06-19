@@ -1,5 +1,7 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -49,12 +51,14 @@ public class ShopStockAPI {
                             IncomingShopStocks incomingShopStocks = MydApplication.gson.fromJson(response, IncomingShopStocks.class);
                             if(incomingShopStocks.getStatus()){
                                 observer.onNext(incomingShopStocks.getIncomingShopStocks());
+                                Log.d("DEBUG","its called suucess");
                             }else{
                                 observer.onError(new Throwable(incomingShopStocks.getMessage()));
                             }
 
 
                         } catch (Exception e) {
+                            Log.d("DEBUG","its called");
                             observer.onError(e);
 
                         }

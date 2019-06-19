@@ -17,7 +17,7 @@ import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.RawStockAdapter;
 import com.creative.mahir_floral_management.databinding.FragmentRawstockBinding;
 import com.creative.mahir_floral_management.model.RawStock;
-import com.creative.mahir_floral_management.view.activity.EntryRawStockActivity;
+import com.creative.mahir_floral_management.view.activity.RawStockEntryActivity;
 import com.creative.mahir_floral_management.viewmodel.RawStockViewModel;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class RawStockFragment extends BaseFragment {
         binding.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), EntryRawStockActivity.class), rawEntrySuccess);
+                startActivityForResult(new Intent(getActivity(), RawStockEntryActivity.class), rawEntrySuccess);
             }
         });
 

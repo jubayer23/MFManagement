@@ -6,29 +6,29 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.databinding.ActivityReadyentrystockBinding;
-import com.creative.mahir_floral_management.view.fragment.ReadyStockEntryFragment;
+import com.creative.mahir_floral_management.databinding.ActivityEnteryrawstockBinding;
+import com.creative.mahir_floral_management.view.fragment.RawStockEntryFragment;
 
-public class EntryReadyStockActivity extends BaseActivity {
+public class RawStockEntryActivity extends BaseActivity {
 
-    private static final String TAG = "EntryReadyStock_Fragment";
+    private static final String TAG = "EntryRawStock_Fragment";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityReadyentrystockBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_readyentrystock);
-        initToolbar();
+        ActivityEnteryrawstockBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_enteryrawstock);
+        initToolbar(true);
 
         if (null != getActionBar())
             getActionBar().setHomeButtonEnabled(true);
 
         if (savedInstanceState == null) {
 
-            ReadyStockEntryFragment readyStockEntryFragment = new ReadyStockEntryFragment();
+            RawStockEntryFragment rawStockFragment = new RawStockEntryFragment();
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction();
-            transaction.replace(R.id.content_layout, readyStockEntryFragment, TAG)
+            transaction.replace(R.id.content_layout, rawStockFragment, TAG)
                     .commit();
 
         }

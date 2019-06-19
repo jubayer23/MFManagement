@@ -2,6 +2,7 @@ package com.creative.mahir_floral_management.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -64,10 +65,6 @@ public class ShopStock implements Parcelable {
     @Expose
     private String receiveDate;
 
-    @SerializedName("deliver_date")
-    @Expose
-    private String deliverDate;
-
     @SerializedName("sold_date")
     @Expose
     private String soldDate;
@@ -86,7 +83,6 @@ public class ShopStock implements Parcelable {
         comment = in.readString();
         receiverName = in.readString();
         receiveDate = in.readString();
-        deliverDate = in.readString();
         soldDate = in.readString();
     }
 
@@ -154,9 +150,6 @@ public class ShopStock implements Parcelable {
         return receiveDate;
     }
 
-    public String getDeliverDate() {
-        return deliverDate;
-    }
 
     public String getSoldDate() {
         return soldDate;
@@ -206,7 +199,6 @@ public class ShopStock implements Parcelable {
         dest.writeString(comment);
         dest.writeString(receiverName);
         dest.writeString(receiveDate);
-        dest.writeString(deliverDate);
         dest.writeString(soldDate);
     }
 
@@ -214,8 +206,8 @@ public class ShopStock implements Parcelable {
         public int compare(ShopStock chair1, ShopStock chair2) {
             SimpleDateFormat readFormat = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
             try {
-                java.util.Date date1 = readFormat.parse(chair1.getDeliverDate());
-                java.util.Date date2 = readFormat.parse(chair2.getDeliverDate());
+                java.util.Date date1 = readFormat.parse(chair1.getDeliveryDate());
+                java.util.Date date2 = readFormat.parse(chair2.getDeliveryDate());
                 return date2.compareTo(date1);
             } catch (ParseException e) {
                 e.printStackTrace();

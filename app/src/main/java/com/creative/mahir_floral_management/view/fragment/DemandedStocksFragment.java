@@ -130,7 +130,7 @@ public class DemandedStocksFragment extends BaseFragment implements DemandedStoc
         /*binding.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), EntryReadyStockActivity.class), rawEntrySuccess);
+                startActivityForResult(new Intent(getActivity(), ReadyStockEntryActivity.class), rawEntrySuccess);
             }
         });*/
 

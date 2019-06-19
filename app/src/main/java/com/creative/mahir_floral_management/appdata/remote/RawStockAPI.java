@@ -115,6 +115,8 @@ public class RawStockAPI {
                     @Override
                     public void onResponse(String response) {
 
+                        Log.d("DEBUG", response);
+
                         try {
 
                             BaseModel baseModel = new BaseModel();
