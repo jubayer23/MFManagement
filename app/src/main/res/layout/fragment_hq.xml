@@ -84,5 +84,17 @@
             android:text="Demanded Stocks"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btn_delivered_stocks"
+            style="@style/btnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{(v) -> HQFragViewModel.onClick(v)}"
+            android:text="Supplies"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </layout>

@@ -50,5 +50,7 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="ready_date">Ready Date</string>
+    <string name="delivery_date">Delivery Date</string>
+    <string name="deliver_to">Deliver To</string>
 
 </resources>

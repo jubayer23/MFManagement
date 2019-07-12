@@ -73,6 +73,10 @@
         <activity
             android:name=".view.activity.ShopIncomingStocksActivity"
             android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".view.activity.DeliveredStockActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

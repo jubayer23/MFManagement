@@ -17,6 +17,7 @@ import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentHqBinding;
 import com.creative.mahir_floral_management.view.activity.AdminMenuActivity;
+import com.creative.mahir_floral_management.view.activity.DeliveredStockActivity;
 import com.creative.mahir_floral_management.view.activity.DemandedStocksActivity;
 import com.creative.mahir_floral_management.view.activity.RawStockActivity;
 import com.creative.mahir_floral_management.view.activity.ReadyStockActivity;
@@ -93,6 +94,9 @@ public class HQFragment extends BaseFragment {
                 }else if(id == fragmentHqBinding.btnDemandedStocks.getId()){
 
                     startActivity(new Intent(getActivity(), DemandedStocksActivity.class));
+                }else if(id == fragmentHqBinding.btnDeliveredStocks.getId()){
+
+                    startActivity(new Intent(getActivity(), DeliveredStockActivity.class));
                 }
             }
         });

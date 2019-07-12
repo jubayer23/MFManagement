@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.BaseModel;
+import com.creative.mahir_floral_management.model.DeliveredStock;
+import com.creative.mahir_floral_management.model.DeliveredStocks;
 import com.creative.mahir_floral_management.model.RawStock;
 import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.model.ReadyStocks;
@@ -209,6 +211,74 @@ public class ReadyStockAPI {
                             BaseModel baseModel = MydApplication.gson.fromJson(response, BaseModel.class);
 
                             observer.onNext(baseModel);
+
+                        } catch (Exception e) {
+                            observer.onError(e);
+
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                observer.onError(error);
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", MydApplication.getInstance().getPrefManger().getAccessToekn());
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return body.toString().getBytes();
+            }
+
+        };
+
+        req.setRetryPolicy(new DefaultRetryPolicy(60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // TODO Auto-generated method stub
+        MydApplication.getInstance().addToRequestQueue(req);
+
+    }
+
+
+    public void getDeliveredStocks(int month, String year,
+                              final Observer<List<DeliveredStock>> observer) {
+
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("month", String.format(Locale.getDefault(), "%02d", month));
+            body.put("year", year);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_DELIVERED_STOCKS,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("DEBUG",response);
+
+
+                        try {
+
+                            DeliveredStocks deliveredStocks = MydApplication.gson.fromJson(response, DeliveredStocks.class);
+
+                            if (deliveredStocks.getStatus()) {
+                                observer.onNext(deliveredStocks.getDeliveredStocks());
+                            } else {
+                                observer.onError(new Throwable(deliveredStocks.getMessage()));
+                            }
 
                         } catch (Exception e) {
                             observer.onError(e);
