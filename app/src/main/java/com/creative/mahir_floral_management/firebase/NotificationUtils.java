@@ -23,6 +23,7 @@ import java.net.URL;
 import androidx.core.app.NotificationCompat;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.view.activity.HomeActivity;
 import com.creative.mahir_floral_management.view.activity.LoginActivity;
 
@@ -88,7 +89,7 @@ public class NotificationUtils {
                                 mContext,
                                 0,
                                 resultIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT
+                                PendingIntent.FLAG_ONE_SHOT
                         );
             }
 
@@ -140,7 +141,7 @@ public class NotificationUtils {
                 notificationManager.createNotificationChannel(channel);
 
             }
-            notificationManager.notify(NOTIFICATION_ID, notification);
+            notificationManager.notify(CommonMethods.getID(), notification);
         }
     }
 
