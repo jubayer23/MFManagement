@@ -1,9 +1,9 @@
 package com.creative.mahir_floral_management.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,6 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.model.RawStock;
-import com.creative.mahir_floral_management.model.SoldStock;
 import com.creative.mahir_floral_management.model.SoldStock;
 
 import java.util.ArrayList;

@@ -1,8 +1,6 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.content.Intent;
-import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -11,8 +9,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.Authorization;
-import com.creative.mahir_floral_management.model.LoginUser;
-import com.creative.mahir_floral_management.model.UserCheck;
 
 import org.json.JSONException;
 import org.json.JSONObject;

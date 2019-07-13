@@ -1,14 +1,12 @@
 package com.creative.mahir_floral_management.view.activity;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.ActivityAdminMenuBinding;
-import com.creative.mahir_floral_management.databinding.ActivityHqBinding;
 import com.creative.mahir_floral_management.view.fragment.AdminMenuFragment;
-import com.creative.mahir_floral_management.view.fragment.HQFragment;
 
 public class AdminMenuActivity extends BaseActivity {
 

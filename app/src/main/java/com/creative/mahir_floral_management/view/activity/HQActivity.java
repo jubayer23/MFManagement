@@ -1,16 +1,13 @@
 package com.creative.mahir_floral_management.view.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.Utility.CheckLocationEnableStatus;
-import com.creative.mahir_floral_management.Utility.GpsEnableTool;
 import com.creative.mahir_floral_management.databinding.ActivityHqBinding;
 import com.creative.mahir_floral_management.view.fragment.HQFragment;
-import com.creative.mahir_floral_management.view.fragment.HomeFragment;
 
 public class HQActivity extends BaseActivity {
 

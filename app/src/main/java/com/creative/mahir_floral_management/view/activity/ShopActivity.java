@@ -1,21 +1,15 @@
 package com.creative.mahir_floral_management.view.activity;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.creative.mahir_floral_management.R;
-import com.creative.mahir_floral_management.Utility.CheckLocationEnableStatus;
-import com.creative.mahir_floral_management.Utility.GpsEnableTool;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
-import com.creative.mahir_floral_management.databinding.ActivityHomeBinding;
 import com.creative.mahir_floral_management.databinding.ActivityShopBinding;
-import com.creative.mahir_floral_management.view.fragment.HomeFragment;
 import com.creative.mahir_floral_management.view.fragment.ShopFragment;
 
 public class ShopActivity extends BaseActivity {

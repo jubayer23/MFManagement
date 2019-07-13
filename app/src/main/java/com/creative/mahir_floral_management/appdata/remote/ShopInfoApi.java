@@ -1,6 +1,6 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;

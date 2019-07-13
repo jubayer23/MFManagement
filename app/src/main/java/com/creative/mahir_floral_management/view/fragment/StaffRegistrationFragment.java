@@ -1,14 +1,14 @@
 package com.creative.mahir_floral_management.view.fragment;
 
 import android.app.Activity;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +18,12 @@ import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.CustomSpinnerAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.appdata.MydApplication;
-import com.creative.mahir_floral_management.databinding.FragmentEnteryrawstockBinding;
 import com.creative.mahir_floral_management.databinding.FragmentStaffRegistrationBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.Shop;
-import com.creative.mahir_floral_management.viewmodel.RawStockEntryViewModel;
 import com.creative.mahir_floral_management.viewmodel.StaffRegistrationViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StaffRegistrationFragment extends BaseFragment {

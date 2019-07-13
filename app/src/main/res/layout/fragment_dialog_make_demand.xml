@@ -9,7 +9,7 @@
             type="com.creative.mahir_floral_management.viewmodel.MakeDemandViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toEndOf="@+id/et_product_amount"
             app:layout_constraintTop_toTopOf="@+id/et_product_amount" />
 
-        <android.support.v7.widget.AppCompatSpinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/sp_priority"
             style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="0dp"
@@ -157,5 +157,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_demand" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

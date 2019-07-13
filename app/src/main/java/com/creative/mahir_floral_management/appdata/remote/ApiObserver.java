@@ -1,7 +1,7 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.annotation.Nullable;
 
 import com.android.volley.VolleyError;
 

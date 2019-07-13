@@ -1,17 +1,14 @@
 package com.creative.mahir_floral_management.viewmodel;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.remote.DemandStockAPI;
-import com.creative.mahir_floral_management.appdata.remote.ShopStockAPI;
 import com.creative.mahir_floral_management.model.ReadyStock;
-import com.creative.mahir_floral_management.model.ShopStock;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 

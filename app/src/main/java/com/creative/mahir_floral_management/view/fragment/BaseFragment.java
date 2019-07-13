@@ -1,7 +1,7 @@
 package com.creative.mahir_floral_management.view.fragment;
 
 import android.app.ProgressDialog;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.widget.Toast;
 
 public class BaseFragment extends Fragment {

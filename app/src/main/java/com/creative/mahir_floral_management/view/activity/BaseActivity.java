@@ -2,8 +2,8 @@ package com.creative.mahir_floral_management.view.activity;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;

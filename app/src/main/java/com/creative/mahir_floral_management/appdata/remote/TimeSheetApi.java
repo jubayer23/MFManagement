@@ -1,28 +1,20 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.TimeSheetInfo;
-import com.creative.mahir_floral_management.model.UserInfo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

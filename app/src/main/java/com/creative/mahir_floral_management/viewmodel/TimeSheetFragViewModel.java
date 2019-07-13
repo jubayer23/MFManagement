@@ -1,19 +1,13 @@
 package com.creative.mahir_floral_management.viewmodel;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import android.view.View;
 
-import com.creative.mahir_floral_management.appdata.remote.AuthorizationApi;
-import com.creative.mahir_floral_management.appdata.remote.CheckInOutApi;
 import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.appdata.remote.TimeSheetApi;
-import com.creative.mahir_floral_management.appdata.remote.UserInfoApi;
-import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
 import com.creative.mahir_floral_management.model.TimeSheetInfo;
-import com.creative.mahir_floral_management.model.UserCheck;
-import com.creative.mahir_floral_management.model.UserInfo;
 
 import java.util.HashMap;
 

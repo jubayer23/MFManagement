@@ -1,15 +1,14 @@
 package com.creative.mahir_floral_management.view.activity;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.creative.mahir_floral_management.R;
@@ -17,7 +16,6 @@ import com.creative.mahir_floral_management.Utility.DeviceInfoUtils;
 import com.creative.mahir_floral_management.Utility.RunnTimePermissions;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.appdata.remote.ApiObserver;
-import com.creative.mahir_floral_management.appdata.remote.DataWrapper;
 import com.creative.mahir_floral_management.databinding.ActivityLoginBinding;
 import com.creative.mahir_floral_management.model.Authorization;
 import com.creative.mahir_floral_management.model.LoginUser;
@@ -25,6 +23,7 @@ import com.creative.mahir_floral_management.model.Shops;
 import com.creative.mahir_floral_management.model.UserInfo;
 import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.LoginViewModel;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Objects;
 
@@ -166,6 +165,10 @@ public class LoginActivity extends BaseActivity {
 
                 if (shops.getStatus()) {
                     MydApplication.getInstance().getPrefManger().setShops(shops.getShops());
+
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole());
+
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     //Log.d("DEBUG",userInfo.getName());
                     finish();

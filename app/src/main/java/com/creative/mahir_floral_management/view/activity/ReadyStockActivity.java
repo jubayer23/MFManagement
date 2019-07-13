@@ -1,10 +1,10 @@
 package com.creative.mahir_floral_management.view.activity;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.databinding.ActivityReadystockBinding;

@@ -1,7 +1,6 @@
 package com.creative.mahir_floral_management.appdata.remote;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -10,17 +9,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.model.BaseModel;
-import com.creative.mahir_floral_management.model.ReadyStock;
-import com.creative.mahir_floral_management.model.ReadyStocks;
-import com.creative.mahir_floral_management.model.Shops;
-import com.creative.mahir_floral_management.view.activity.BaseActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import io.reactivex.Observer;

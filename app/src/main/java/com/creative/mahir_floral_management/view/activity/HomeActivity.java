@@ -1,8 +1,8 @@
 package com.creative.mahir_floral_management.view.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.creative.mahir_floral_management.R;

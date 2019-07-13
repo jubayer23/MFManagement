@@ -52,5 +52,6 @@
     <string name="ready_date">Ready Date</string>
     <string name="delivery_date">Delivery Date</string>
     <string name="deliver_to">Deliver To</string>
+    <string name="default_notification_channel_id">1001</string>
 
 </resources>
