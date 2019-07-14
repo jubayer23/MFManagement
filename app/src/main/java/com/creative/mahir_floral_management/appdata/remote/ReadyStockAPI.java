@@ -188,12 +188,13 @@ public class ReadyStockAPI {
 
     }
 
-    public void deliverReadyStock(String productID, int quantity, String shopID, String comment,
+    public void deliverReadyStock(String productID, int quantity, String shopID,String shopName, String comment,
                                   final Observer<BaseModel> observer) {
 
         final JSONObject body = new JSONObject();
         try {
             body.put("shop_id", shopID);
+            body.put("shop_name", shopName);
             body.put("quantity", quantity);
             body.put("product_id", productID);
             body.put("comment", comment);

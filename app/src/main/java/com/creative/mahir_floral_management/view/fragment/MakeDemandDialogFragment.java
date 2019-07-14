@@ -24,6 +24,7 @@ public class MakeDemandDialogFragment extends BaseDialogFragment {
     private FragmentDialogMakeDemandBinding binding;
     private ReadyStock stockData;
     private int shop_id = 0;
+    private String shop_name = "";
 
 
     @Override
@@ -34,6 +35,7 @@ public class MakeDemandDialogFragment extends BaseDialogFragment {
 
             stockData = getArguments().getParcelable("stockData");
             shop_id = getArguments().getInt(GlobalAppAccess.KEY_SHOP_ID);
+            shop_name = getArguments().getString(GlobalAppAccess.KEY_SHOP_NAME);
 
         }
 
@@ -142,6 +144,7 @@ public class MakeDemandDialogFragment extends BaseDialogFragment {
 
         binding.getViewModel().setStock(stockData);
         binding.getViewModel().setShopId(shop_id);
+        binding.getViewModel().setShopName(shop_name);
 
 
 

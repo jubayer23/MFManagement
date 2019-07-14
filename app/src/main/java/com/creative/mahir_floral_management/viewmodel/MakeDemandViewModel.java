@@ -23,6 +23,7 @@ public class MakeDemandViewModel extends ViewModel {
 
     private ReadyStock stockData;
     private int selectedShopId = 0;
+    private String shop_name = "";
 
     public MutableLiveData<String> quantity = new MutableLiveData<>();
     public MutableLiveData<String> comment = new MutableLiveData<>();
@@ -55,6 +56,15 @@ public class MakeDemandViewModel extends ViewModel {
     private int getShopId(){
 
         return selectedShopId;
+    }
+
+    public void setShopName(String  shop_name) {
+        this.shop_name = shop_name;
+    }
+
+    private String getShopName(){
+
+        return shop_name;
     }
 
     public int getProductQuantityDelivered() {
@@ -118,6 +128,7 @@ public class MakeDemandViewModel extends ViewModel {
                 Integer.parseInt(quantity.getValue()),
                 getPriority(),
                 getShopId(),
+                getShopName(),
                 new Observer<BaseModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {

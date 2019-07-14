@@ -32,6 +32,7 @@ public class ShopFragment extends Fragment {
     private ShopFragViewModel shopFragViewModel;
 
     private int shop_id = 0;
+    private String shopName;
 
 
     public ShopFragment() {
@@ -60,6 +61,7 @@ public class ShopFragment extends Fragment {
 
 
         shop_id = getArguments().getInt(GlobalAppAccess.KEY_SHOP_ID);
+        shopName = getArguments().getString(GlobalAppAccess.KEY_SHOP_NAME);
         Log.d("DEBUG", String.valueOf(shop_id));
         // Inflate the layout for this fragment
         return view;
@@ -82,20 +84,24 @@ public class ShopFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), ShopStocksActivity.class);
                     intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, shopName);
                     startActivity(intent);
                     //startActivity(new Intent(getActivity(), HQActivity.class));
                 }else if(id == fragmentShopBinding.btnSold.getId()){
                     Intent intent = new Intent(getActivity(), ShopSoldStocksActivity.class);
                     intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, shopName);
                     startActivity(intent);
                 }else if(id == fragmentShopBinding.btnShopIncomingStock.getId()){
                     //startActivity(new Intent(getActivity(), CheckInOutActivity.class));
                     Intent intent = new Intent(getActivity(), ShopIncomingStocksActivity.class);
                     intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, shopName);
                     startActivity(intent);
                 }else if( id == fragmentShopBinding.btnDemand.getId()){
                     Intent intent = new Intent(getActivity(), ShopAvailableReadyStockActivity.class);
                     intent.putExtra(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+                    intent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, shopName);
                     startActivity(intent);
                 }
             }

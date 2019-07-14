@@ -32,6 +32,7 @@ public class ShopAvailableReadyStockFragment extends BaseFragment implements Sho
     private FragmentShopAvailableReadyStockBinding binding;
 
     private int shop_id = 0;
+    private String shop_name;
     private ShopAvailableReadyStockAdapter adapter;
     private List<ReadyStock> readyStocks = new ArrayList<>(0);
     private ReadyStock selectedItem;
@@ -47,6 +48,7 @@ public class ShopAvailableReadyStockFragment extends BaseFragment implements Sho
 
         if (null == getArguments()) return;
         shop_id = getArguments().getInt(GlobalAppAccess.KEY_SHOP_ID);
+        shop_name = getArguments().getString(GlobalAppAccess.KEY_SHOP_NAME);
     }
 
 
@@ -141,6 +143,7 @@ public class ShopAvailableReadyStockFragment extends BaseFragment implements Sho
         Bundle data = new Bundle();
         data.putParcelable("stockData", item);
         data.putInt(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+        data.putString(GlobalAppAccess.KEY_SHOP_NAME, shop_name);
 
         editNameDialog.setArguments(data);
         editNameDialog.setTargetFragment(ShopAvailableReadyStockFragment.this, 1337);

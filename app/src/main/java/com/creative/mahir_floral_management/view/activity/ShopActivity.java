@@ -52,6 +52,7 @@ public class ShopActivity extends BaseActivity {
 
             Bundle bundle = new Bundle();
             bundle.putInt(GlobalAppAccess.KEY_SHOP_ID, shop_id);
+            bundle.putString(GlobalAppAccess.KEY_SHOP_NAME, shop_name);
 
             shopFragment = new ShopFragment();
             shopFragment.setArguments(bundle);

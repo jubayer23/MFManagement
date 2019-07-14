@@ -92,6 +92,7 @@ public class ReadyStockDeliverViewModel extends ViewModel {
                 stockData.getId(),
                 Integer.parseInt(productAmount.getValue()),
                 selectedShop.getId(),
+                selectedShop.getName(),
                 comment.getValue(),
                 new Observer<BaseModel>() {
                     @Override

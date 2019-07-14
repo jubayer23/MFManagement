@@ -24,12 +24,14 @@ import androidx.core.app.NotificationCompat;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.Utility.CommonMethods;
+import com.creative.mahir_floral_management.view.activity.DemandedStocksActivity;
 import com.creative.mahir_floral_management.view.activity.HomeActivity;
 import com.creative.mahir_floral_management.view.activity.LoginActivity;
 import com.creative.mahir_floral_management.view.activity.RawStockActivity;
 import com.creative.mahir_floral_management.view.activity.ReadyStockActivity;
 import com.creative.mahir_floral_management.view.activity.ShopIncomingStocksActivity;
 import com.creative.mahir_floral_management.view.activity.ShopSoldStocksActivity;
+import com.creative.mahir_floral_management.view.activity.ShopStocksActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,11 +51,12 @@ public class NotificationUtils {
         //Populate activity map
         activityMap.put("LoginActivity", LoginActivity.class);
         activityMap.put("HomeActivity", HomeActivity.class);
-        activityMap.put("RawActivity", RawStockActivity.class);
-        activityMap.put("ReadyActivity", ReadyStockActivity.class);
-        activityMap.put("IncomingStocks", ShopIncomingStocksActivity.class);
-        activityMap.put("ShopStock", ShopIncomingStocksActivity.class);
+        activityMap.put("RawStock", RawStockActivity.class);
+        activityMap.put("ReadyStock", ReadyStockActivity.class);
+        activityMap.put("IncomingStock", ShopIncomingStocksActivity.class);
+        activityMap.put("ShopStock", ShopStocksActivity.class);
         activityMap.put("SoldStock", ShopSoldStocksActivity.class);
+        activityMap.put("DemandStock", DemandedStocksActivity.class);
     }
 
     /**

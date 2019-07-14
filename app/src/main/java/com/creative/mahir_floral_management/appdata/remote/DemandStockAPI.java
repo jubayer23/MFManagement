@@ -92,12 +92,13 @@ public class DemandStockAPI {
 
     }
 
-    public void makeDemand(String product_id, int quantity, String priority, int shop_id,
+    public void makeDemand(String product_id, int quantity, String priority, int shop_id, String shop_name,
                            final Observer<BaseModel> observer) {
 
         final JSONObject body = new JSONObject();
         try {
             body.put("product_id", product_id);
+            body.put("shop_name", shop_name);
             body.put("quantity", quantity);
             body.put("priority", priority);
             body.put("demanded_shop_id", shop_id);
