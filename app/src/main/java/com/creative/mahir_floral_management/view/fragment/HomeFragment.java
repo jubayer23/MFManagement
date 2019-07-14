@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
                     startActivity(new Intent(getActivity(), CheckInOutActivity.class));
                 }else if(id == fragmentHomeBinding.btnLogout.getId()){
 
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic(MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole());
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic(MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole().replaceAll("\\s+",""));
                     MydApplication.getInstance().getPrefManger().setUserLoginInfo(null);
                     MydApplication.getInstance().getPrefManger().setAccessToekn("");
                     startActivity(new Intent(getActivity(), LoginActivity.class));

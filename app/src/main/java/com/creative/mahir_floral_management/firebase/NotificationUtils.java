@@ -24,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.Utility.CommonMethods;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.view.activity.DemandedStocksActivity;
 import com.creative.mahir_floral_management.view.activity.HomeActivity;
 import com.creative.mahir_floral_management.view.activity.LoginActivity;
@@ -86,13 +87,19 @@ public class NotificationUtils {
                 resultPendingIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
             } else if (ACTIVITY.equals(action) && activityMap.containsKey(destination)) {
                 resultIntent = new Intent(mContext, activityMap.get(destination));
+                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                if(!notificationVO.getShopId().isEmpty()){
+                    resultIntent.putExtra(GlobalAppAccess.KEY_SHOP_ID, Integer.parseInt(notificationVO.getShopId()));
+                    resultIntent.putExtra(GlobalAppAccess.KEY_SHOP_NAME, notificationVO.getShopName());
+                }
 
                 resultPendingIntent =
                         PendingIntent.getActivity(
                                 mContext,
                                 0,
                                 resultIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT
+                                PendingIntent.FLAG_ONE_SHOT
                         );
             } else {
                 resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

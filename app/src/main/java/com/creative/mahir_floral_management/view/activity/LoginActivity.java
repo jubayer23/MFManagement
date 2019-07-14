@@ -167,7 +167,7 @@ public class LoginActivity extends BaseActivity {
                     MydApplication.getInstance().getPrefManger().setShops(shops.getShops());
 
                     // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole());
+                    FirebaseMessaging.getInstance().subscribeToTopic(MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole().replaceAll("\\s+",""));
 
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     //Log.d("DEBUG",userInfo.getName());

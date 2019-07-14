@@ -96,12 +96,13 @@ public class ShopStockAPI {
 
     }
 
-    public void markShopStockReceived(String shopStockID,
+    public void markShopStockReceived(String shopStockID,String shopName,
                                       final Observer<BaseModel> observer) {
 
         final JSONObject body = new JSONObject();
         try {
             body.put("shop_stock_id", shopStockID);
+            body.put("shop_name", shopName);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -160,6 +160,7 @@ public class ShopIncomingViewModel extends ViewModel {
         loadingLiveData.postValue(true);
         shopStockAPI.markShopStockReceived(
                 item.getId(),
+                item.getShopName(),
                 new Observer<BaseModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {

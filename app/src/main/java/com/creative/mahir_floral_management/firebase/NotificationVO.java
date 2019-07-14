@@ -6,6 +6,8 @@ public class NotificationVO {
     private String iconUrl;
     private String action;
     private String actionDestination;
+    private String shopId;
+    private String shopName;
 
     public String getTitle() {
         return title;
@@ -45,5 +47,21 @@ public class NotificationVO {
 
     public void setActionDestination(String actionDestination) {
         this.actionDestination = actionDestination;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }

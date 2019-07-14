@@ -40,6 +40,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String MESSAGE = "message";
     private static final String IMAGE = "image";
     private static final String ACTION = "action";
+    private static final String SHOP_ID = "shop_id";
+    private static final String SHOP_NAME = "shop_name";
     private static final String DATA = "data";
     private static final String ACTION_DESTINATION = "action_destination";
 
@@ -228,12 +230,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String iconUrl = data.get(IMAGE);
         String action = data.get(ACTION);
         String actionDestination = data.get(ACTION_DESTINATION);
+        String shopId = data.get(SHOP_ID);
+        String shopName = data.get(SHOP_NAME);
+
         NotificationVO notificationVO = new NotificationVO();
         notificationVO.setTitle(title);
         notificationVO.setMessage(message);
         notificationVO.setIconUrl(iconUrl);
         notificationVO.setAction(action);
         notificationVO.setActionDestination(actionDestination);
+        notificationVO.setShopId(shopId);
+        notificationVO.setShopName(shopName);
 
         Intent resultIntent = new Intent(getApplicationContext(), HomeActivity.class);
 
