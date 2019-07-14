@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
@@ -28,7 +29,7 @@ public class DeliveredStockAdapter extends RecyclerView.Adapter<DeliveredStockAd
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView itemName, itemQuantity, deliverTo, deliverDate, recieveDate, tv_itemUnit;
-        ConstraintLayout layout;
+        LinearLayout layout;
 
         MyViewHolder(View view) {
             super(view);
@@ -65,7 +66,7 @@ public class DeliveredStockAdapter extends RecyclerView.Adapter<DeliveredStockAd
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_delivered_stock, parent, false);
+                .inflate(R.layout.item_delivered_stock2, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -80,11 +81,11 @@ public class DeliveredStockAdapter extends RecyclerView.Adapter<DeliveredStockAd
         holder.deliverTo.setText(deliveredStock.getDeliverTo());
 
         String formatDateD = CommonMethods.changeFormat(deliveredStock.getDeliveryDate(), GlobalAppAccess.SERVER_DATE_FORMAT, GlobalAppAccess.MOBILE_DATE_FORMAT);
-        holder.deliverDate.setText(formatDateD);
+        holder.deliverDate.setText(deliveredStock.getDeliveryDate());
 
 
         if(deliveredStock.getReceivedDate() == null || deliveredStock.getReceivedDate().isEmpty()){
-
+            holder.recieveDate.setText("Not received yet.");
         }else{
             String formatDateR = CommonMethods.changeFormat(deliveredStock.getReceivedDate(), GlobalAppAccess.SERVER_DATE_FORMAT, GlobalAppAccess.MOBILE_DATE_FORMAT);
             holder.recieveDate.setText(formatDateR);
