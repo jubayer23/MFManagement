@@ -47,4 +47,32 @@
     <color name="gray_lightest">#CCCCCC</color>
 
     <color name="blue_for_keyboard_blur">#80BDD0</color>
+
+
+
+    <color name="theme_blue">#2962FF</color>
+    <color name="theme_blue_pressed">#0D2D8A</color>
+
+    <color name="theme_blue_light">#2AD5DC</color>
+    <color name="theme_blue_light_pressed">#1A8B8F</color>
+
+    <color name="theme_orange_dark">#FF6D00</color>
+    <color name="theme_orange_dark_pressed">#B94F01</color>
+
+    <color name="theme_yellow">#ffd600</color>
+    <color name="theme_yellow_pressed">#B99C03</color>
+
+    <color name="theme_red_dark">#D50000</color>
+    <color name="theme_red_dark_pressed">#A00202</color>
+
+    <color name="theme_red">#FA0000</color>
+    <color name="theme_red_pressed">#B11414</color>
+
+    <color name="theme_purple">#7B1FA2</color>
+    <color name="theme_purple_pressed">#37094B</color>
+
+
+    <color name="theme_dark_blue">#6200EA</color>
+    <color name="theme_dark_blue_pressed">#37094B</color>
+
 </resources>

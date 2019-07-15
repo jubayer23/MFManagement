@@ -23,7 +23,8 @@
 
             <Button
                 android:id="@+id/btn_outlet_hq"
-                style="@style/btnMenu"
+                android:background="@drawable/btn_selector_blue_square"
+                style="@style/homeBtnMenu"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -35,7 +36,8 @@
 
             <Button
                 android:id="@+id/btn_outlet_connecticut"
-                style="@style/btnMenu"
+                android:background="@drawable/btn_selector_blue_light_square"
+                style="@style/homeBtnMenu"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -47,7 +49,8 @@
 
             <Button
                 android:id="@+id/btn_outlet_east"
-                style="@style/btnMenu"
+                style="@style/homeBtnMenu"
+                android:background="@drawable/btn_selector_orangedark_square"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -59,7 +62,8 @@
 
             <Button
                 android:id="@+id/btn_outlet_west"
-                style="@style/btnMenu"
+                style="@style/homeBtnMenu"
+                android:background="@drawable/btn_selector_yellow_square"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -72,7 +76,8 @@
 
             <Button
                 android:id="@+id/btn_outlet_village"
-                style="@style/btnMenu"
+                style="@style/homeBtnMenu"
+                android:background="@drawable/btn_selector_reddark_square"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -85,7 +90,8 @@
 
             <Button
                 android:id="@+id/btn_outlet_hudson_yeards"
-                style="@style/btnMenu"
+                style="@style/homeBtnMenu"
+                android:background="@drawable/btn_selector_purple_square"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -98,7 +104,8 @@
 
             <Button
                 android:id="@+id/btn_check_in_out"
-                style="@style/btnMenu"
+                style="@style/homeBtnMenu"
+                android:background="@drawable/btn_selector_green_square"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
@@ -112,7 +119,8 @@
 
             <Button
                 android:id="@+id/btn_logout"
-                style="@style/btnMenu"
+                style="@style/homeBtnMenu"
+                android:background="@drawable/btn_selector_red_square"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"

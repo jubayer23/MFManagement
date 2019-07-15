@@ -20,6 +20,20 @@ public class ShopSoldStocksActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int shop_id = getIntent().getIntExtra(GlobalAppAccess.KEY_SHOP_ID, 2);
+        String shop_name = getIntent().getStringExtra(GlobalAppAccess.KEY_SHOP_NAME);
+        if(shop_id == GlobalAppAccess.SHOP_ID_CONNECTICUT){
+            setTheme(R.style.AppTheme_NoActionBar_Connecticut);
+        }else if(shop_id == GlobalAppAccess.SHOP_ID_EAST){
+            setTheme(R.style.AppTheme_NoActionBar_East);
+        }else if(shop_id == GlobalAppAccess.SHOP_ID_WEST){
+            setTheme(R.style.AppTheme_NoActionBar_West);
+        }else if(shop_id == GlobalAppAccess.SHOP_ID_VILLAGE){
+            setTheme(R.style.AppTheme_NoActionBar_Village);
+        }else if(shop_id == GlobalAppAccess.SHOP_ID_HUDSONYARD){
+            setTheme(R.style.AppTheme_NoActionBar_Hudson);
+        }
+
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_home);
 
@@ -27,7 +41,7 @@ public class ShopSoldStocksActivity extends BaseActivity {
 
         initToolbar("Shop Sold Stocks", true);
 
-        int shop_id = getIntent().getIntExtra(GlobalAppAccess.KEY_SHOP_ID, 2);
+        //int shop_id = getIntent().getIntExtra(GlobalAppAccess.KEY_SHOP_ID, 2);
 
         if (savedInstanceState == null) {
 

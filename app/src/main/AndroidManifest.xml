@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.activity.DemandedStocksActivity"></activity>
+        <activity android:name=".view.activity.DemandedStocksActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"></activity>
         <activity android:name=".view.activity.ShopAvailableReadyStockActivity" />
         <activity
             android:name=".view.activity.ShopSoldStocksActivity"
@@ -29,18 +30,23 @@
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
         <activity
             android:name=".view.activity.TimeSheetActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.CheckInOutActivity"
+            android:theme="@style/AppTheme.NoActionBar.CheckInOut"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:name=".view.activity.HQActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.AdminMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.StaffRegistrationActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.HomeActivity"
@@ -56,18 +62,22 @@
         </activity>
         <activity
             android:name=".view.activity.RawStockActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:label="@string/name_raw_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.RawStockEntryActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:label="@string/name_raw_entry_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.ReadyStockActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:label="@string/name_ready_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.ReadyStockEntryActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:label="@string/name_ready_entry_screen"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -76,6 +86,7 @@
 
         <activity
             android:name=".view.activity.DeliveredStockActivity"
+            android:theme="@style/AppTheme.NoActionBar.HQ"
             android:windowSoftInputMode="stateHidden" />
 
         <service
