@@ -38,7 +38,7 @@ public class CheckInOutFragViewModel extends ViewModel {
         return checkInOutApi.getUserCurrentCheckStatus();
     }
 
-    public MutableLiveData<DataWrapper<UserCheck>> setRemoteUserCheckStatus(){
+    public MutableLiveData<DataWrapper<UserCheck>> setRemoteCheckInOut(){
 
         if(checkInOutApi == null){
             checkInOutApi = new CheckInOutApi();

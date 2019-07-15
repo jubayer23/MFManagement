@@ -26,6 +26,7 @@ import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.view.activity.DemandedStocksActivity;
+import com.creative.mahir_floral_management.view.activity.HQActivity;
 import com.creative.mahir_floral_management.view.activity.HomeActivity;
 import com.creative.mahir_floral_management.view.activity.LoginActivity;
 import com.creative.mahir_floral_management.view.activity.RawStockActivity;
@@ -58,6 +59,7 @@ public class NotificationUtils {
         activityMap.put("ShopStock", ShopStocksActivity.class);
         activityMap.put("SoldStock", ShopSoldStocksActivity.class);
         activityMap.put("DemandStock", DemandedStocksActivity.class);
+        activityMap.put("HQMenu", HQActivity.class);
     }
 
     /**

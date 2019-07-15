@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -115,9 +114,9 @@ public class CheckInOutFragment extends BaseFragment {
                                             userInfo.getUserProfile().getShopLong(), distance);
                                     // distance[0] is now the distance between these lat/lons in meters
                                     //Log.d("DEBUG_D", String.valueOf(distance[0]));
-                                    if (distance[0] < 100.0) {
+                                    if (distance[0] < 1000.0) {
                                         // your code...
-                                        observeCheckStatusChange();
+                                        observeSetCheckInOut();
                                     }else{
                                         dismissProgressDialog();
                                         AlertDialogForAnything.showAlertDialogWhenComplte(getActivity(),"Alert!", " In order to Check-In or Check-Out you must need to inside the corresponding shop!", false);
@@ -133,7 +132,7 @@ public class CheckInOutFragment extends BaseFragment {
                         });
 
 
-               // observeCheckStatusChange();
+               // observeSetCheckInOut();
 
 
             }
@@ -173,10 +172,10 @@ public class CheckInOutFragment extends BaseFragment {
     }
 
 
-    private void observeCheckStatusChange() {
+    private void observeSetCheckInOut() {
 
         showProgressDialog("Loading....", true, false);
-        checkInOutFragViewModel.setRemoteUserCheckStatus().observe(this, new ApiObserver<UserCheck>(new ApiObserver.ChangeListener<UserCheck>() {
+        checkInOutFragViewModel.setRemoteCheckInOut().observe(this, new ApiObserver<UserCheck>(new ApiObserver.ChangeListener<UserCheck>() {
             @Override
             public void onSuccess(UserCheck userCheck) {
                 dismissProgressDialog();

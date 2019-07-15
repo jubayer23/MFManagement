@@ -28,7 +28,7 @@ public class CheckInOutApi {
         final DataWrapper<UserCheck> dataWrapper = new DataWrapper<>();
 
 
-        Log.d("DEBUG_check_status", String.valueOf(check_status));
+        //Log.d("DEBUG_check_status", String.valueOf(check_status));
 
         final JSONObject body = new JSONObject();
         try {
@@ -44,7 +44,7 @@ public class CheckInOutApi {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("DEBUG",response);
+                        //Log.d("DEBUG",response);
 
                         /*try {
                             JSONObject jsonObject = new JSONObject(response);
