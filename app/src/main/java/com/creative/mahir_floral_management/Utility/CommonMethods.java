@@ -376,6 +376,7 @@ public class CommonMethods {
     }
 
     public static String changeFormat(String timeString, String current_format, String expectedFormat){
+        if(timeString == null) return "--";
         String result = "No date";
         SimpleDateFormat formatter = new SimpleDateFormat(current_format);
         try {

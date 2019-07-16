@@ -346,7 +346,7 @@ public class TimeSheetFragment extends BaseFragment {
                     }
 
                 } else {
-                    tv.setText("40");
+                    tv.setText("--");
                 }
                 tableRow.addView(tv);
             }
