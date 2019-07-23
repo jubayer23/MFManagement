@@ -409,7 +409,7 @@ public class CommonMethods {
             Date date1 = format.parse(in);
             Date date2 = format.parse(out);
 
-            long mills = date1.getTime() - date2.getTime();
+            long mills = date2.getTime() - date1.getTime();
             //Log.v("Data1", ""+date1.getTime());
             //Log.v("Data2", ""+date2.getTime());
             int hours = (int) (mills/(1000 * 60 * 60));
@@ -427,6 +427,7 @@ public class CommonMethods {
     public static String sumTwoTime(String time1, String time2, String separator){
         String time1Split[] = time1.split(separator);
         String time2Split[] = time2.split(separator);
+
 
         int hour1 = Integer.parseInt(time1Split[0]);
         int min1 = Integer.parseInt(time1Split[1]);
