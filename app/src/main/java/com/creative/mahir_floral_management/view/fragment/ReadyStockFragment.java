@@ -15,9 +15,13 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.ReadyStockAdapter;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentReadystockBinding;
 import com.creative.mahir_floral_management.model.ReadyStock;
+import com.creative.mahir_floral_management.view.activity.RawStockEntryActivity;
 import com.creative.mahir_floral_management.view.activity.ReadyStockEntryActivity;
+import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.ReadyStockViewModel;
 
 import java.util.ArrayList;
@@ -92,7 +96,15 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
         binding.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), ReadyStockEntryActivity.class), rawEntrySuccess);
+
+                String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+                if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+                    startActivityForResult(new Intent(getActivity(), ReadyStockEntryActivity.class), rawEntrySuccess);
+                }else{
+                    AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                            "You are logged in as" + role + " User. In order to add ready stocks you need to login as Raw Stock user.");
+                }
+
             }
         });
 
@@ -112,8 +124,16 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
     @Override
     public void onItemClick(ReadyStock item) {
 
-        selectedItem = item;
-        showDeliverDialog(item);
+
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+            selectedItem = item;
+            showDeliverDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as" + role + " User. In order to deliver stocks you need to login as Raw Stock user.");
+        }
+
     }
 
     @Override

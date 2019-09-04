@@ -15,9 +15,12 @@ import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.RawStockAdapter;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentRawstockBinding;
 import com.creative.mahir_floral_management.model.RawStock;
 import com.creative.mahir_floral_management.view.activity.RawStockEntryActivity;
+import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.RawStockViewModel;
 
 import java.util.ArrayList;
@@ -91,7 +94,15 @@ public class RawStockFragment extends BaseFragment {
         binding.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), RawStockEntryActivity.class), rawEntrySuccess);
+
+                String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+                if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+                    startActivityForResult(new Intent(getActivity(), RawStockEntryActivity.class), rawEntrySuccess);
+                }else{
+                    AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                            "You are logged in as" + role + " User. In order to add raw stocks you need to login as Raw Stock user.");
+                }
+
             }
         });
 
