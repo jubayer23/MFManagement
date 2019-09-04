@@ -319,6 +319,7 @@ public class TimeSheetFragment extends BaseFragment {
             TableRow tableRow = new TableRow(getActivity());
             HashMap<String, TimeSheetInfo.TimeSheet> mapTimeSheet = mapUserTimeSheet.get(key);
 
+            String total_time = "0:0";
             for (int colom = 0; colom < 9; colom++) {
                 TextView tv = new TextView(getActivity());
                 tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
@@ -330,6 +331,9 @@ public class TimeSheetFragment extends BaseFragment {
                 tv.setText("Test Test");
 
                 tv.setBackgroundResource(R.drawable.table_cell_shape_without_left_border_white);
+
+
+
                 if (colom == 0) {
                     tv.setText(key);
                     tv.setBackgroundResource(R.drawable.table_cell_shape_white_background);
@@ -340,13 +344,17 @@ public class TimeSheetFragment extends BaseFragment {
                         String in = CommonMethods.changeFormat(timeSheet.getCheckIn(), "HH:mm", "hh:mm aa");
                         String out = CommonMethods.changeFormat(timeSheet.getCheckOut(), "HH:mm", "hh:mm aa");
 
+                        String timeDiff = CommonMethods.timeDiff(timeSheet.getCheckIn(), timeSheet.getCheckOut(), "HH:mm");
+
+                        total_time = CommonMethods.sumTwoTime(total_time, timeDiff, ":");
+
                         tv.setText("In: " + in + "\n" + "out: " + out);
                     } else {
                         tv.setText("No Data");
                     }
 
                 } else {
-                    tv.setText("--");
+                    tv.setText(total_time);
                 }
                 tableRow.addView(tv);
             }

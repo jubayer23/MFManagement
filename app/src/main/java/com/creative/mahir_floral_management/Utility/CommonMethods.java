@@ -402,6 +402,63 @@ public class CommonMethods {
 
     }
 
+    public static String timeDiff(String in, String out, String current_format){
+        SimpleDateFormat format = new SimpleDateFormat(current_format);
+        String diff = "--";
+        try {
+            Date date1 = format.parse(in);
+            Date date2 = format.parse(out);
+
+            long mills = date2.getTime() - date1.getTime();
+            //Log.v("Data1", ""+date1.getTime());
+            //Log.v("Data2", ""+date2.getTime());
+            int hours = (int) (mills/(1000 * 60 * 60));
+            int mins = (int) (mills/(1000*60)) % 60;
+
+            diff = hours + ":" + mins; // updated value every1 second
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return diff;
+    }
+
+    public static String sumTwoTime(String time1, String time2, String separator){
+        String time1Split[] = time1.split(separator);
+        String time2Split[] = time2.split(separator);
+
+
+        int hour1 = Integer.parseInt(time1Split[0]);
+        int min1 = Integer.parseInt(time1Split[1]);
+
+        int hour2 = Integer.parseInt(time2Split[0]);
+        int min2 = Integer.parseInt(time2Split[1]);
+
+
+        int minSum = 0;
+
+        int hourSum = 0;
+
+        minSum = min1 + min2;
+
+        if(minSum>59)
+
+        {
+
+            hourSum+=1;
+
+            minSum%=60;
+
+        }
+
+        hourSum = hourSum + hour1 + hour2;
+
+        return hourSum + ":" + minSum;
+
+    }
+
+
     private final static AtomicInteger c = new AtomicInteger(0);
     public static int getID() {
         return c.incrementAndGet();
