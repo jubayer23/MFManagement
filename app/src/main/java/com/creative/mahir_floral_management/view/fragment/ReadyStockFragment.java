@@ -131,7 +131,7 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
             showDeliverDialog(item);
         }else{
             AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
-                    "You are logged in as" + role + " User. In order to deliver stocks you need to login as Raw Stock user.");
+                    "You are logged in as " + role + " user. In order to deliver stocks you need to login as Raw Stock user.");
         }
 
     }

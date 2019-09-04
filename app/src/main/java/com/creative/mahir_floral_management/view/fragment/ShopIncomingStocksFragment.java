@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.ShopStockAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentShopIncomingStocksBinding;
 import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ShopStock;
+import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
 import com.creative.mahir_floral_management.viewmodel.ShopIncomingViewModel;
 
 import java.util.ArrayList;
@@ -154,7 +156,13 @@ public class ShopIncomingStocksFragment extends BaseFragment implements ShopStoc
     @Override
     public void onItemClick(ShopStock item) {
 
-        markReceivedAlert(item);
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+            markReceivedAlert(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to receive stocks you need to login as Shop Stock user.");
+        }
 
     }
 

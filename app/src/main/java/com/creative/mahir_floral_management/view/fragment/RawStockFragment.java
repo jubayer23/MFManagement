@@ -100,7 +100,7 @@ public class RawStockFragment extends BaseFragment {
                     startActivityForResult(new Intent(getActivity(), RawStockEntryActivity.class), rawEntrySuccess);
                 }else{
                     AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
-                            "You are logged in as" + role + " User. In order to add raw stocks you need to login as Raw Stock user.");
+                            "You are logged in as " + role + " user. In order to add raw stocks you need to login as Raw Stock user.");
                 }
 
             }
