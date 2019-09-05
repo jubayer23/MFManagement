@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/tv_username"
             android:text="Corresponding shop:" />
 
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_shop_name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="Last Checked In:"
             />
 

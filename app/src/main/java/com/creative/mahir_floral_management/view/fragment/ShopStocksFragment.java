@@ -130,7 +130,7 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
     public void onItemClick(ShopStock item) {
 
         String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
-        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+        if(role.equals(GlobalAppAccess.ROLE_SHOP_STOCKER)){
             selectedItem = item;
             showDeliverDialog(item);
         }else{

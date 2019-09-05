@@ -157,7 +157,7 @@ public class ShopIncomingStocksFragment extends BaseFragment implements ShopStoc
     public void onItemClick(ShopStock item) {
 
         String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
-        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+        if(role.equals(GlobalAppAccess.ROLE_SHOP_STOCKER)){
             markReceivedAlert(item);
         }else{
             AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,

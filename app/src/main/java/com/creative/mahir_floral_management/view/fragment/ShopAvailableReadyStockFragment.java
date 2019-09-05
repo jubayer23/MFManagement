@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.adapters.ShopAvailableReadyStockAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
+import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentShopAvailableReadyStockBinding;
 import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.view.alertbanner.AlertDialogForAnything;
@@ -132,8 +133,14 @@ public class ShopAvailableReadyStockFragment extends BaseFragment implements Sho
 
     @Override
     public void onItemClick(ReadyStock item) {
-        selectedItem = item;
-        showMakeDemandDialog(item);
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_SHOP_STOCKER)){
+            selectedItem = item;
+            showMakeDemandDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to make demand you need to login as Shop Stock user.");
+        }
     }
 
     private void showMakeDemandDialog(final ReadyStock item) {

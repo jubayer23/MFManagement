@@ -57,7 +57,7 @@ public class CheckInOutFragViewModel extends ViewModel {
             last_check_in.setValue("You are not checked in yet.");
             return;
         }
-        String format = CommonMethods.changeFormat(str_last_check_in, GlobalAppAccess.SERVER_DATE_FORMAT,"dd/mm/yyyy hh:mm a");
+        String format = CommonMethods.changeFormat(str_last_check_in, GlobalAppAccess.SERVER_DATE_FORMAT,"dd/MM/yyyy hh:mm a");
         last_check_in.setValue(format);
     }
 
