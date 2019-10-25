@@ -464,4 +464,23 @@ public class CommonMethods {
         return c.incrementAndGet();
     }
 
+    public static String getDateInStringFromMillis(String millis){
+        // milliseconds
+
+
+        long miliSec = Long.parseLong(millis);
+
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat("dd MMM yyyy HH:mm");
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(miliSec);
+
+        // Formatting Date according to the
+        // given format
+        return simple.format(result);
+
+    }
+
 }
