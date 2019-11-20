@@ -19,11 +19,15 @@ public class APIUrl {
 
     public static final String URL_RAW_STOCK = BaseUrl + "/rawstocker/get_raw_stock.php";
     public static final String URL_Entry_RAW_STOCK = BaseUrl + "/rawstocker/entry_raw_stock.php";
+    public static final String URL_UPDATE_RAW_STOCK = BaseUrl + "/rawstocker/update_raw_stock.php";
+    public static final String URL_DELETE_RAW_STOCK = BaseUrl + "/rawstocker/delete_raw_stock.php";
 
     public static final String URL_READY_STOCK = BaseUrl + "/rawstocker/get_ready_stock.php";
     public static final String URL_ENTRY_READY_STOCK = BaseUrl + "/rawstocker/entry_ready_stock.php";
     public static final String URL_DELIVER_READY_STOCK = BaseUrl + "/rawstocker/entry_deliver_product.php";
     public static final String URL_DELIVERED_STOCKS = BaseUrl + "/rawstocker/get_delivered_stock.php";
+    public static final String URL_UPDATE_READY_STOCKS = BaseUrl + "/rawstocker/update_ready_stock.php";
+    public static final String URL_DELETE_READY_STOCK = BaseUrl + "/rawstocker/delete_ready_stock.php";
 
     public static final String URL_INCOMING_SHOP_STOCK = BaseUrl + "/shopstocker/get_incoming_shop_stocks.php";
     public static final String URL_SHOP_STOCK = BaseUrl + "/shopstocker/get_shop_stocks.php";
@@ -31,6 +35,11 @@ public class APIUrl {
     public static final String URL_MARK_SHOP_STOCK_RECEIVED = BaseUrl + "/shopstocker/entry_receive_stock.php";
     public static final String URL_ENTRY_SHOP_STOCK = BaseUrl + "/shopstocker/entry_sold_stock.php";
     public static final String URL_SOLD_SHOP_STOCK = BaseUrl + "/shopstocker/get_sold_stocks.php";
+
+    public static final String URL_ENTRY_RETURN_STOCK = BaseUrl + "/shopstocker/entry_return_stock.php";
+    public static final String URL_GET_RETURN_STOCK = BaseUrl + "/shopstocker/get_return_stocks.php";
+    public static final String URL_RECEIVE_RETURN_STOCK = BaseUrl + "/rawstocker/entry_receive_return_stock.php";
+
 
 
     public static final String URL_SHOP_MAKE_DEMAND = BaseUrl + "/shopstocker/make_demand.php";

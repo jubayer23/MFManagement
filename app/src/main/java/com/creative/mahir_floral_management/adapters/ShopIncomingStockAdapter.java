@@ -1,9 +1,5 @@
 package com.creative.mahir_floral_management.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,28 +10,36 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.creative.mahir_floral_management.R;
 import com.creative.mahir_floral_management.model.ShopStock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyViewHolder> implements Filterable {
+public class ShopIncomingStockAdapter extends RecyclerView.Adapter<ShopIncomingStockAdapter.MyViewHolder> implements Filterable {
 
     private List<ShopStock> shopStocks;
     private List<ShopStock> originalList;
     private final OnItemClickListener listener;
+    private boolean isSoldStock = false;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_itemName, tv_quantity, tv_unit, tv_price, tv_comment;
-        Button btn_sold,  btn_return;
+        Button  btn_receive;
         CardView item_container;
+        LinearLayout ll_sold_row;
 
         MyViewHolder(View view) {
             super(view);
 
             item_container = view.findViewById(R.id.item_container);
+
 
             tv_itemName = view.findViewById(R.id.tv_itemName);
             tv_quantity = view.findViewById(R.id.tv_itemQuantity);
@@ -43,8 +47,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
             tv_comment = view.findViewById(R.id.tv_comment);
             tv_unit = view.findViewById(R.id.tv_itemUnit);
 
-            btn_sold = view.findViewById(R.id.btn_sold);
-            btn_return = view.findViewById(R.id.btn_return);
+            btn_receive = view.findViewById(R.id.btn_receive);
 
         }
 
@@ -54,39 +57,31 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
 
             if (null == listener) return;
 
-            btn_sold.setOnClickListener(new View.OnClickListener() {
+            btn_receive.setVisibility(View.VISIBLE);
+            btn_receive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemSoldClick(item);
-                }
-            });
-
-            btn_return.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemReturnClick(item);
+                    listener.onItemClick(item);
                 }
             });
 
         }
 
-
     }
 
 
-    public ShopStockAdapter(List<ShopStock> stockList, OnItemClickListener listener) {
+    public ShopIncomingStockAdapter(List<ShopStock> stockList, OnItemClickListener listener) {
         this.shopStocks = stockList;
         this.listener = listener;
 
     }
 
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_shop_stock_2, parent, false);
+                .inflate(R.layout.item_shop_incoming_stock, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -100,7 +95,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
         holder.tv_quantity.setText(rawStock.getQuantity());
         holder.tv_unit.setText(rawStock.getUnit());
 
-        holder.tv_price.setText(rawStock.getPrice() + " USD");
+        holder.tv_price.setText(rawStock.getPrice() +" USD");
         holder.tv_comment.setText(rawStock.getComment());
 
         if (position % 2 == 0)
@@ -109,7 +104,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
             holder.item_container.setBackgroundColor(ContextCompat.getColor(holder.item_container.getContext(), R.color.white));
 
         holder.bindClick(rawStock, listener);
-       // holder.setForSold(rawStock);
+
 
     }
 
@@ -119,8 +114,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
     }
 
     public interface OnItemClickListener {
-        void onItemSoldClick(ShopStock item);
-        void onItemReturnClick(ShopStock item);
+        void onItemClick(ShopStock item);
     }
 
 
@@ -131,7 +125,7 @@ public class ShopStockAdapter extends RecyclerView.Adapter<ShopStockAdapter.MyVi
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 shopStocks = (List<ShopStock>) results.values;
-                ShopStockAdapter.this.notifyDataSetChanged();
+                ShopIncomingStockAdapter.this.notifyDataSetChanged();
             }
 
             @Override

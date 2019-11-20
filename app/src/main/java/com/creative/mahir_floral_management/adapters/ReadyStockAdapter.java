@@ -27,7 +27,7 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView itemName, itemQuantity, recieveDate, deliver, unit;
+        TextView itemName, itemQuantity, recieveDate, deliver, unit, tv_price, tv_edit, tv_delete;
         ConstraintLayout layout;
 
         MyViewHolder(View view) {
@@ -39,6 +39,10 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
             recieveDate = view.findViewById(R.id.tv_recieveDate);
             deliver = view.findViewById(R.id.tv_deliver);
             unit = view.findViewById(R.id.tv_itemUnit);
+            tv_price = view.findViewById(R.id.tv_price);
+
+            tv_edit = view.findViewById(R.id.tv_edit);
+            tv_delete = view.findViewById(R.id.tv_delete);
         }
 
         void bindClick(final ReadyStock item, final OnItemClickListener listener) {
@@ -49,7 +53,21 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
             deliver.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(item);
+                    listener.onItemDeliverClick(item);
+                }
+            });
+
+            tv_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemEditClick(item);
+                }
+            });
+
+            tv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemDeleteClick(item);
                 }
             });
 
@@ -85,6 +103,7 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
         //holder.recieveDate.setText(readyStock.getReceivedDate());
         String formatDate = CommonMethods.changeFormat(readyStock.getReceivedDate(), GlobalAppAccess.SERVER_DATE_FORMAT, GlobalAppAccess.MOBILE_DATE_FORMAT);
         holder.recieveDate.setText(formatDate);
+        holder.tv_price.setText(readyStock.getPrice() + " USD");
         holder.unit.setText(readyStock.getUnit());
 
         if (position % 2 == 0)
@@ -102,7 +121,9 @@ public class ReadyStockAdapter extends RecyclerView.Adapter<ReadyStockAdapter.My
     }
 
     public interface OnItemClickListener {
-        void onItemClick(ReadyStock item);
+        void onItemDeliverClick(ReadyStock item);
+        void onItemEditClick(ReadyStock item);
+        void onItemDeleteClick(ReadyStock item);
     }
 
 

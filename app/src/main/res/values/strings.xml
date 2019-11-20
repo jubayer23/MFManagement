@@ -36,10 +36,11 @@
 
     <string name="title_activity_shop">ShopActivity</string>
     <string name="price">Price</string>
-    <string name="mark_as_received">Mark\nAs\nReceived</string>
+    <string name="mark_as_received">Receive</string>
     <string name="title_mark_as_received">Mark As Received</string>
     <string name="title_mark_as_completed">Mark As Completed</string>
     <string name="msg_mark_as_received">Please confirm that you received the stock for %1s</string>
+    <string name="msg_confirm_delete">Are you sure want to delete the product %1s</string>
     <string name="msg_mark_as_completed">Please confirm that you delivered the stock to %1s</string>
     <string name="sold_date">Sold Date</string>
     <string name="demanded_shop">Demanded Shop</string>

@@ -14,6 +14,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.Utility.CommonMethods;
+import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.model.SoldStock;
 
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class ShopSoldStockAdapter extends RecyclerView.Adapter<ShopSoldStockAdap
             soldDateLbl.setVisibility(View.VISIBLE);
             soldDate.setVisibility(View.VISIBLE);
 
-            soldDate.setText(item.getSoldDate());
+            soldDate.setText(CommonMethods.changeFormat(item.getSoldDate(), GlobalAppAccess.SERVER_DATE_FORMAT, GlobalAppAccess.MOBILE_DATE_FORMAT));
 
         }
     }
@@ -114,7 +116,7 @@ public class ShopSoldStockAdapter extends RecyclerView.Adapter<ShopSoldStockAdap
         holder.itemQuantity.setText(rawStock.getQuantity());
         holder.unit.setText(rawStock.getUnit());
 
-        holder.price.setText(rawStock.getPrice());
+        holder.price.setText(rawStock.getPrice() + " USD");
         holder.comment.setText(rawStock.getComment());
 
         if (position % 2 == 0)

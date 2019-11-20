@@ -25,7 +25,7 @@ public class ReadyStockEntryViewModel extends ViewModel {
     public MutableLiveData<BaseModel> resultLiveData = new MutableLiveData<>();
 
     public MutableLiveData<String> productName = new MutableLiveData<>();
-    public MutableLiveData<Integer> productPrice = new MutableLiveData<>();
+    public MutableLiveData<String> productPrice = new MutableLiveData<>();
     public MutableLiveData<Integer> quantity = new MutableLiveData<>();
     public MutableLiveData<Integer> unit = new MutableLiveData<>();
     public MutableLiveData<String> color = new MutableLiveData<>();
@@ -41,8 +41,8 @@ public class ReadyStockEntryViewModel extends ViewModel {
 
     public void afterPriceChange(CharSequence s) {
 
-        if (!TextUtils.isEmpty(s.toString()))
-            productPrice.setValue(Integer.parseInt(s.toString()));
+
+            productPrice.setValue(s.toString());
     }
 
     public void afterQuantityChange(CharSequence s) {
@@ -83,7 +83,10 @@ public class ReadyStockEntryViewModel extends ViewModel {
             return false;
         }
 
-        if (null == productPrice.getValue() || productPrice.getValue() == 0) {
+
+
+        if (null == productPrice.getValue() || TextUtils.isEmpty(productPrice.getValue()) ||
+                Float.parseFloat(productPrice.getValue()) == 0) {
             validationLiveData.postValue("Please select price");
             return false;
         }
@@ -117,8 +120,11 @@ public class ReadyStockEntryViewModel extends ViewModel {
 
             loadingLiveData.postValue(true);
             readyStockAPI.saveReadyStock(
-                    productName.getValue(), quantity.getValue(),
-                    getSelectedUnit(), color.getValue(), comment.getValue(),
+                    productName.getValue(),
+                    quantity.getValue(),
+                    getSelectedUnit(),
+                    color.getValue(),
+                    comment.getValue(),
                     productPrice.getValue(),
                     new Observer<BaseModel>() {
                         @Override

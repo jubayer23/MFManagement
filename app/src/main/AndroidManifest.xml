@@ -83,7 +83,9 @@
         <activity
             android:name=".view.activity.ShopIncomingStocksActivity"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity
+            android:name=".view.activity.ReturnStockActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.DeliveredStockActivity"
             android:theme="@style/AppTheme.NoActionBar.HQ"

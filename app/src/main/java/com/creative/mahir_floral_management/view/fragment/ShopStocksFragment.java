@@ -68,7 +68,7 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
         binding.rvResults.setLayoutManager(mLayoutManager);
 
         //Set Adapter
-        adapter = new ShopStockAdapter(shopStockList, this, getString(R.string.sold));
+        adapter = new ShopStockAdapter(shopStockList, this);
         binding.rvResults.setAdapter(adapter);
 
         binding.getViewModel().validationLiveData.observe(this, new Observer<String>() {
@@ -126,19 +126,7 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
         super.onPause();
     }
 
-    @Override
-    public void onItemClick(ShopStock item) {
 
-        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
-        if(role.equals(GlobalAppAccess.ROLE_SHOP_STOCKER)){
-            selectedItem = item;
-            showDeliverDialog(item);
-        }else{
-            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
-                    "You are logged in as " + role + " user. In order to sell stocks you need to login as Shop Stock user.");
-        }
-
-    }
 
     public void refreshScreen(int remainingQty) {
 
@@ -161,7 +149,33 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
 
     }
 
-    private void showDeliverDialog(final ShopStock item) {
+
+
+    @Override
+    public void onItemSoldClick(ShopStock item) {
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_SHOP_STOCKER)){
+            selectedItem = item;
+            showSoldDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to sell stocks you need to login as Shop Stock user.");
+        }
+    }
+
+    @Override
+    public void onItemReturnClick(ShopStock item) {
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_SHOP_STOCKER)){
+            selectedItem = item;
+            showReturnStockDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to sell stocks you need to login as Shop Stock user.");
+        }
+    }
+
+    private void showSoldDialog(final ShopStock item) {
 
         ShopSoldStockDialogFragment editNameDialog = new ShopSoldStockDialogFragment();
 
@@ -173,4 +187,15 @@ public class ShopStocksFragment extends BaseFragment implements ShopStockAdapter
         editNameDialog.show(getFragmentManager(), "fragment_edit_name");
     }
 
+    private void showReturnStockDialog(ShopStock item){
+        ShopReturnStockDialogFragment editNameDialog = new ShopReturnStockDialogFragment();
+
+        Bundle data = new Bundle();
+        data.putParcelable("shopStockData", item);
+        data.putString("shopId", String.valueOf(shop_id));
+
+        editNameDialog.setArguments(data);
+        editNameDialog.setTargetFragment(ShopStocksFragment.this, 1333);
+        editNameDialog.show(getFragmentManager(), "fragment_return_stock_dialog");
+    }
 }

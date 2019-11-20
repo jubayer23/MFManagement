@@ -11,7 +11,7 @@ public class GlobalAppAccess {
     public static final int ERROR = 0;
 
     public static final String SERVER_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static final String MOBILE_DATE_FORMAT = "dd/MM/yyyy";
+    public static final String MOBILE_DATE_FORMAT = "dd MMM yyyy";
 
 
     // global topic to receive app wide push notifications

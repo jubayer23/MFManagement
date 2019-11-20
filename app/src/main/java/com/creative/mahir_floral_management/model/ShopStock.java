@@ -17,6 +17,10 @@ public class ShopStock implements Parcelable {
     @Expose
     private String id;
 
+    @SerializedName("product_id")
+    @Expose
+    private String productId;
+
     @SerializedName("shop_name")
     @Expose
     private String shopName;
@@ -71,6 +75,7 @@ public class ShopStock implements Parcelable {
 
     protected ShopStock(Parcel in) {
         id = in.readString();
+        productId = in.readString();
         shopName = in.readString();
         productName = in.readString();
         quantity = in.readString();
@@ -159,6 +164,14 @@ public class ShopStock implements Parcelable {
         this.quantity = quantity;
     }
 
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
     @Override
     public int hashCode() {
         return 31 * 21 + id.hashCode();
@@ -187,6 +200,7 @@ public class ShopStock implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
+        dest.writeString(productId);
         dest.writeString(shopName);
         dest.writeString(productName);
         dest.writeString(quantity);

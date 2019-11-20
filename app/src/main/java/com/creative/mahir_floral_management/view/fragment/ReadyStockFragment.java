@@ -2,6 +2,9 @@ package com.creative.mahir_floral_management.view.fragment;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,15 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.mahir_floral_management.R;
+import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.adapters.ReadyStockAdapter;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.creative.mahir_floral_management.appdata.MydApplication;
 import com.creative.mahir_floral_management.databinding.FragmentReadystockBinding;
+import com.creative.mahir_floral_management.model.BaseModel;
 import com.creative.mahir_floral_management.model.ReadyStock;
 import com.creative.mahir_floral_management.view.activity.RawStockEntryActivity;
 import com.creative.mahir_floral_management.view.activity.ReadyStockEntryActivity;
@@ -26,6 +33,7 @@ import com.creative.mahir_floral_management.viewmodel.ReadyStockViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -36,8 +44,11 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
     private ReadyStockAdapter readyStockAdapter;
     private List<ReadyStock> readyStocks = new ArrayList<>(0);
     private ReadyStock selectedItem;
+    private int selectedItemPosition;
 
     private final int rawEntrySuccess = 1002;
+
+    private AlertDialog alertDialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -93,6 +104,30 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
             }
         });
 
+        binding.getViewModel().deleteStockLiveData.observe(this, new Observer<BaseModel>() {
+            @Override
+            public void onChanged(@Nullable BaseModel baseModel) {
+
+                if (baseModel == null) return;
+
+                if (baseModel.getStatus()) {
+
+                    //Remove the item from the list
+                    if (null != selectedItem) {
+
+                        Log.d("debug", "its here");
+
+                        // returnStocksv.remove(selectedItem);
+                        binding.getViewModel().requestToRefreshAfterDelete();
+                    }
+
+                }
+
+                showLongToast(baseModel.getMessage());
+
+            }
+        });
+
         binding.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,20 +156,7 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
         return binding.getRoot();
     }
 
-    @Override
-    public void onItemClick(ReadyStock item) {
 
-
-        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
-        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
-            selectedItem = item;
-            showDeliverDialog(item);
-        }else{
-            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
-                    "You are logged in as " + role + " user. In order to deliver stocks you need to login as Raw Stock user.");
-        }
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -152,21 +174,35 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
 
         if (null == selectedItem) return;
 
-        if (remainingQty <= 0) {
-            readyStocks.remove(selectedItem);
-        } else {
+       // if (remainingQty <= 0) {
+       //     readyStocks.remove(selectedItem);
+       // } else {
 
             int index = readyStocks.indexOf(selectedItem);
             ReadyStock readyStock = readyStocks.get(index);
 
             readyStock.setQuantity(String.valueOf(remainingQty));
             readyStocks.set(index, readyStock);
-        }
+       // }
 
         readyStockAdapter.notifyDataSetChanged();
 
         selectedItem = null;
 
+    }
+
+    public void refreshScreen(ReadyStock readyStock){
+        if(null == selectedItem) return;
+
+        if(null == readyStock) return;
+
+        int index = readyStocks.indexOf(selectedItem);
+
+        readyStocks.set(index, readyStock);
+
+        readyStockAdapter.notifyDataSetChanged();
+
+        selectedItem = null;
     }
 
     private void showDeliverDialog(final ReadyStock item) {
@@ -179,5 +215,80 @@ public class ReadyStockFragment extends BaseFragment implements ReadyStockAdapte
         editNameDialog.setArguments(data);
         editNameDialog.setTargetFragment(ReadyStockFragment.this, 1337);
         editNameDialog.show(getFragmentManager(), "fragment_edit_name");
+    }
+
+    private void showEditDialog(final ReadyStock item) {
+
+        ReadyStockUpdateDialogFragment editNameDialog = new ReadyStockUpdateDialogFragment();
+
+        Bundle data = new Bundle();
+        data.putParcelable("stockData", item);
+
+        editNameDialog.setArguments(data);
+        editNameDialog.setTargetFragment(ReadyStockFragment.this, 1338);
+        editNameDialog.show(getFragmentManager(), "fragment_edit_name");
+    }
+
+    private void showDeleteDialog(final ReadyStock item){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.title_mark_as_received)
+                .setMessage(String.format(Locale.getDefault(), getString(R.string.msg_confirm_delete), item.getName()))
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        binding.getViewModel().deleteReadyStock(item);
+                        dialog.dismiss();
+
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onItemDeliverClick(ReadyStock item) {
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+            selectedItem = item;
+            showDeliverDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to deliver stocks you need to login as Raw Stock user.");
+        }
+    }
+
+    @Override
+    public void onItemEditClick(ReadyStock item) {
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+            selectedItem = item;
+            showEditDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to deliver stocks you need to login as Raw Stock user.");
+        }
+    }
+
+    @Override
+    public void onItemDeleteClick(ReadyStock item) {
+
+        String role = MydApplication.getInstance().getPrefManger().getUserInfo().getUserProfile().getRole();
+        if(role.equals(GlobalAppAccess.ROLE_RAW_STOCKER)){
+            selectedItem = item;
+            showDeleteDialog(item);
+        }else{
+            AlertDialogForAnything.showNotifyDialog(getActivity(), AlertDialogForAnything.ALERT_TYPE_ERROR,
+                    "You are logged in as " + role + " user. In order to deliver stocks you need to login as Raw Stock user.");
+        }
+
     }
 }

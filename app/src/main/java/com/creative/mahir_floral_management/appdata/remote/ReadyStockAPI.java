@@ -97,7 +97,7 @@ public class ReadyStockAPI {
     }
 
     public void saveReadyStock(String productName, int quantity, String unit, String color, String comment,
-                               int price,
+                               String price,
                                final Observer<BaseModel> observer) {
 
         final JSONObject body = new JSONObject();
@@ -280,6 +280,134 @@ public class ReadyStockAPI {
                             } else {
                                 observer.onError(new Throwable(deliveredStocks.getMessage()));
                             }
+
+                        } catch (Exception e) {
+                            observer.onError(e);
+
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                observer.onError(error);
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", MydApplication.getInstance().getPrefManger().getAccessToekn());
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return body.toString().getBytes();
+            }
+
+        };
+
+        req.setRetryPolicy(new DefaultRetryPolicy(60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // TODO Auto-generated method stub
+        MydApplication.getInstance().addToRequestQueue(req);
+
+    }
+
+
+    public void updateReadyStock(String readyStockId, String productName, String quantity, String price,String unit, String color,
+                                  final Observer<BaseModel> observer) {
+
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("ready_stock_id", readyStockId);
+            body.put("product_name", productName);
+            body.put("quantity", quantity);
+            body.put("price", price);
+            body.put("unit", unit);
+            body.put("color", color);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_UPDATE_READY_STOCKS,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+
+                            BaseModel baseModel = MydApplication.gson.fromJson(response, BaseModel.class);
+
+                            observer.onNext(baseModel);
+
+                        } catch (Exception e) {
+                            observer.onError(e);
+
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                observer.onError(error);
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", MydApplication.getInstance().getPrefManger().getAccessToekn());
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return body.toString().getBytes();
+            }
+
+        };
+
+        req.setRetryPolicy(new DefaultRetryPolicy(60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // TODO Auto-generated method stub
+        MydApplication.getInstance().addToRequestQueue(req);
+
+    }
+
+
+    public void deleteReadyStock(String readyStockId,
+                                 final Observer<BaseModel> observer) {
+
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("ready_stock_id", readyStockId);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final StringRequest req = new StringRequest(Request.Method.POST, APIUrl.URL_DELETE_READY_STOCK,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("DEBUg", response);
+                        try {
+
+
+
+                            BaseModel baseModel = MydApplication.gson.fromJson(response, BaseModel.class);
+
+                            observer.onNext(baseModel);
 
                         } catch (Exception e) {
                             observer.onError(e);

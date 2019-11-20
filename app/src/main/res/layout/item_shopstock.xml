@@ -90,7 +90,7 @@
         android:text="@string/column"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_column_4" />
 
@@ -150,7 +150,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:padding="8dp"
+        android:padding="4dp"
         android:text="@string/mark_as_received"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -222,7 +222,7 @@
         android:text="@string/sold_date"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_comment_lbl" />
@@ -235,7 +235,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:maxLines="2"
-        android:visibility="gone"
+        android:visibility="visible"
         android:text="@string/comment"
         android:textColor="@color/black"
         android:textSize="18sp"

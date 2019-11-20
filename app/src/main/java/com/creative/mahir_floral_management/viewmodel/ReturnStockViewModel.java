@@ -1,17 +1,19 @@
 package com.creative.mahir_floral_management.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Log;
-
 import com.creative.mahir_floral_management.Utility.CommonMethods;
-import com.creative.mahir_floral_management.appdata.remote.ReadyStockAPI;
+import com.creative.mahir_floral_management.appdata.remote.RawStockAPI;
+import com.creative.mahir_floral_management.appdata.remote.ReturnStockApi;
 import com.creative.mahir_floral_management.model.BaseModel;
-import com.creative.mahir_floral_management.model.ReadyStock;
+import com.creative.mahir_floral_management.model.RawStock;
+import com.creative.mahir_floral_management.model.ReturnStock;
+import com.creative.mahir_floral_management.model.ShopStock;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,14 +21,14 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class ReadyStockViewModel extends ViewModel {
+public class ReturnStockViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
-    private ReadyStockAPI readyStockAPI = new ReadyStockAPI();
+    private ReturnStockApi returnStockApi = new ReturnStockApi();
 
-    private List<ReadyStock> records = new ArrayList<>(0);
-    public MutableLiveData<List<ReadyStock>> mutableLiveData = new MutableLiveData<>();
-    public MutableLiveData<BaseModel> deleteStockLiveData = new MutableLiveData<>();
+    private List<ReturnStock> records = new ArrayList<>(0);
+    public MutableLiveData<List<ReturnStock>> mutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<BaseModel> markReceivedLiveData = new MutableLiveData<>();
 
     public MutableLiveData<String> validationLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
@@ -37,13 +39,13 @@ public class ReadyStockViewModel extends ViewModel {
     public MutableLiveData<Integer> selectedYear = new MutableLiveData<>();
     public MutableLiveData<CharSequence> searchText = new MutableLiveData<>();
 
-
     private int last_selected_month = 0;
     private int last_selected_year = 0;
     private boolean isFirstLoad = true;
 
-    public ReadyStockViewModel() {
+    public ReturnStockViewModel() {
 
+        //Load current month and year
         int year = CommonMethods.getCurrentYear();
         int month = CommonMethods.getCurrentMonth();
 
@@ -56,10 +58,12 @@ public class ReadyStockViewModel extends ViewModel {
 
         if (isFirstLoad) {
             isFirstLoad = false;
-            getReadyStocks();
+            getReturnStocks();
         }
 
+
     }
+
 
     public int getSelectedMonth() {
         if (selectedMonth.getValue() == null) return 0;
@@ -71,7 +75,7 @@ public class ReadyStockViewModel extends ViewModel {
         selectedMonth.setValue(value);
         if (last_selected_month != value) {
             last_selected_month = value;
-            getReadyStocks();
+            getReturnStocks();
         }
 
     }
@@ -86,7 +90,7 @@ public class ReadyStockViewModel extends ViewModel {
         selectedYear.setValue(value);
         if (last_selected_year != value) {
             last_selected_year = value;
-            getReadyStocks();
+            getReturnStocks();
         }
 
     }
@@ -95,64 +99,11 @@ public class ReadyStockViewModel extends ViewModel {
         this.stringArray = stringArray;
     }
 
+
+
     private String getYear() {
         return stringArray[getSelectedYear()];
     }
-
-    private int getYearPosition(int year) {
-
-        int index = 0;
-        final String currentYear = String.valueOf(year);
-        for (String yearStr : stringArray) {
-
-            if (currentYear.equalsIgnoreCase(yearStr))
-                return index;
-
-            index++;
-
-        }
-
-        return 0;
-    }
-
-
-    public void deleteReadyStock(ReadyStock readyStock){
-        loadingLiveData.postValue(true);
-
-        readyStockAPI.deleteReadyStock(readyStock.getId(),
-                new Observer<BaseModel>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable.add(d);
-                    }
-
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-
-                        loadingLiveData.postValue(false);
-                        deleteStockLiveData.postValue(baseModel);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                       // Log.e("", "", e);
-                        validationLiveData.postValue(e.getMessage());
-                        loadingLiveData.postValue(false);
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-
-    }
-
-
 
     private boolean validationChecked() {
 
@@ -165,24 +116,26 @@ public class ReadyStockViewModel extends ViewModel {
 
     }
 
-    private void getReadyStocks() {
+
+
+    private void getReturnStocks() {
         if (validationChecked()) {
 
             loadingLiveData.postValue(true);
 
-            readyStockAPI.getReadyStock(getSelectedMonth(), getYear(),
-                    new Observer<List<ReadyStock>>() {
+            returnStockApi.getReturnStock(getSelectedMonth(), getYear(), "",
+                    new Observer<List<ReturnStock>>() {
                         @Override
                         public void onSubscribe(Disposable d) {
                             disposable.add(d);
                         }
 
                         @Override
-                        public void onNext(List<ReadyStock> stockList) {
+                        public void onNext(List<ReturnStock> stockList) {
 
                             records.clear();
                             records.addAll(stockList);
-                            Collections.sort(records, new ReadyStock.timeComparatorDesc());
+                            Collections.sort(records, new ReturnStock.timeComparatorDesc());
 
                             mutableLiveData.postValue(records);
                             loadingLiveData.postValue(false);
@@ -207,32 +160,62 @@ public class ReadyStockViewModel extends ViewModel {
         }
     }
 
+    public void markReceiveReturnStock(final ReturnStock item) {
 
+        loadingLiveData.postValue(true);
+        returnStockApi.markReturnStockReceived(
+                item.getId(),
+                item.getShopName(),
+                new Observer<BaseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable.add(d);
+                    }
 
-    public void requestToRefresh() {
+                    @Override
+                    public void onNext(BaseModel baseModel) {
 
-        //Load current month and year
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+                        loadingLiveData.postValue(false);
+                        markReceivedLiveData.postValue(baseModel);
 
-        if (selectedMonth.getValue() == (month + 1) && Integer.parseInt(getYear()) == year)
-            getReadyStocks();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e("", "", e);
+                        loadingLiveData.postValue(false);
+
+                        BaseModel baseModel = new BaseModel();
+                        baseModel.setStatus(false);
+                        baseModel.setMessage(e.getMessage());
+
+                        markReceivedLiveData.postValue(baseModel);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
-    public void requestToRefreshAfterDelete() {
 
-        //Load current month and year
 
-            getReadyStocks();
+    private int getYearPosition(int year) {
 
+        int index = 0;
+        final String currentYear = String.valueOf(year);
+        for (String yearStr : stringArray) {
+
+            if (currentYear.equalsIgnoreCase(yearStr))
+                return index;
+
+            index++;
+
+        }
+
+        return 0;
     }
-
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        disposable.dispose();
-    }
-
 }

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
 
-import com.creative.mahir_floral_management.Utility.CommonMethods;
 import com.creative.mahir_floral_management.appdata.GlobalAppAccess;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,7 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
-public class SoldStock implements Parcelable
+public class ReturnStock implements Parcelable
 {
 
     @SerializedName("id")
@@ -28,47 +27,59 @@ public class SoldStock implements Parcelable
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("color")
+    @Expose
+    private String color;
     @SerializedName("unit")
     @Expose
     private String unit;
     @SerializedName("quantity")
     @Expose
     private String quantity;
-    @SerializedName("sold_date")
+    @SerializedName("return_date")
     @Expose
-    private String soldDate;
+    private String returnDate;
+    @SerializedName("received_date")
+    @Expose
+    private String receivedDate;
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("comment")
     @Expose
     private String comment;
-    public final static Parcelable.Creator<SoldStock> CREATOR = new Creator<SoldStock>() {
+    public final static Parcelable.Creator<ReturnStock> CREATOR = new Creator<ReturnStock>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public SoldStock createFromParcel(Parcel in) {
-            return new SoldStock(in);
+        public ReturnStock createFromParcel(Parcel in) {
+            return new ReturnStock(in);
         }
 
-        public SoldStock[] newArray(int size) {
-            return (new SoldStock[size]);
+        public ReturnStock[] newArray(int size) {
+            return (new ReturnStock[size]);
         }
 
     }
             ;
 
-    protected SoldStock(Parcel in) {
+    protected ReturnStock(Parcel in) {
         this.id = ((String) in.readValue((String.class.getClassLoader())));
         this.shopName = ((String) in.readValue((String.class.getClassLoader())));
         this.productName = ((String) in.readValue((String.class.getClassLoader())));
         this.price = ((String) in.readValue((String.class.getClassLoader())));
+        this.color = ((String) in.readValue((String.class.getClassLoader())));
         this.unit = ((String) in.readValue((String.class.getClassLoader())));
         this.quantity = ((String) in.readValue((String.class.getClassLoader())));
-        this.soldDate = ((String) in.readValue((String.class.getClassLoader())));
+        this.returnDate = ((String) in.readValue((String.class.getClassLoader())));
+        this.receivedDate = ((String) in.readValue((Object.class.getClassLoader())));
+        this.status = ((String) in.readValue((String.class.getClassLoader())));
         this.comment = ((String) in.readValue((String.class.getClassLoader())));
     }
 
-    public SoldStock() {
+    public ReturnStock() {
     }
 
     public String getId() {
@@ -103,6 +114,14 @@ public class SoldStock implements Parcelable
         this.price = price;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public String getUnit() {
         return unit;
     }
@@ -119,12 +138,28 @@ public class SoldStock implements Parcelable
         this.quantity = quantity;
     }
 
-    public String getSoldDate() {
-        return soldDate;
+    public String getReturnDate() {
+        return returnDate;
     }
 
-    public void setSoldDate(String soldDate) {
-        this.soldDate = soldDate;
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(String receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getComment() {
@@ -140,9 +175,12 @@ public class SoldStock implements Parcelable
         dest.writeValue(shopName);
         dest.writeValue(productName);
         dest.writeValue(price);
+        dest.writeValue(color);
         dest.writeValue(unit);
         dest.writeValue(quantity);
-        dest.writeValue(soldDate);
+        dest.writeValue(returnDate);
+        dest.writeValue(receivedDate);
+        dest.writeValue(status);
         dest.writeValue(comment);
     }
 
@@ -150,12 +188,12 @@ public class SoldStock implements Parcelable
         return 0;
     }
 
-    public static class timeComparatorDesc implements Comparator<SoldStock> {
-        public int compare(SoldStock chair1, SoldStock chair2) {
+    public static class timeComparatorDesc implements Comparator<ReturnStock> {
+        public int compare(ReturnStock chair1, ReturnStock chair2) {
             SimpleDateFormat readFormat = new SimpleDateFormat(GlobalAppAccess.SERVER_DATE_FORMAT, java.util.Locale.getDefault());
             try {
-                java.util.Date date1 = readFormat.parse(chair1.getSoldDate());
-                java.util.Date date2 = readFormat.parse(chair2.getSoldDate());
+                java.util.Date date1 = readFormat.parse(chair1.getReturnDate());
+                java.util.Date date2 = readFormat.parse(chair2.getReturnDate());
                 return date2.compareTo(date1);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -163,5 +201,4 @@ public class SoldStock implements Parcelable
             }
         }
     }
-
 }

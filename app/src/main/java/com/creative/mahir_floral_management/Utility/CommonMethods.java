@@ -312,7 +312,7 @@ public class CommonMethods {
 
 
     /*"yyyy-MM-dd HH:mm:ss"*/
-    public static String currentDate(String format){
+    public static String getCurrentDate(String format){
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
         return  dateFormat.format(date);
@@ -464,14 +464,14 @@ public class CommonMethods {
         return c.incrementAndGet();
     }
 
-    public static String getDateInStringFromMillis(String millis){
+    public static String getDateInStringFromMillis(String millis, String format){
         // milliseconds
 
 
         long miliSec = Long.parseLong(millis);
 
         // Creating date format
-        DateFormat simple = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        DateFormat simple = new SimpleDateFormat(format);
 
         // Creating date from milliseconds
         // using Date() constructor
